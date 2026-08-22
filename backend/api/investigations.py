@@ -316,7 +316,7 @@ USER CUSTOMIZATION INSTRUCTION:
 INSTRUCTIONS:
 1. Provide a concise 2-3 sentence explanation of the specific modifications made to satisfy the user instruction.
 2. Provide the COMPLETE, syntactically valid revised Python 3 script inside a single ```python ... ``` code block.
-3. Ensure the script contains valid Python syntax, proper indentations, handles exceptions gracefully, and includes target definitions (TARGET_HOST="127.0.0.1", TARGET_PORT=8080).
+3. Apply the user instruction directly (e.g. if the user asks to print hello, identify themselves, or change headers/parameters, inject explicit logs or code into the relevant step like `step_1_recon()` or `step_2_exploit()`). Ensure valid Python syntax, proper indentations, handles exceptions gracefully, and includes target definitions (TARGET_HOST="127.0.0.1", TARGET_PORT=8080).
 """
     system_prompt = "You are a senior cybersecurity automation engineer. Output concise explanations followed by complete, syntactically valid Python PoC code."
 
@@ -342,6 +342,14 @@ INSTRUCTIONS:
             # Apply deterministic modifications
             mod_script = req.current_script
             inst_lower = req.instruction.lower()
+
+            if "hello" in inst_lower:
+                if 'def step_1_recon():' in mod_script and 'Hello from CyberTriage' not in mod_script:
+                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")')
+
+            if ("identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower):
+                if 'def step_1_recon():' in mod_script and 'CyberTriage AI Autonomous PoC Agent' not in mod_script:
+                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")')
 
             if "8080" in inst_lower and "TARGET_PORT" in mod_script:
                 mod_script = re.sub(r'TARGET_PORT\s*=\s*\d+', 'TARGET_PORT = 8080', mod_script)
@@ -402,7 +410,7 @@ USER CUSTOMIZATION INSTRUCTION:
 INSTRUCTIONS:
 1. Provide a concise 2-3 sentence explanation of the specific modifications made to satisfy the user instruction.
 2. Provide the COMPLETE, syntactically valid revised Python 3 script inside a single ```python ... ``` code block.
-3. Ensure the script contains valid Python syntax, proper indentations, handles exceptions gracefully, and includes target definitions (TARGET_HOST="127.0.0.1", TARGET_PORT=8080).
+3. Apply the user instruction directly (e.g. if the user asks to print hello, identify themselves, or change headers/parameters, inject explicit logs or code into the relevant step like `step_1_recon()` or `step_2_exploit()`). Ensure valid Python syntax, proper indentations, handles exceptions gracefully, and includes target definitions (TARGET_HOST="127.0.0.1", TARGET_PORT=8080).
 """
     system_prompt = "You are a senior cybersecurity automation engineer. Output concise explanations followed by complete, syntactically valid Python PoC code."
 
@@ -423,6 +431,10 @@ INSTRUCTIONS:
         # Deterministic fallback
         mod_script = req.current_script
         inst_lower = req.instruction.lower()
+        if "hello" in inst_lower and "def step_1_recon" in mod_script:
+            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")')
+        if ("identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower) and "def step_1_recon" in mod_script:
+            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")')
         if ("bearer" in inst_lower or "auth" in inst_lower or "token" in inst_lower):
             mod_script = mod_script.replace('headers={"User-Agent": "CyberTriage-Probe/1.0"}', 'headers={"User-Agent": "CyberTriage-Probe/1.0", "Authorization": "Bearer CYBERTRIAGE_USER_TOKEN_99"}')
         if "8080" in inst_lower and "TARGET_PORT" in mod_script:

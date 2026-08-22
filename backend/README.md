@@ -80,18 +80,22 @@ FastAPI backend orchestrating local Gemma models via Ollama, offline Threat Inte
 ## 🧠 Explainability & Verification Architecture
 
 1. **Threat Intelligence Mapping (MITRE ATT&CK & ATLAS)**:
-   - Evaluates vulnerability primitives against 755 offline techniques.
-   - Assigns a dynamic `why_retrieved` rationale to every matched technique, explaining the exact token, primitive, or CVE mapping context.
-   - Embeds detection opportunities and mitigations directly into both the live UI and the final Markdown report.
+   - Evaluates extracted vulnerability primitives against 755 offline techniques (590 ATT&CK + 165 ATLAS).
+   - Generates an explicit `why_retrieved` rationale for every matched technique, explaining the exact token, primitive, or CVE mapping context.
+   - Embeds detection opportunities and concrete mitigation guidelines directly into both the live UI and the final Markdown report.
 
-2. **3-Phase PoC Verification Pipeline**:
-   - `step_1_recon()`: Service reachability check, HTTP banner probing, and port validation at `172.20.0.3:8080`.
-   - `step_2_exploit()`: Delivery of structured vulnerability vector over isolated Docker bridge network.
+2. **3-Phase PoC Verification Standard**:
+   - `step_1_recon()`: Service reachability check, HTTP banner probing, and port validation against the victim target (`172.20.0.3:8080`).
+   - `step_2_exploit()`: Delivery of structured vulnerability vector over isolated Docker bridge network (`triage-sandbox-net`).
    - `step_3_verify_artifact()`: Empirical state assertion checking process UID, file creation (`/tmp/pwned.txt`), or HTTP response codes.
 
 3. **Report Generation & Evidence Synthesis**:
    - The `ReporterAgent` integrates the verified Python script snippet and dual-container terminal logs (`sandbox-attacker-node` @ `172.20.0.2` and `sandbox-victim-target` @ `172.20.0.3:8080`).
-   - Produces executive summaries, CVSS breakdowns, MITRE correlation tables, and SIGMA/Snort detection rules.
+   - Produces executive summaries, CVSS breakdowns, MITRE correlation tables, and concrete mitigation steps:
+     - Immediate containment & version thresholds
+     - Network & egress boundary hardening
+     - Container least-privilege enforcement
+     - Ready-to-deploy **SIGMA** rules and **Snort/Suricata** network signatures.
 
 ---
 
@@ -112,14 +116,16 @@ The backend sandbox engine ([`backend/sandbox/manager.py`](manager.py)) manages 
 1. **Context-Enriched Agent Prompts**: Adding explicit `VULNERABILITY / ADVISORY CONTEXT (FROM USER INPUT)` to the prompt engineering in `generator.py` and `investigations.py` enabled Gemma to write targeted verification harnesses directly addressing the user's specific vulnerability text.
 2. **Deterministic Dual-Node Network Isolation**: Spawning separate attacker (`172.20.0.2`) and victim (`172.20.0.3`) containers eliminates localhost loopback false positives and provides genuine network traffic traces.
 3. **Sub-5ms In-Memory Threat Intel RAG**: Loading 590 MITRE ATT&CK and 165 MITRE ATLAS techniques into an in-memory inverted index allows instant sub-5ms semantic matching without third-party vector DB overhead.
-4. **Resilient Streaming Fallbacks**: If Ollama or Docker daemon experiences a transient failure, the system falls back gracefully to deterministic analysis without crashing the WebSocket pipeline.
+4. **AST Python Syntax & Guardrail Validation**: Running `ast.parse` and abstract syntax tree verification on generated PoC scripts immediately flags syntax errors and illegal subcommands before container execution.
+5. **Deterministic Customization Fallbacks**: Supporting immediate modifications (e.g. `Print Hello`, `Identify Yourself`, `Bearer Tokens`, `WAF bypass`, `Base64`) both through Gemma prompt engineering and AST fallback transformers ensures high reliability.
+6. **Configurable Model Context Windows**: Supporting `8192` to `16384` context windows in `ollama.py` allows full multi-turn advisory Q&A and multi-page technical report generation without truncation.
 
 ---
 
 ## ⚠️ What Was Tried & Failed (Lessons Learned)
 
 1. **Missing `blog_text` in Request Models**:
-   - *Problem*: `CustomizePocRequest` and `ScriptGenerateRequest` originally lacked `blog_text` fields in `backend/models/state.py`. As a result, the backend relied solely on short `vulnerability_summary` strings, losing all rich advisory details.
+   - *Problem*: `CustomizePocRequest` and `ScriptGenerateRequest` originally lacked `blog_text` fields in `backend/models/state.py`. As a result, the backend relied solely on short `vulnerability_summary` strings, losing rich advisory details.
    - *Fix*: Added `blog_text` and `cve_url` to both Pydantic request models and wired them directly into LLM prompts.
 2. **Error Strings Masked as LLM Stream Chunks**:
    - *Problem*: When Ollama was offline or timed out, `stream_generate` in `ollama.py` yielded `[LLM Stream Error: ...]`. The generator agent mistook this error string as successful content (`has_content = True`), skipping the smart fallback harness.
@@ -127,15 +133,19 @@ The backend sandbox engine ([`backend/sandbox/manager.py`](manager.py)) manages 
 3. **Hardcoded Scenario Presets in Generator Agent**:
    - *Problem*: The script generator previously had hardcoded branches only for Log4Shell, XZ, and BlueKeep, failing to produce customized harnesses for arbitrary custom CVEs.
    - *Fix*: Replaced static branches with dynamic heuristic analysis that extracts CVE IDs, affected endpoints, ports, and exploit primitives from the raw user blog text.
+4. **Vague Remediation Guidance in Generated Reports**:
+   - *Problem*: Initial report templates produced generic advice like "apply patches and monitor logs", lacking actionable value for SOC teams.
+   - *Fix*: Overhauled `reporter.txt` and `reporter.py` to mandate root-cause analysis, specific version thresholds, network egress rules, container least-privilege configs, and formal SIGMA/Snort signatures.
 
 ---
 
-## 🔮 What to Do Next
+## 🔮 What to Do Next & Optimizations
 
 1. **Dynamic Target Container Provisioning**: Implement dynamic `Dockerfile` generation based on extracted software versions (e.g. automatically pulling Apache `log4j:2.14.1` or `xz:5.6.0` images on demand).
 2. **Automated Exploit-Fix Loop**: Introduce a Remediation Agent that modifies the victim container's configuration/code, re-runs the PoC script, and proves the vulnerability is resolved (Empirical Patch Verification).
 3. **Multi-Agent Voting / Consensus**: Use a multi-agent debate between `gemma4:e2b` (fast triage) and `gemma4:e4b` (deep reasoning) to confirm exploitability confidence scores before sandbox launch.
 4. **Structured JSON Validation with Pydantic Retries**: Implement auto-repairing JSON parsers for structured agent outputs to handle edge-case schema drift from smaller local LLMs.
+5. **Context Window Scaling to 32k+ Tokens**: Support Gemma 4 long-context modes (up to 32k/128k) for multi-file codebases, entire firmware blobs, and kernel crash dump analyses.
 
 ---
 

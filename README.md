@@ -210,10 +210,53 @@ Once both servers are running, follow this 3-minute interactive workflow:
 | **Verification Method** | Theoretical LLM assertion | **Deterministic Dual-Container Docker Sandbox** |
 | **Network Realism** | Single localhost loopback | **Dual-node bridge isolation (`172.20.0.2` ➔ `172.20.0.3`)** |
 | **Interface** | Basic single-prompt chat | **3-Tab Mission Control with Side-by-Side Terminals** |
+| **Explainability** | Black-box output | **3-Phase Verification, Telemetry Traces & Root-Cause Analysis** |
+| **Actionable Defense** | Vague high-level suggestions | **Concrete Mitigations, Hardening & SIGMA/Snort Rules** |
 | **Speed** | Slow multi-step manual reproduction | **Automated end-to-end triage in < 15 seconds** |
+
+---
+
+## 🧠 Engineering Retrospective & Learnings
+
+### 1. What We've Done
+- **Explainability-First Architecture**: Transformed raw vulnerability summaries into fully explainable, empirical security intelligence with explicit root-cause breakdowns, MITRE ATT&CK & ATLAS technique mapping rationales, and dual-container stdout/stderr telemetry logs.
+- **3-Phase PoC Verification Standard**: Enforced an industry-standard 3-phase harness structure (`step_1_recon` ➔ `step_2_exploit` ➔ `step_3_verify_artifact`) across both local Gemma prompts and fallback generators.
+- **1-Click PoC Customization Engine**: Built instant-apply modifications for rapid verification (e.g. `👋 Print Hello Greeting`, `🆔 Identify Yourself & Operator Tag`, `🛡️ Bearer Authentication`, `⚡ WAF Evasion`, `🔒 Base64 Transmutation`, `🎯 Port Configuration`, `⏱️ Retry Loops`, and `🔍 Strict Assertion Verification`) backed by AST syntax validation.
+- **Automated Clean Intake Workspace**: Implemented smart clipboard paste detection and a dedicated "Clear All Materials" action so analysts can paste new advisories without stale context lingering from previous CVEs.
+- **Publication-Grade Reporting with Actionable Defense**: Overhauled the report generator to provide CVSS scoring, attack chain graphs, telemetry logs, containment steps, patch guidelines, network/container hardening, and copy-paste-ready **SIGMA** rules and **Snort/Suricata** network signatures.
+
+### 2. What Worked
+- **Context-Enriched Agent Prompts**: Injecting raw `blog_text` directly into the agent prompts enables Gemma to extract accurate exploit primitives, target ports, and parameters for arbitrary custom CVEs.
+- **Sub-5ms In-Memory Threat Intel RAG**: Loading 590 ATT&CK and 165 ATLAS techniques into an in-memory inverted index delivers instant semantic and keyword retrieval with zero database dependencies.
+- **Dual-Container Isolation (`172.20.0.2` ➔ `172.20.0.3:8080`)**: True Docker bridge network separation eliminates localhost loopback false positives and provides authentic network packet telemetry.
+- **Persistent DOM State in Next.js**: Rendering tabs conditionally with CSS visibility (`block`/`hidden`) preserves draft scripts, chat history, and analysis parameters across tab navigation.
+- **Client-Side High-Res PDF Export**: Direct A4 paginated PDF rendering via `jspdf` and `html2canvas` at 2x retina scale generates pristine downloadable reports without browser print dialogs.
+- **Deterministic Agent Fallbacks**: Ensuring every agent has an intelligent offline fallback prevents UI crashes if Ollama or Docker is temporarily busy or unavailable.
+
+### 3. What Did Not Work & Lessons Learned
+- **Stale Context Carryover Across Advisories**:
+  - *Symptom*: When users switched from one advisory (e.g., Log4Shell) to another, old summaries and script fragments remained in memory, causing Gemma to reference the previous CVE.
+  - *Solution*: Added an `onPaste` event handler on the advisory input that detects fresh intake writeups and resets vulnerability metadata, scripts, and chat history automatically.
+- **Request Model Parameter Omission**:
+  - *Symptom*: `CustomizePocRequest` originally omitted `blog_text`, forcing the backend to rely on lossy one-line summaries.
+  - *Solution*: Added `blog_text` and `cve_url` across all Pydantic schemas and frontend API calls.
+- **Error Strings Masked as LLM Stream Chunks**:
+  - *Symptom*: Ollama stream timeouts emitted error text strings that the generator mistook for valid Python code.
+  - *Solution*: Separated stream transport error logging from token emission so the engine cleanly triggers fallback routines when an LLM fails.
+- **Conditional Tab Unmounting**:
+  - *Symptom*: Using `{activeTab === 'vulnerability' && <Component />}` unmounted state and erased user input.
+  - *Solution*: Switched to persistent DOM container mounting.
+
+### 4. What Else Could Be Optimized
+- **Dynamic Vulnerable Container Synthesis**: Automatically generate and build tailored `Dockerfile` recipes matching the exact vulnerable software versions mentioned in the advisory (e.g., `log4j:2.14.1` or `tomcat:9.0.58`).
+- **Empirical Patch Verification Loop**: Introduce a Remediation Agent that applies code/config patches to the victim container, re-executes the PoC script, and proves that the vulnerability is mitigated (proving `CONFIRMED VULNERABLE` ➔ `SECURED & PATCHED`).
+- **Multi-Agent Consensus & Debate**: Orchestrate a multi-agent review between `gemma4:e2b` (speed) and `gemma4:e4b` (reasoning) to cross-examine attack hypotheses before execution.
+- **Integrated Monaco Code Editor**: Upgrade the PoC workspace from a `<textarea>` to a full Monaco/CodeMirror editor with Python syntax highlighting, autocomplete, and inline diff viewing.
+- **Extended Context Window Scaling**: Scale the local model context window from `8192` up to `32k`/`128k` tokens for large multi-file security advisories and kernel crash dump analyses.
 
 ---
 
 ## 👥 Contributors & Hackathon Team
 - **Project**: CyberTriage AI (`AIsploitable`)
 - **Engine**: Gemma 4 e2b / e4b + FastAPI + Next.js 15
+

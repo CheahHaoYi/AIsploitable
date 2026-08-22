@@ -145,9 +145,14 @@ if __name__ == "__main__":
         headers_code = '{"User-Agent": "CyberTriage-Verifier/1.0"}'
         payload_code = f'{{"advisory": "{cve}", "probe": "AIsploitable-Verification", "cmd": "id; whoami > /tmp/pwned.txt"}}'
         port_num = 8080
+        recon_extra = ""
 
         if custom_instruction:
             inst_lower = custom_instruction.lower()
+            if "hello" in inst_lower:
+                recon_extra += '\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")'
+            if "identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower:
+                recon_extra += '\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")'
             if "bearer" in inst_lower or "auth" in inst_lower or "token" in inst_lower:
                 headers_code = '{"User-Agent": "CyberTriage-Verifier/1.0", "Authorization": "Bearer CYBERTRIAGE_VALIDATION_TOKEN_99"}'
             if "waf" in inst_lower or "encode" in inst_lower or "url" in inst_lower:
@@ -176,7 +181,7 @@ def log(msg, tag="*"):
     print(f"[{{tag}}] {{msg}}", flush=True)
 
 def step_1_recon():
-    log(f"Probing target service at {{TARGET_HOST}}:{{TARGET_PORT}} for {cve}...", "*")
+    log(f"Probing target service at {{TARGET_HOST}}:{{TARGET_PORT}} for {cve}...", "*"){recon_extra}
     try:
         url = f"http://{{TARGET_HOST}}:{{TARGET_PORT}}/"
         req = urllib.request.Request(url, headers={headers_code})

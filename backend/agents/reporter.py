@@ -142,14 +142,52 @@ The experiment executed across isolated Docker containers on network `172.20.0.0
 
 ---
 
-## 6. Actionable Containment, Remediation & Detection Rules
-1. **Immediate Patch Deployment**: Upgrade vulnerable component ({", ".join(vulnerability.affected_products) or "target dependencies"}) to the vendor-approved patched version.
-2. **Egress Network Filtering**: Restrict outbound container and server network access on isolated subnets to block remote payload fetching and reverse shell callbacks.
-3. **Input Validation & Sanitization**: Enforce strict validation and parameterized input sanitization on all externally supplied headers and request parameters.
-4. **Telemetry & Detection Rules**:
-   - **SIGMA Rule**: Monitor for unexpected process spawning (e.g. `/bin/sh`, `cmd.exe`) originated from web daemon parent processes.
-   - **WAF / IDS Signatures**: Deploy pattern matching filters on reverse proxies to drop requests containing unescaped exploit primitives.
+## 6. Comprehensive Mitigation, Containment & System Hardening
+
+### 1. Immediate Containment & Patch Management
+- **Vendor Upgrade**: Immediately upgrade affected dependencies ({", ".join(vulnerability.affected_products) or "target components"}) to patched releases.
+- **Vulnerability Advisory Tracking**: Subscribe to vendor security advisories and automated dependabot alerts for critical CVSS thresholds.
+
+### 2. Network Segmentation & Egress Hardening
+- **Subnet Isolation**: Isolate containerized application nodes on dedicated internal bridge subnets (e.g. `172.20.0.0/24`) without direct internet routing.
+- **Strict Egress Filtering**: Block outbound connections to unexpected ports and protocols to neutralize reverse shell callbacks, payload staging servers, and remote JNDI lookups.
+
+### 3. Application Security & Input Validation
+- **Strict Input Sanitization & Parameterization**: Implement strict schema validation and parameter binding to neutralize command injections, path traversals, and deserialization flaws.
+- **WAF / Reverse Proxy Filters**: Configure Web Application Firewalls to inspect and drop malformed HTTP headers, serialized objects, and unexpected delimiter characters.
+
+### 4. Container Isolation & Least Privilege Enforcement
+- **Drop Linux Capabilities**: Strip unneeded Linux capabilities (`CAP_NET_RAW`, `CAP_SYS_ADMIN`) and run container processes under dedicated non-root service accounts (`UID 10001`).
+- **Read-Only Root Filesystems**: Enforce read-only root filesystems on container deployments (`read_only: true`) to prevent malicious artifact persistence in `/tmp` or binary modification.
+
+### 5. Detection Engineering & Monitoring
+- **SIGMA Rule (Process Anomalies)**:
+```yaml
+title: Anomalous Child Process Spawned from Web Daemon
+status: experimental
+description: Detects interactive shell execution spawned from application container runtime
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    ParentImage|endswith:
+      - '/usr/bin/python3'
+      - '/usr/local/bin/node'
+      - '/opt/java/bin/java'
+    Image|endswith:
+      - '/bin/sh'
+      - '/bin/bash'
+      - '/usr/bin/whoami'
+  condition: selection
+level: high
+```
+- **Network Signature (Snort/Suricata)**:
+```text
+alert tcp any any -> $HOME_NET 8080 (msg:"CYBERTRIAGE EXPLOIT - Ingress Payload Injection Attempt"; flow:to_server,established; content:"cmd="; nocase; classtype:attempted-admin; sid:9000101; rev:1;)
+```
 """
 
 reporter_agent = ReporterAgent()
+
 

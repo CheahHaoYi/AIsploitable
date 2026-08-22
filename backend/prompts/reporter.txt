@@ -19,27 +19,43 @@ Dual-Container Telemetry (Attacker & Victim Terminals):
 Observed Evidence & Assertion Verdict:
 {{verification_json}}
 
-Write a publication-grade, well-formatted Markdown report containing these exact sections:
+Write an exhaustive, publication-grade Markdown report containing the following exact sections with deep technical clarity:
+
 # Security Investigation & Empirical Verification Report
 
-## 1. Executive Summary
-- Overall assessment, CVSS rating, empirical exploitation verdict (CONFIRMED VULNERABLE or REFUTED), confidence percentage, and business impact.
+## 1. Executive Summary & Threat Landscape
+- Incident / CVE identifier and succinct overview.
+- Severity rating, CVSS 3.1 score breakdown, and business impact assessment.
+- Empirical verification verdict: **CONFIRMED VULNERABLE** or **REFUTED / MITIGATED** with confidence score.
 
-## 2. Vulnerability Mechanism & Root Cause Breakdown
-- Technical details, affected products/components, attack vector, privileges required, and root-cause exploit primitives.
+## 2. CVE Root-Cause & Technical Breakdown
+- Detailed explanation of what the vulnerability is about and the underlying flaw mechanism.
+- Attack vector, complexity, privileges required, and user interaction requirements.
+- Affected products, versions, libraries, and components.
+- Root-cause exploit primitives and payload execution flow.
 
-## 3. Threat Intelligence & MITRE Matrix Mapping
-- Provide a detailed markdown table mapping the matched MITRE ATT&CK Enterprise and MITRE ATLAS techniques:
+## 3. Threat Intelligence & MITRE Framework Mapping
+- Provide a detailed markdown table mapping matched MITRE ATT&CK Enterprise and MITRE ATLAS AI Security techniques:
 | Technique ID | Technique Name | Matrix (ATT&CK / ATLAS) | Tactic | Mapping Rationale | Detection Opportunity |
-- Explain why each technique was retrieved and its alignment with observed exploit primitives.
+- Detail why each technique was correlated based on observed primitives and tokens.
 
-## 4. Proof-of-Concept Script Synthesis & Execution Logic
-- Explain the logic behind the synthesized Python PoC verification script (Reconnaissance -> Payload Delivery -> Assertion Verification).
-- Include the key verified Python PoC script snippet inside a ` ```python ` block.
+## 4. Empirical Demonstration Methodology & PoC Execution Logic
+- Explain the systematic 3-phase verification methodology:
+  1. Reconnaissance (`step_1_recon`): Service banner probing and port accessibility.
+  2. Payload Delivery (`step_2_exploit`): Marshaling and transmitting the specific exploit vector.
+  3. State Assertion (`step_3_verify_artifact`): Verifying deterministic state changes (UID, file tokens, exit codes).
+- Include the key verified Python 3 PoC verification script inside a ```python ... ``` block.
 
 ## 5. Dual-Container Sandbox Telemetry & Evidence Analysis
-- Provide the empirical console evidence from both the Attacker Node (172.20.0.2) and Victim Target (172.20.0.3) in code blocks.
-- List all verified assertions, observed artifacts, and process state modifications.
+- Provide the console output logs from the Attacker Node (`sandbox-attacker-node` @ 172.20.0.2) in a code block.
+- Provide the daemon logs from the Victim Target (`sandbox-victim-target` @ 172.20.0.3:8080) in a code block.
+- Checklist of verified assertions versus failed assertions.
 
-## 6. Actionable Containment, Remediation & Detection Rules
-- Provide immediate remediation steps, configuration hardening flags, and concrete SIGMA / Snort detection rules to defend against this exploit.
+## 6. Comprehensive Mitigation, Containment & Security Hardening
+- **Immediate Containment & Patching**: Specific upgrade instructions and version thresholds.
+- **Network Segmentation & Egress Control**: Firewall rules, egress port restrictions, and subnet isolation.
+- **Application & Runtime Hardening**: Input sanitization, parameterization, unprivileged container execution, dropping Linux capabilities (`CAP_NET_RAW`, `CAP_SYS_ADMIN`).
+- **Detection Engineering & Threat Hunting**:
+  - Concrete SIGMA detection rule for anomalous process trees.
+  - Concrete Snort / Suricata network inspection signature.
+- **Continuous Validation**: Recommendations for automated regression testing and security ledger audits.

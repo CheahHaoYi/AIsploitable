@@ -8,12 +8,21 @@ Next.js 15 (App Router) + React 19 + TailwindCSS interface designed with Google 
 
 ### Tab 1 — Vulnerability Analysis & PoC Workspace (`VulnerabilityAnalysisTab.tsx`)
 - **Advisory & CVE Ingestion**: Accepts raw vulnerability writeups, security advisories, and CVE URLs. Includes 4 preset golden paths (Log4Shell, XZ Backdoor, AI Prompt Injection, BlueKeep) and dynamically detects custom CVEs and advisory titles.
+- **Smart Intake Reset & Clean Workspace**: Automatically clears stale vulnerability parameters, old scripts, and chat history when pasting a new advisory (`onPaste`), with an explicit **"Clear All Materials"** button for a fresh triage start.
 - **Interactive Gemma Q&A**: Stream technical answers to clarification questions regarding exploit primitives, CVSS parameters, and mitigation strategies based directly on the user's advisory text.
 - **PoC Verification Script Workspace (`poc_verifier.py`)**:
   - In-place Python 3 code editor with syntax styling and real-time line count.
   - **Generate PoC with Gemma**: Streams verification scripts tailored to the user-inputted writeup without forcing premature page navigation.
-  - **Ask Gemma: PoC Clarification & Customizer**: Allows arbitrary natural language instructions (e.g. bypass WAF, add Auth Bearer tokens, change target ports, add retry loops). Streams Gemma's explanations and revised code.
-  - **Apply to PoC Script**: One-click extraction of the updated code block into the active editor, synchronized with top-level state.
+  - **1-Click PoC Customization Actions**:
+    - `👋 Print "Hello World" Greeting Banner`: Instant script edit verification.
+    - `🆔 Identify Yourself & Operator Tag`: Injects agent identity and operator verification into recon logs.
+    - `🛡️ Add Authorization Bearer Token`: Injects Authorization headers into probe/exploit requests.
+    - `⚡ Bypass WAF with URL Encoding`: Adds `urllib.parse` payload encoding and evasion headers.
+    - `🔒 Add Base64 Payload Transmutation`: Encodes test payloads with `base64.b64encode`.
+    - `🎯 Set Target Port to 8080 & Host Probe`: Reconfigures target port definitions.
+    - `⏱️ Add 3x Retry Loop with Backoff`: Robust retry error handling.
+    - `🔍 Strict Assertion & Artifact Verification`: Validates exit codes and `/tmp/pwned.txt`.
+  - **AST Syntax & Guardrail Feedback**: Displays real-time AST validation status, forbidden module flags, and applied transformation diffs.
 - **Launch Autonomous Verification**: Seamlessly starts background container orchestration and transitions to Tab 2.
 
 ### Tab 2 — Docker Sandbox Isolation Lab (`DockerSandboxTab.tsx` & `DualTerminal.tsx`)
@@ -28,7 +37,8 @@ Next.js 15 (App Router) + React 19 + TailwindCSS interface designed with Google 
 ### Tab 3 — Reports & Findings Hub (`ReportsTab.tsx` & `MarkdownReportRenderer.tsx`)
 - **Master-Detail Ledger**: Searchable list of generated reports filtered by severity (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`) and verdict (`CONFIRMED VULNERABLE`, `REFUTED`).
 - **Rich Executive Report Rendering (`MarkdownReportRenderer.tsx`)**:
-  - Executive SOC classification headers (`RESTRICTED // TLP:AMBER`), CVSS scorecards, MITRE technique matrices, verification checklist badges, and syntax-highlighted code blocks.
+  - Executive SOC classification headers (`RESTRICTED // TLP:AMBER`), CVSS scorecards, MITRE technique matrices (ATT&CK vs ATLAS), verification checklist badges, and syntax-highlighted code blocks.
+  - **Actionable Defenses**: Renders concrete remediation steps, patch guidance, network/container hardening, and copy-paste-ready **SIGMA** rules & **Snort/Suricata** signatures.
 - **Dual View Modes**: Seamless toggle between "Rendered Report" and "Raw Markdown".
 - **Direct PDF Document Export (`pdfExport.ts`)**: Client-side multi-page A4 PDF generation with paginated headers and footers without browser print dialog popups.
 - **Markdown Export & Sharing**: Direct `.md` download and clipboard copy.
@@ -38,9 +48,10 @@ Next.js 15 (App Router) + React 19 + TailwindCSS interface designed with Google 
 ## 💡 What Worked
 
 1. **Persistent DOM State Mounting**: Keeping tabs mounted in the DOM (`className={activeTab === 'vulnerability' ? 'block' : 'hidden'}`) guarantees that user inputs, custom blog text, CVE URLs, Q&A responses, and in-progress scripts never disappear during navigation.
-2. **Context-Aware Script Synthesis**: Passing `blog_text` directly to `/api/scripts/generate/stream` and `/api/poc/customize/stream` ensures that Gemma synthesizes code based on the user's actual writeup rather than generic defaults.
-3. **One-Click Script Application**: Regex-based extraction of ` ```python ... ``` ` code blocks from Gemma's streaming customization allows seamless, in-place script updates with zero copy-paste friction.
-4. **Client-Side High-Res PDF Export**: Using `jspdf` and `html2canvas` at 2x retina scale generates publication-ready PDF triage reports with automatic page splitting and running headers.
+2. **Auto-Clean Intake Workspace**: Detecting paste operations on the advisory textarea automatically purges previous analysis materials, giving the analyst an instant clean slate for new CVE writeups.
+3. **Context-Aware Script Synthesis**: Passing `blog_text` directly to `/api/scripts/generate/stream` and `/api/poc/customize/stream` ensures that Gemma synthesizes code based on the user's actual writeup rather than generic defaults.
+4. **1-Click Presets with AST Validation**: Pairing simple customization triggers (like "Print Hello" and "Identify Yourself") with instant AST validation allows rapid verification of script modification pipelines.
+5. **Client-Side High-Res PDF Export**: Using `jspdf` and `html2canvas` at 2x retina scale generates publication-ready PDF triage reports with automatic page splitting and running headers.
 
 ---
 
@@ -55,15 +66,19 @@ Next.js 15 (App Router) + React 19 + TailwindCSS interface designed with Google 
 3. **Stale Preset Summary Overriding Custom Blog Text**:
    - *Problem*: If the user pasted a new blog without clicking "Analyze & Summarize", the PoC generator used `vulnerability.summary` which still held the previous preset's data (e.g. Log4Shell).
    - *Fix*: The generator now prioritizes the actual `blogText` (and extracts the CVE and title dynamically) whenever a custom blog is present.
+4. **Analysis Material Bleed Across Blogs**:
+   - *Problem*: Pasting a second blog did not clear the first blog's extracted matrices or PoC script, causing cognitive friction for the user.
+   - *Fix*: Bound `onPaste` to reset `vulnerability`, `chatHistory`, and previous instructions automatically, paired with a manual "Clear All Materials" button.
 
 ---
 
-## 🔮 What to Do Next
+## 🔮 What to Do Next & Optimizations
 
-1. **Monaco / CodeMirror Editor Integration**: Upgrade the raw `<textarea>` in the PoC workspace to a full Monaco/CodeMirror editor with Python auto-completion, linting, and diff views.
+1. **Monaco / CodeMirror Editor Integration**: Upgrade the raw `<textarea>` in the PoC workspace to a full Monaco/CodeMirror editor with Python auto-completion, linting, and side-by-side diff views.
 2. **Multi-Turn Chat History for Gemma**: Expand the "Ask Gemma" panel to retain full multi-turn conversational history with branching clarification paths.
 3. **Interactive Step-by-Step Debugger**: Add pause/step/resume controls to the Docker sandbox execution so analysts can step through PoC commands one by one.
 4. **Custom Payload Template Library**: Provide a dropdown library of reusable exploit primitives (e.g. SSRF tunneling, JNDI lookups, SQLi error-based, JWT signature stripping).
+5. **Real-Time Attack Tree Graph Visualizer**: Upgrade the static attack graph to an interactive D3/Cytoscape attack tree displaying live compromised state nodes as telemetry arrives.
 
 ---
 
