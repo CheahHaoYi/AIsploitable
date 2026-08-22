@@ -52,6 +52,21 @@ class CreateInvestigationRequest(BaseModel):
     source_url: Optional[str] = None
     input_text: str
     model: Optional[str] = "gemma4:e2b"
+    custom_script: Optional[str] = None
+    custom_vulnerability: Optional[Vulnerability] = None
+
+class AnalyzeVulnerabilityRequest(BaseModel):
+    input_text: str
+    source_url: Optional[str] = None
+    model: Optional[str] = "gemma4:e2b"
+
+class CustomizePocRequest(BaseModel):
+    current_script: str
+    instruction: str
+    vulnerability_summary: Optional[str] = None
+    blog_text: Optional[str] = None
+    cve_url: Optional[str] = None
+    model: Optional[str] = "gemma4:e2b"
 
 class ModelInfo(BaseModel):
     id: str
@@ -83,5 +98,7 @@ class ScriptGenerateRequest(BaseModel):
     cve_id: Optional[str] = None
     title: Optional[str] = None
     description: str
+    blog_text: Optional[str] = None
     target_environment: Optional[str] = "Debian 12 Target Container"
     model: Optional[str] = "gemma4:e2b"
+

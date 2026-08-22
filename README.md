@@ -10,7 +10,7 @@ CyberTriage AI is an autonomous, privacy-preserving cybersecurity triage and ver
 - **3-Tab Mission Control UI**:
   - **Tab 1: CVE Intake & Blog Questioning**: Echoes target CVE URLs safely without premature scraping, accepts raw cybersecurity blog/incident writeups, and supports real-time streaming Q&A with local Gemma models.
   - **Tab 2: Docker Sandbox (Side-by-Side)**: Live real-time streaming of Gemma-synthesized Python PoC scripts and synchronized dual-container telemetry (`sandbox-attacker-node` at `172.20.0.2` vs `sandbox-victim-target` at `172.20.0.3:8080`), interactive attack graphs, and empirical verification assertions.
-  - **Tab 3: Reports & Findings Hub**: Master-detail ledger with search, severity filters (`CRITICAL`, `HIGH`, `MEDIUM`), verdict indicators, and full rendered executive Markdown reports with one-click export and copy.
+  - **Tab 3: Reports & Findings Hub**: Master-detail ledger with search, severity filters (`CRITICAL`, `HIGH`, `MEDIUM`), verdict indicators, and rich executive Markdown report rendering with dual view modes and direct PDF and Markdown export.
 - **Local Gemma AI Agents**:
   - **Analyzer Agent**: Extracts CVE identifiers, CVSS metrics, attack vectors, and exploit primitives.
   - **Planner Agent**: Generates structured multi-step attack hypotheses mapped to MITRE tactics.
@@ -178,25 +178,26 @@ http://localhost:3000
 
 Once both servers are running, follow this 3-minute interactive workflow:
 
-### Step 1 — Intake & Gemma Q&A (Tab 1)
-1. In **Tab 1 ("1. CVE Intake & Questioning")**, click on the **Log4Shell (`CVE-2021-44228`)** preset scenario (or paste any security blog text).
-2. Notice how the CVE Link preview card safely echoes the target URL.
-3. In the *"Ask Local Gemma"* box, ask: `"What are the exploit primitives and mitigation steps?"` and click **"Ask Gemma"** to see real-time streaming insights.
-4. Click **"Stream PoC Script with Gemma"** or **"Launch Autonomous Verification"**.
+### Step 1 — Vulnerability Analysis, Ask Gemma & PoC Workspace (Tab 1)
+1. In **Tab 1 ("1. Vulnerability Analysis")**, click on a preset scenario or paste any security blog/advisory text.
+2. Click **"Analyze & Summarize with Gemma"** to extract CVSS vectors, severity, affected assets, and exploit primitives.
+3. In the *"Ask Gemma / Customize"* strip, query the model or request clarification on mitigation strategies with real-time streaming answers.
+4. In the **PoC Verification Script Workspace**, click **"Generate PoC with Gemma"** to synthesize a custom Python verification script directly for the advisory.
+5. Use the **Ask Gemma PoC Customizer** (e.g. *"Bypass WAF / URL encode payload"*, *"Add Authorization Bearer header"*) and click **"Apply to PoC Script"** to update the editable script in place.
+6. Click **"Launch Autonomous Verification"** to spin up the container testbed.
 
 ### Step 2 — Side-by-Side Docker Containers (Tab 2)
-1. The UI automatically transitions to **Tab 2 ("2. Docker Sandbox (Side-by-Side)")**.
-2. Watch the **PoC Verification Script** stream live into the code viewer.
-3. Observe the side-by-side terminal consoles:
+1. The UI transitions to **Tab 2 ("2. Docker Sandbox (Side-by-Side)")**.
+2. Watch the live **PoC Verification Script** and side-by-side terminal consoles:
    - **Left Pane (`sandbox-attacker-node` at `172.20.0.2`)**: Transmits the synthesized payload and verifies assertions.
-   - **Right Pane (`sandbox-victim-target` at `172.20.0.3:8080`)**: Logs the incoming connection, JNDI lookup, and daemon response.
-4. Review the **Investigation Timeline**, visual **Attack Graph**, and **Evidence Events**.
+   - **Right Pane (`sandbox-victim-target` at `172.20.0.3:8080`)**: Logs the incoming connection, target service traces, and daemon responses.
+3. Review the **Investigation Timeline**, visual **Attack Graph**, and **Evidence Events**.
 
 ### Step 3 — Reports & Findings Hub (Tab 3)
 1. Switch to **Tab 3 ("3. Reports & Findings Hub")** (or click *"View Generated Report"*).
 2. Browse through the report ledger with severity badges (`CRITICAL`, `HIGH`, `MEDIUM`) and verdicts (`CONFIRMED VULNERABLE`).
 3. Read the synthesized executive report complete with CVSS vectors, MITRE ATT&CK mappings, and remediation guidance.
-4. Click **"Copy"** or **"Download MD"** to export the markdown report.
+4. Click **"Export PDF"** to directly download a multi-page PDF document, or **"Export .MD"** / **"Copy MD"** to export or copy the raw markdown.
 
 ---
 

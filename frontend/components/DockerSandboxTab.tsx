@@ -49,7 +49,7 @@ export default function DockerSandboxTab({
     investigation?.current_stage === 'EXECUTE' ||
     investigation?.current_stage === 'GENERATE_SCRIPT';
 
-  const scriptToDisplay = manualScript || investigation?.generated_script;
+  const scriptToDisplay = investigation?.generated_script || manualScript;
 
   return (
     <div className="space-y-6">

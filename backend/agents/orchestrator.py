@@ -51,12 +51,17 @@ class InvestigationOrchestrator:
             investigation.current_stage = InvestigationStage.ANALYZE
             investigation.progress = 25
             await emit("STATUS", {"stage": investigation.current_stage, "progress": investigation.progress})
-            await log(InvestigationStage.ANALYZE, f"Gemma analyzing vulnerability advisory & extracting attack primitives...")
-
-            vuln = await analyzer_agent.analyze(investigation.raw_input_text, model=investigation.model_used)
-            investigation.vulnerability = vuln
-            await emit("VULNERABILITY", vuln.model_dump())
-            await log(InvestigationStage.ANALYZE, f"Identified {vuln.title} (Severity: {vuln.severity}, CVSS: {vuln.cvss_score})", "SUCCESS")
+            
+            if investigation.vulnerability:
+                vuln = investigation.vulnerability
+                await emit("VULNERABILITY", vuln.model_dump())
+                await log(InvestigationStage.ANALYZE, f"Loaded user-customized vulnerability specification: {vuln.title} (Severity: {vuln.severity}, CVSS: {vuln.cvss_score})", "SUCCESS")
+            else:
+                await log(InvestigationStage.ANALYZE, f"Gemma analyzing vulnerability advisory & extracting attack primitives...")
+                vuln = await analyzer_agent.analyze(investigation.raw_input_text, model=investigation.model_used)
+                investigation.vulnerability = vuln
+                await emit("VULNERABILITY", vuln.model_dump())
+                await log(InvestigationStage.ANALYZE, f"Identified {vuln.title} (Severity: {vuln.severity}, CVSS: {vuln.cvss_score})", "SUCCESS")
             await asyncio.sleep(0.3)
 
             # 3. RETRIEVE (ATT&CK and ATLAS RAG)
@@ -84,16 +89,21 @@ class InvestigationOrchestrator:
             await log(InvestigationStage.PLAN, f"Verification plan generated with {len(plan.steps)} steps", "SUCCESS")
             await asyncio.sleep(0.3)
 
-            # 5. GENERATE SCRIPT (Gemma Code Synthesis)
+            # 5. GENERATE SCRIPT (Gemma Code Synthesis or User Reviewed Script)
             investigation.current_stage = InvestigationStage.GENERATE_SCRIPT
             investigation.progress = 60
             await emit("STATUS", {"stage": investigation.current_stage, "progress": investigation.progress})
-            await log(InvestigationStage.GENERATE_SCRIPT, f"Gemma synthesizing Python PoC verification script...")
-
-            generated_script = await script_generator_agent.generate_script(vuln, plan, model=investigation.model_used)
-            investigation.generated_script = generated_script
-            await emit("SCRIPT", {"script": generated_script, "container": "attacker"})
-            await log(InvestigationStage.GENERATE_SCRIPT, "PoC verification script synthesized successfully.", "SUCCESS")
+            
+            if investigation.generated_script and len(investigation.generated_script.strip()) > 20:
+                generated_script = investigation.generated_script
+                await emit("SCRIPT", {"script": generated_script, "container": "attacker"})
+                await log(InvestigationStage.GENERATE_SCRIPT, "Using pre-reviewed & customized PoC verification script.", "SUCCESS")
+            else:
+                await log(InvestigationStage.GENERATE_SCRIPT, f"Gemma synthesizing Python PoC verification script...")
+                generated_script = await script_generator_agent.generate_script(vuln, plan, model=investigation.model_used)
+                investigation.generated_script = generated_script
+                await emit("SCRIPT", {"script": generated_script, "container": "attacker"})
+                await log(InvestigationStage.GENERATE_SCRIPT, "PoC verification script synthesized successfully.", "SUCCESS")
             await asyncio.sleep(0.3)
 
             # 6. SANDBOX & EXECUTE (Side-by-Side Attacker & Victim Streams)

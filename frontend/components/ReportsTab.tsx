@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { ReportSummary } from '../lib/types';
 import { fetchReports } from '../lib/api';
+import MarkdownReportRenderer from './MarkdownReportRenderer';
 
 interface ReportsTabProps {
   activeReportMarkdown?: string;
@@ -208,71 +209,16 @@ export default function ReportsTab({
         {/* Right Detail Pane: Report Content Renderer (8 cols) */}
         <div className="lg:col-span-8">
           {selectedReport ? (
-            <div className="bg-white border border-[#dadce0] rounded-2xl p-6 shadow-google-card space-y-6">
-              {/* Header Bar with Actions */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#f1f3f4]">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-[#1a73e8] bg-[#e8f0fe] px-2.5 py-0.5 rounded-full">
-                      {selectedReport.cve_id || 'CVE-TARGET'}
-                    </span>
-                    <span
-                      className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${getSeverityBadgeColor(
-                        selectedReport.severity
-                      )}`}
-                    >
-                      {selectedReport.severity} (CVSS {selectedReport.cvss_score})
-                    </span>
-                    <span className="text-xs font-bold text-[#1e8e3e] bg-[#e6f4ea] px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3" />
-                      {selectedReport.verdict}
-                    </span>
-                  </div>
-
-                  <h2 className="text-lg font-bold text-[#202124] tracking-tight pt-1">
-                    {selectedReport.title}
-                  </h2>
-
-                  <div className="flex items-center gap-3 text-xs text-[#5f6368] pt-1">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#80868b]" />
-                      <span>{selectedReport.created_at}</span>
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Cpu className="w-3.5 h-3.5 text-[#1a73e8]" />
-                      <span className="font-mono">{selectedReport.model_used}</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Export & Copy Actions */}
-                <div className="flex items-center gap-2 self-start sm:self-center">
-                  <button
-                    onClick={handleCopy}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-white border border-[#dadce0] hover:border-[#1a73e8] text-[#3c4043] flex items-center gap-1.5 transition-all active:scale-95 shadow-sm"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-[#1e8e3e]" /> : <Copy className="w-3.5 h-3.5 text-[#5f6368]" />}
-                    <span>{copied ? 'Copied' : 'Copy'}</span>
-                  </button>
-
-                  <button
-                    onClick={handleDownload}
-                    className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-[#1a73e8] hover:bg-[#1557b0] text-white flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download MD</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Rendered Markdown Report View */}
-              <div className="prose prose-sm max-w-none text-[#202124] space-y-4 leading-relaxed font-sans">
-                <div className="whitespace-pre-wrap font-sans text-xs sm:text-sm bg-[#f8f9fa] p-6 rounded-2xl border border-[#dadce0] text-[#202124] leading-relaxed max-h-[600px] overflow-y-auto scrollbar-thin">
-                  {selectedReport.report_markdown}
-                </div>
-              </div>
-            </div>
+            <MarkdownReportRenderer
+              reportMarkdown={selectedReport.report_markdown}
+              cveId={selectedReport.cve_id}
+              title={selectedReport.title}
+              severity={selectedReport.severity}
+              cvssScore={selectedReport.cvss_score}
+              verdict={selectedReport.verdict}
+              createdAt={selectedReport.created_at}
+              modelUsed={selectedReport.model_used}
+            />
           ) : (
             <div className="bg-white border border-[#dadce0] rounded-2xl p-12 text-center shadow-google-card flex flex-col items-center justify-center space-y-3 min-h-[400px]">
               <FileText className="w-12 h-12 text-[#bdc1c6] opacity-50" />

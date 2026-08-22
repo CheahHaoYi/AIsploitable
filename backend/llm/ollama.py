@@ -56,7 +56,8 @@ class OllamaProvider(BaseLLMProvider):
             payload["format"] = "json"
 
         try:
-            async with httpx.AsyncClient(timeout=120.0) as client:
+            timeout_cfg = httpx.Timeout(connect=3.0, read=120.0, write=10.0, pool=5.0)
+            async with httpx.AsyncClient(timeout=timeout_cfg) as client:
                 res = await client.post(f"{self.base_url}/api/generate", json=payload)
                 if res.status_code == 200:
                     data = res.json()
@@ -83,10 +84,10 @@ class OllamaProvider(BaseLLMProvider):
             payload["system"] = system
 
         try:
-            async with httpx.AsyncClient(timeout=180.0) as client:
+            timeout_cfg = httpx.Timeout(connect=3.0, read=180.0, write=10.0, pool=5.0)
+            async with httpx.AsyncClient(timeout=timeout_cfg) as client:
                 async with client.stream("POST", f"{self.base_url}/api/generate", json=payload) as response:
                     async for line in response.aiter_lines():
-                        if line:
                             try:
                                 chunk = json.loads(line)
                                 text = chunk.get("response", "")
@@ -95,6 +96,7 @@ class OllamaProvider(BaseLLMProvider):
                             except Exception:
                                 pass
         except Exception as e:
-            yield f"\n[LLM Stream Error: {e}]\n"
+            print(f"Ollama stream_generate exception: {e}")
 
 ollama_client = OllamaProvider()
+

@@ -8,6 +8,7 @@ from .api.models import router as models_router
 from .api.investigations import router as investigations_router
 from .api.reports import router as reports_router
 from .api.websocket import router as ws_router
+from .api.sandbox import router as sandbox_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -38,6 +39,7 @@ app.include_router(models_router)
 app.include_router(investigations_router)
 app.include_router(reports_router)
 app.include_router(ws_router)
+app.include_router(sandbox_router)
 
 @app.get("/health")
 def health_check() -> dict[str, str]:

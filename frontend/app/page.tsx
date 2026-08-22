@@ -2,16 +2,16 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
-import IntakeTab from '../components/IntakeTab';
+import VulnerabilityAnalysisTab from '../components/VulnerabilityAnalysisTab';
 import DockerSandboxTab from '../components/DockerSandboxTab';
 import ReportsTab from '../components/ReportsTab';
-import { ModelInfo, Investigation, StageType } from '../lib/types';
+import { ModelInfo, Investigation, StageType, Vulnerability } from '../lib/types';
 import { fetchModels, startInvestigation } from '../lib/api';
 import { InvestigationWebSocket } from '../lib/websocket';
 import { FileSearch, Server, FileCheck2, Activity, Sparkles, Terminal } from 'lucide-react';
 
 export default function MissionControlPage() {
-  const [activeTab, setActiveTab] = useState<'intake' | 'docker' | 'reports'>('intake');
+  const [activeTab, setActiveTab] = useState<'vulnerability' | 'docker' | 'reports'>('vulnerability');
 
   // Models State
   const [models, setModels] = useState<ModelInfo[]>([
@@ -59,8 +59,14 @@ export default function MissionControlPage() {
   }, []);
 
   // Handle Starting Autonomous Investigation
-  const handleStartInvestigation = async (inputText: string, sourceUrl?: string) => {
+  const handleStartInvestigation = async (
+    inputText: string,
+    sourceUrl?: string,
+    customVuln?: Vulnerability,
+    customScript?: string
+  ) => {
     setIsLoadingInvestigation(true);
+    setManualScript(customScript || '');
     setActiveTab('docker'); // Automatically switch to Tab 2 to watch the live Docker containers!
 
     try {
@@ -68,6 +74,8 @@ export default function MissionControlPage() {
         input_text: inputText,
         source_url: sourceUrl,
         model: selectedModel,
+        custom_vulnerability: customVuln,
+        custom_script: customScript,
       });
 
       setActiveInvestigation(newInv);
@@ -101,6 +109,7 @@ export default function MissionControlPage() {
               break;
             case 'SCRIPT':
               updated.generated_script = data.script;
+              setManualScript(data.script);
               break;
             case 'DOCKER_LOG':
               if (data.container === 'attacker') {
@@ -141,7 +150,7 @@ export default function MissionControlPage() {
 
   const handleScriptGenerated = (script: string) => {
     setManualScript(script);
-    setActiveTab('docker');
+    // Keep user on Tab 1 so they can review, clarify, and customize before launching verification
   };
 
   const isExecuting =
@@ -166,17 +175,17 @@ export default function MissionControlPage() {
         {/* Navigation 3-Tabs Bar */}
         <div className="bg-[#f8f9fa] border border-[#dadce0] p-1.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2 shadow-sm">
           <div className="flex items-center gap-1.5 w-full sm:w-auto">
-            {/* Tab 1: Intake & Blog Questioning */}
+            {/* Tab 1: Vulnerability Analysis */}
             <button
-              onClick={() => setActiveTab('intake')}
+              onClick={() => setActiveTab('vulnerability')}
               className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
-                activeTab === 'intake'
+                activeTab === 'vulnerability'
                   ? 'bg-white text-[#1a73e8] shadow-sm border border-[#dadce0]'
                   : 'text-[#5f6368] hover:text-[#202124] hover:bg-white/60'
               }`}
             >
               <FileSearch className="w-4 h-4 text-[#1a73e8]" />
-              <span>1. CVE Intake & Questioning</span>
+              <span>1. Vulnerability Analysis</span>
             </button>
 
             {/* Tab 2: Docker Containers (Side-by-Side) */}
@@ -221,34 +230,34 @@ export default function MissionControlPage() {
           </div>
         </div>
 
-        {/* Tab 1 Content: Intake & Blog Questioning */}
-        {activeTab === 'intake' && (
-          <IntakeTab
+        {/* Tab 1 Content: Vulnerability Analysis (Kept in DOM to preserve all user input & state) */}
+        <div className={activeTab === 'vulnerability' ? 'block' : 'hidden'}>
+          <VulnerabilityAnalysisTab
             onStartInvestigation={handleStartInvestigation}
             isLoading={isLoadingInvestigation}
             selectedModel={selectedModel}
             onScriptGenerated={handleScriptGenerated}
             onSwitchToDockerTab={() => setActiveTab('docker')}
           />
-        )}
+        </div>
 
         {/* Tab 2 Content: Docker Sandbox Output Side-by-Side & Script Stream */}
-        {activeTab === 'docker' && (
+        <div className={activeTab === 'docker' ? 'block' : 'hidden'}>
           <DockerSandboxTab
             investigation={activeInvestigation}
             manualScript={manualScript}
             selectedModel={selectedModel}
             onSwitchToReportsTab={() => setActiveTab('reports')}
           />
-        )}
+        </div>
 
         {/* Tab 3 Content: Reports Master-Detail View */}
-        {activeTab === 'reports' && (
+        <div className={activeTab === 'reports' ? 'block' : 'hidden'}>
           <ReportsTab
             activeReportMarkdown={activeInvestigation?.report_markdown}
             activeInvestigationId={activeInvestigation?.id}
           />
-        )}
+        </div>
       </main>
 
       {/* Clean SOC Footer */}
