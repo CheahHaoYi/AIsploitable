@@ -1,0 +1,15 @@
+{
+  "name": "aisploitable-root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CyberTriage AI (AIsploitable) Root Runner",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "./start.sh",
+    "start:all": "./start.sh",
+    "lint": "npm --prefix frontend run lint",
+    "install:all": "pip install -r requirements.txt && npm --prefix frontend install",
+    "backend": "python3 -m backend.main"
+  }
+}

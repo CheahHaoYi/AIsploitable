@@ -6,6 +6,7 @@ from .config import settings
 from .rag.loader import loader
 from .api.models import router as models_router
 from .api.investigations import router as investigations_router
+from .api.reports import router as reports_router
 from .api.websocket import router as ws_router
 
 @asynccontextmanager
@@ -35,6 +36,7 @@ app.add_middleware(
 # Include API routers
 app.include_router(models_router)
 app.include_router(investigations_router)
+app.include_router(reports_router)
 app.include_router(ws_router)
 
 @app.get("/health")

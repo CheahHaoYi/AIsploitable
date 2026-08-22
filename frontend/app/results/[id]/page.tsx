@@ -7,7 +7,8 @@ import InvestigationTimeline from '@/components/InvestigationTimeline';
 import VulnerabilityCard from '@/components/VulnerabilityCard';
 import KnowledgePanel from '@/components/KnowledgePanel';
 import AttackGraph from '@/components/AttackGraph';
-import Terminal from '@/components/Terminal';
+import DualTerminal from '@/components/DualTerminal';
+import ScriptStreamViewer from '@/components/ScriptStreamViewer';
 import EvidencePanel from '@/components/EvidencePanel';
 import ReportViewer from '@/components/ReportViewer';
 import { ModelInfo, Investigation, StageType } from '@/lib/types';
@@ -73,6 +74,16 @@ export default function ResultDetailPage() {
           case 'PLAN':
             updated.attack_plan = data;
             break;
+          case 'SCRIPT':
+            updated.generated_script = data.script;
+            break;
+          case 'DOCKER_LOG':
+            if (data.container === 'attacker') {
+              updated.attacker_logs = (updated.attacker_logs || '') + (data.chunk || '');
+            } else if (data.container === 'victim') {
+              updated.victim_logs = (updated.victim_logs || '') + (data.chunk || '');
+            }
+            break;
           case 'TERMINAL':
             updated.terminal_output = (updated.terminal_output || '') + (data.chunk || '');
             break;
@@ -99,8 +110,13 @@ export default function ResultDetailPage() {
     };
   }, [id]);
 
+  const isExecuting =
+    investigation?.current_stage === 'SANDBOX' ||
+    investigation?.current_stage === 'EXECUTE' ||
+    investigation?.current_stage === 'GENERATE_SCRIPT';
+
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col font-sans">
       <Header
         models={models}
         selectedModel={selectedModel}
@@ -111,14 +127,14 @@ export default function ResultDetailPage() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => router.push('/')}
-            className="text-xs font-semibold px-3 py-1.5 rounded-xl border border-[#dadce0] hover:border-[#1a73e8] text-[#3c4043] flex items-center gap-1.5 transition-all"
+            className="text-xs font-semibold px-3 py-1.5 rounded-xl border border-[#dadce0] hover:border-[#1a73e8] text-[#3c4043] flex items-center gap-1.5 transition-all shadow-sm active:scale-95"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Mission Control</span>
           </button>
 
-          <div className="text-xs text-[#5f6368] font-mono">
-            Investigation ID: <strong className="text-[#202124]">{id}</strong>
+          <div className="text-xs text-[#5f6368] font-mono bg-[#f8f9fa] px-3 py-1 rounded-xl border border-[#dadce0]">
+            Session ID: <strong className="text-[#1a73e8]">{id}</strong>
           </div>
         </div>
 
@@ -139,29 +155,42 @@ export default function ResultDetailPage() {
               progress={investigation.progress}
             />
 
-            <AttackGraph
-              plan={investigation.attack_plan}
-              currentStage={investigation.current_stage}
+            {investigation.generated_script && (
+              <ScriptStreamViewer
+                script={investigation.generated_script}
+                isStreaming={investigation.current_stage === 'GENERATE_SCRIPT'}
+                modelUsed={investigation.model_used}
+              />
+            )}
+
+            {/* Side-by-Side Dual Container Terminals */}
+            <DualTerminal
+              attackerLogs={investigation.attacker_logs || ''}
+              victimLogs={investigation.victim_logs || ''}
+              compositeLogs={investigation.terminal_output}
+              isExecuting={isExecuting}
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <VulnerabilityCard vulnerability={investigation.vulnerability} />
-              <KnowledgePanel techniques={investigation.techniques} />
-            </div>
+            {investigation.attack_plan && (
+              <AttackGraph
+                plan={investigation.attack_plan}
+                currentStage={investigation.current_stage}
+              />
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Terminal
-                output={investigation.terminal_output}
-                isExecuting={
-                  investigation.current_stage === 'SANDBOX' ||
-                  investigation.current_stage === 'EXECUTE'
-                }
-              />
-              <EvidencePanel
-                evidenceEvents={investigation.evidence_events}
-                verification={investigation.verification}
-              />
+              {investigation.vulnerability && (
+                <VulnerabilityCard vulnerability={investigation.vulnerability} />
+              )}
+              {investigation.techniques && investigation.techniques.length > 0 && (
+                <KnowledgePanel techniques={investigation.techniques} />
+              )}
             </div>
+
+            <EvidencePanel
+              evidenceEvents={investigation.evidence_events}
+              verification={investigation.verification}
+            />
 
             <ReportViewer reportMarkdown={investigation.report_markdown} />
           </div>

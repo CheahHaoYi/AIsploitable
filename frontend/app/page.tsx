@@ -2,36 +2,29 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
-import IntakeForm from '../components/IntakeForm';
-import InvestigationTimeline from '../components/InvestigationTimeline';
-import VulnerabilityCard from '../components/VulnerabilityCard';
-import KnowledgePanel from '../components/KnowledgePanel';
-import AttackGraph from '../components/AttackGraph';
-import Terminal from '../components/Terminal';
-import EvidencePanel from '../components/EvidencePanel';
-import ReportViewer from '../components/ReportViewer';
-import DirectPromptView from '../components/DirectPromptView';
+import IntakeTab from '../components/IntakeTab';
+import DockerSandboxTab from '../components/DockerSandboxTab';
+import ReportsTab from '../components/ReportsTab';
 import { ModelInfo, Investigation, StageType } from '../lib/types';
-import { fetchModels, startInvestigation, sendDirectPrompt } from '../lib/api';
+import { fetchModels, startInvestigation } from '../lib/api';
 import { InvestigationWebSocket } from '../lib/websocket';
-import { ShieldCheck, Activity, Terminal as TerminalIcon, Sparkles } from 'lucide-react';
+import { FileSearch, Server, FileCheck2, Activity, Sparkles, Terminal } from 'lucide-react';
 
 export default function MissionControlPage() {
+  const [activeTab, setActiveTab] = useState<'intake' | 'docker' | 'reports'>('intake');
+
+  // Models State
   const [models, setModels] = useState<ModelInfo[]>([
-    { id: 'gemma4:e2b', name: 'gemma4:e2b', size: '5.1B', description: 'Gemma 4 e2b', is_default: true },
-    { id: 'gemma4:e4b', name: 'gemma4:e4b', size: '8.0B', description: 'Gemma 4 e4b', is_default: false },
+    { id: 'gemma4:e2b', name: 'gemma4:e2b', size: '5.1B', description: 'Gemma 4 e2b (Default)', is_default: true },
+    { id: 'gemma4:e4b', name: 'gemma4:e4b', size: '8.0B', description: 'Gemma 4 e4b (Deep Reasoning)', is_default: false },
   ]);
   const [selectedModel, setSelectedModel] = useState<string>('gemma4:e2b');
   const [isLoadingModels, setIsLoadingModels] = useState<boolean>(false);
 
-  // Investigation State
+  // Investigation & Execution State
   const [activeInvestigation, setActiveInvestigation] = useState<Investigation | null>(null);
   const [isLoadingInvestigation, setIsLoadingInvestigation] = useState<boolean>(false);
-
-  // Direct Prompt State
-  const [directPromptResponse, setDirectPromptResponse] = useState<string>('');
-  const [isDirectPromptActive, setIsDirectPromptActive] = useState<boolean>(false);
-  const [isDirectStreaming, setIsDirectStreaming] = useState<boolean>(false);
+  const [manualScript, setManualScript] = useState<string>('');
 
   const wsRef = useRef<InvestigationWebSocket | null>(null);
 
@@ -65,10 +58,10 @@ export default function MissionControlPage() {
     };
   }, []);
 
-  // Handle Starting Investigation
+  // Handle Starting Autonomous Investigation
   const handleStartInvestigation = async (inputText: string, sourceUrl?: string) => {
     setIsLoadingInvestigation(true);
-    setIsDirectPromptActive(false);
+    setActiveTab('docker'); // Automatically switch to Tab 2 to watch the live Docker containers!
 
     try {
       const newInv = await startInvestigation({
@@ -106,6 +99,16 @@ export default function MissionControlPage() {
             case 'PLAN':
               updated.attack_plan = data;
               break;
+            case 'SCRIPT':
+              updated.generated_script = data.script;
+              break;
+            case 'DOCKER_LOG':
+              if (data.container === 'attacker') {
+                updated.attacker_logs = (updated.attacker_logs || '') + (data.chunk || '');
+              } else if (data.container === 'victim') {
+                updated.victim_logs = (updated.victim_logs || '') + (data.chunk || '');
+              }
+              break;
             case 'TERMINAL':
               updated.terminal_output = (updated.terminal_output || '') + (data.chunk || '');
               break;
@@ -136,28 +139,20 @@ export default function MissionControlPage() {
     }
   };
 
-  // Handle Direct Prompt Routing
-  const handleDirectPrompt = async (promptText: string) => {
-    setIsDirectPromptActive(true);
-    setIsDirectStreaming(true);
-    setDirectPromptResponse('');
-
-    try {
-      const res = await sendDirectPrompt({
-        prompt: promptText,
-        model: selectedModel,
-      });
-      setDirectPromptResponse(res.response || 'No response returned from model.');
-    } catch (err: any) {
-      setDirectPromptResponse(`Error routing prompt to Ollama: ${err.message || err}`);
-    } finally {
-      setIsDirectStreaming(false);
-    }
+  const handleScriptGenerated = (script: string) => {
+    setManualScript(script);
+    setActiveTab('docker');
   };
 
+  const isExecuting =
+    isLoadingInvestigation ||
+    activeInvestigation?.current_stage === 'SANDBOX' ||
+    activeInvestigation?.current_stage === 'EXECUTE' ||
+    activeInvestigation?.current_stage === 'GENERATE_SCRIPT';
+
   return (
-    <div className="min-h-screen bg-white flex flex-col selection:bg-[#1a73e8] selection:text-white">
-      {/* Google-styled Header */}
+    <div className="min-h-screen bg-white flex flex-col selection:bg-[#1a73e8] selection:text-white font-sans">
+      {/* Top Navbar */}
       <Header
         models={models}
         selectedModel={selectedModel}
@@ -168,103 +163,107 @@ export default function MissionControlPage() {
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
-        {/* Hero Banner with Clean Google Aesthetic */}
-        <div className="border border-[#dadce0] rounded-2xl p-6 bg-gradient-to-r from-[#ffffff] via-[#f8f9fa] to-[#ffffff] shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-[#1a73e8] uppercase tracking-wider bg-[#e8f0fe] px-2.5 py-0.5 rounded-full">
-                  Autonomous Cyber Security Platform
-                </span>
-                <span className="text-xs text-[#5f6368] font-mono">MITRE ATT&CK + ATLAS</span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#202124] tracking-tight">
-                Vulnerability Triage & Verification Command Center
-              </h1>
-              <p className="text-sm text-[#5f6368] max-w-3xl leading-relaxed">
-                Ingest CVE advisories or incident telemetry. Gemma autonomous agents query local threat intelligence RAG, formulate attack hypotheses, execute isolated sandbox PoCs, and synthesize executive verification reports.
-              </p>
-            </div>
+        {/* Navigation 3-Tabs Bar */}
+        <div className="bg-[#f8f9fa] border border-[#dadce0] p-1.5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-2 shadow-sm">
+          <div className="flex items-center gap-1.5 w-full sm:w-auto">
+            {/* Tab 1: Intake & Blog Questioning */}
+            <button
+              onClick={() => setActiveTab('intake')}
+              className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                activeTab === 'intake'
+                  ? 'bg-white text-[#1a73e8] shadow-sm border border-[#dadce0]'
+                  : 'text-[#5f6368] hover:text-[#202124] hover:bg-white/60'
+              }`}
+            >
+              <FileSearch className="w-4 h-4 text-[#1a73e8]" />
+              <span>1. CVE Intake & Questioning</span>
+            </button>
 
-            <div className="flex items-center gap-2 self-start md:self-center">
-              <div className="bg-white border border-[#dadce0] rounded-xl px-3.5 py-2 text-xs shadow-sm">
-                <span className="text-[#5f6368] block font-medium">Target LLM:</span>
-                <span className="font-mono font-bold text-[#1a73e8]">{selectedModel}</span>
-              </div>
-            </div>
+            {/* Tab 2: Docker Containers (Side-by-Side) */}
+            <button
+              onClick={() => setActiveTab('docker')}
+              className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 relative ${
+                activeTab === 'docker'
+                  ? 'bg-white text-[#1a73e8] shadow-sm border border-[#dadce0]'
+                  : 'text-[#5f6368] hover:text-[#202124] hover:bg-white/60'
+              }`}
+            >
+              <Server className="w-4 h-4 text-[#34a853]" />
+              <span>2. Docker Sandbox (Side-by-Side)</span>
+              {isExecuting && (
+                <span className="w-2 h-2 rounded-full bg-[#1e8e3e] animate-ping absolute -top-1 -right-1"></span>
+              )}
+            </button>
+
+            {/* Tab 3: Reports Ledger */}
+            <button
+              onClick={() => setActiveTab('reports')}
+              className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                activeTab === 'reports'
+                  ? 'bg-white text-[#1a73e8] shadow-sm border border-[#dadce0]'
+                  : 'text-[#5f6368] hover:text-[#202124] hover:bg-white/60'
+              }`}
+            >
+              <FileCheck2 className="w-4 h-4 text-[#ea4335]" />
+              <span>3. Reports & Findings Hub</span>
+              {activeInvestigation?.report_markdown && (
+                <span className="w-2 h-2 rounded-full bg-[#34a853]"></span>
+              )}
+            </button>
+          </div>
+
+          {/* Quick SOC Status */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-white border border-[#dadce0] rounded-xl text-[11px] font-mono text-[#5f6368]">
+            <span className="flex items-center gap-1 font-semibold text-[#1a73e8]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Model: {selectedModel}</span>
+            </span>
           </div>
         </div>
 
-        {/* Input Intake Form */}
-        <IntakeForm
-          onSubmitInvestigation={handleStartInvestigation}
-          onSubmitDirectPrompt={handleDirectPrompt}
-          isLoading={isLoadingInvestigation}
-        />
-
-        {/* Direct Prompt View if triggered */}
-        {isDirectPromptActive && (
-          <DirectPromptView
-            model={selectedModel}
-            response={directPromptResponse}
-            isStreaming={isDirectStreaming}
-            onClose={() => setIsDirectPromptActive(false)}
+        {/* Tab 1 Content: Intake & Blog Questioning */}
+        {activeTab === 'intake' && (
+          <IntakeTab
+            onStartInvestigation={handleStartInvestigation}
+            isLoading={isLoadingInvestigation}
+            selectedModel={selectedModel}
+            onScriptGenerated={handleScriptGenerated}
+            onSwitchToDockerTab={() => setActiveTab('docker')}
           />
         )}
 
-        {/* Active Investigation Live Workspace */}
-        {activeInvestigation && (
-          <div className="space-y-6 pt-2">
-            {/* Timeline Stepper */}
-            <InvestigationTimeline
-              currentStage={activeInvestigation.current_stage}
-              progress={activeInvestigation.progress}
-            />
+        {/* Tab 2 Content: Docker Sandbox Output Side-by-Side & Script Stream */}
+        {activeTab === 'docker' && (
+          <DockerSandboxTab
+            investigation={activeInvestigation}
+            manualScript={manualScript}
+            selectedModel={selectedModel}
+            onSwitchToReportsTab={() => setActiveTab('reports')}
+          />
+        )}
 
-            {/* Attack Graph */}
-            <AttackGraph
-              plan={activeInvestigation.attack_plan}
-              currentStage={activeInvestigation.current_stage}
-            />
-
-            {/* Grid: Vulnerability Card + Threat Intel Knowledge Panel */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <VulnerabilityCard vulnerability={activeInvestigation.vulnerability} />
-              <KnowledgePanel techniques={activeInvestigation.techniques} />
-            </div>
-
-            {/* Grid: Live Sandbox Terminal + Evidence Inspector */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Terminal
-                output={activeInvestigation.terminal_output}
-                isExecuting={
-                  activeInvestigation.current_stage === 'SANDBOX' ||
-                  activeInvestigation.current_stage === 'EXECUTE'
-                }
-              />
-              <EvidencePanel
-                evidenceEvents={activeInvestigation.evidence_events}
-                verification={activeInvestigation.verification}
-              />
-            </div>
-
-            {/* Final Synthesized Report Viewer */}
-            <ReportViewer reportMarkdown={activeInvestigation.report_markdown} />
-          </div>
+        {/* Tab 3 Content: Reports Master-Detail View */}
+        {activeTab === 'reports' && (
+          <ReportsTab
+            activeReportMarkdown={activeInvestigation?.report_markdown}
+            activeInvestigationId={activeInvestigation?.id}
+          />
         )}
       </main>
 
-      {/* Clean Footer */}
-      <footer className="border-t border-[#dadce0] bg-[#f8f9fa] py-4 px-6 text-center text-xs text-[#5f6368]">
+      {/* Clean SOC Footer */}
+      <footer className="border-t border-[#dadce0] bg-[#f8f9fa] py-4 px-6 text-center text-xs text-[#5f6368] mt-12">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>CyberTriage AI (AIsploitable) — Local Security Verification</span>
+          <span>CyberTriage AI (AIsploitable) — Local Security Verification Platform</span>
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-[#1e8e3e]"></span>
-              <span>Ollama Connected</span>
+              <span>Local Gemma Connected</span>
             </span>
             <span>•</span>
-            <span>MITRE ATT&CK & ATLAS RAG</span>
+            <span>Docker Dual-Container Sandbox</span>
+            <span>•</span>
+            <span>MITRE ATT&CK / ATLAS RAG</span>
           </div>
         </div>
       </footer>

@@ -1,3 +1,218 @@
-# AIsploitable
-AI sploit
+# CyberTriage AI (AIsploitable)
+> **Autonomous Threat Intelligence & Evidence-Driven Empirical Sandbox Verification**
 
+CyberTriage AI is an autonomous, privacy-preserving cybersecurity triage and verification platform powered by local **Gemma** models (`gemma4:e2b` / `gemma4:e4b` via Ollama), offline **MITRE ATT&CK & ATLAS RAG** threat intelligence (755 indexed techniques), and isolated **Docker dual-sandbox execution** with real-time streaming telemetry.
+
+---
+
+## 🌟 Key Features
+
+- **3-Tab Mission Control UI**:
+  - **Tab 1: CVE Intake & Blog Questioning**: Echoes target CVE URLs safely without premature scraping, accepts raw cybersecurity blog/incident writeups, and supports real-time streaming Q&A with local Gemma models.
+  - **Tab 2: Docker Sandbox (Side-by-Side)**: Live real-time streaming of Gemma-synthesized Python PoC scripts and synchronized dual-container telemetry (`sandbox-attacker-node` at `172.20.0.2` vs `sandbox-victim-target` at `172.20.0.3:8080`), interactive attack graphs, and empirical verification assertions.
+  - **Tab 3: Reports & Findings Hub**: Master-detail ledger with search, severity filters (`CRITICAL`, `HIGH`, `MEDIUM`), verdict indicators, and full rendered executive Markdown reports with one-click export and copy.
+- **Local Gemma AI Agents**:
+  - **Analyzer Agent**: Extracts CVE identifiers, CVSS metrics, attack vectors, and exploit primitives.
+  - **Planner Agent**: Generates structured multi-step attack hypotheses mapped to MITRE tactics.
+  - **Script Generator Agent**: Synthesizes safe, deterministic Python PoC verification scripts in real-time.
+  - **Verifier & Reporter Agents**: Evaluates stdout/stderr evidence, exit codes, and generates executive reports.
+- **Offline Threat Intel RAG (755 Techniques)**:
+  - `590` MITRE ATT&CK Enterprise techniques across 10 tactic matrices.
+  - `165` MITRE ATLAS AI Security techniques across 4 adversarial ML categories.
+  - Sub-5ms in-memory token overlap, keyword matching, and Jaccard similarity scoring without external vector database dependencies.
+- **Deterministic Dual-Container Isolation**:
+  - Isolated Docker bridge network (`172.20.0.0/24`) with dropped raw socket capabilities (`CAP_NET_RAW` dropped).
+  - Eliminates localhost loopback false positives by enforcing true network separation between attacker and victim.
+
+---
+
+## 🏗️ System Architecture
+
+```text
+                                [ User / SOC Analyst ]
+                                          │
+                                          ▼
+                      ┌────────────────────────────────────────┐
+                      │    Next.js 15 Mission Control UI       │
+                      │  (Tab 1: Intake | Tab 2: Docker |      │
+                      │   Tab 3: Security Reports Hub)         │
+                      └───────────────────┬────────────────────┘
+                                          │  REST / WebSocket (ws://)
+                                          ▼
+                      ┌────────────────────────────────────────┐
+                      │        FastAPI Backend Engine          │
+                      │   (Lifespan Pre-warm & API Routers)    │
+                      └───────────────────┬────────────────────┘
+                                          │
+                  ┌───────────────────────┴───────────────────────┐
+                  ▼                                               ▼
+   ┌─────────────────────────────┐                 ┌─────────────────────────────┐
+   │    Local Gemma (Ollama)     │                 │   Threat Intel RAG Store    │
+   │  - Analyzer & Planner       │                 │  - 590 MITRE ATT&CK Techs   │
+   │  - PoC Script Synthesizer   │                 │  - 165 MITRE ATLAS Techs    │
+   │  - Verifier & Reporter      │                 │  - In-Memory Inverted Index │
+   └──────────────┬──────────────┘                 └──────────────┬──────────────┘
+                  │                                               │
+                  └───────────────────────┬───────────────────────┘
+                                          │
+                                          ▼
+                      ┌────────────────────────────────────────┐
+                      │      Docker Dual-Container Sandbox     │
+                      │  ┌──────────────────┐ ┌──────────────┐ │
+                      │  │ Attacker Node    │ │ Victim Node  │ │
+                      │  │ (172.20.0.2)     │ │ (172.20.0.3) │ │
+                      │  │ PoC Script Agent │ │ Target App   │ │
+                      │  └────────┬─────────┘ └──────┬───────┘ │
+                      │           └─────────┬────────┘         │
+                      │                     ▼                  │
+                      │         Live Telemetry Streamer        │
+                      └────────────────────────────────────────┘
+```
+
+---
+
+## 📁 Repository Structure
+
+```text
+AIsploitable/
+├── package.json            # Root runner (delegates npm commands to frontend)
+├── requirements.txt        # Python backend dependencies
+├── README.md               # Master project overview and execution guide
+├── PRD.md                  # Comprehensive product requirements & architecture spec
+├── backend/                # FastAPI backend & autonomous agent orchestration
+│   ├── README.md           # Backend API documentation, models, and latency metrics
+│   ├── main.py             # FastAPI entrypoint, lifespan, CORS, and routers
+│   ├── config.py           # Application settings & Ollama configurations
+│   ├── api/                # REST & WebSocket endpoints (models, investigations, reports, ws)
+│   ├── agents/             # Gemma agent implementations (analyzer, planner, generator, etc.)
+│   ├── rag/                # Threat intelligence loader & semantic hybrid retriever
+│   ├── sandbox/            # Dual-container Docker sandbox manager & telemetry streamer
+│   ├── prompts/            # Tuned system prompt templates for Gemma models
+│   └── models/             # Pydantic schemas for state, evidence, and investigations
+├── frontend/               # Next.js 15 (App Router) + React 19 + TailwindCSS
+│   ├── package.json        # Frontend dependencies & Next.js scripts
+│   ├── README.md           # Frontend layout, 3-tab architecture, and component inventory
+│   ├── app/                # App Router pages (page.tsx, results/[id], layout.tsx)
+│   ├── components/         # IntakeTab, DockerSandboxTab, ReportsTab, DualTerminal, etc.
+│   └── lib/                # API client, WebSocket manager, and TypeScript definitions
+├── data/                   # MITRE Threat Intelligence repository
+│   ├── README.md           # Threat intelligence statistics (590 ATT&CK + 165 ATLAS)
+│   ├── attack/             # 10 MITRE ATT&CK enterprise tactic datasets (JSON)
+│   └── atlas/              # 4 MITRE ATLAS AI security tactic datasets (JSON)
+└── presentation/           # Hackathon pitch deck, demo script, and judge FAQ
+    ├── README.md           # Presentation choreography and judge defense FAQ
+    └── PROMPT.md           # Presentation guidelines
+```
+
+---
+
+## 🚀 How to Get It Running
+
+### 1. Prerequisites
+Ensure you have the following installed on your machine:
+- **Python 3.10+**
+- **Node.js 18+ & npm**
+- **Docker** (daemon running)
+- **Ollama** installed and running with a Gemma model:
+  ```bash
+  # Start Ollama service (if not already running)
+  ollama serve
+
+  # Pull Gemma model (e.g. gemma4:e2b or gemma2:2b)
+  ollama pull gemma4:e2b
+  ```
+
+---
+
+### 2. Single-Command Quick Start (From Project Root)
+
+You can launch both the backend and frontend simultaneously with a single command:
+
+```bash
+# In project root: /home/haoyi/projects/AIsploitable
+./start.sh
+```
+*(Or run `npm start`)*
+
+This starts:
+- 🛡️ **FastAPI Backend**: `http://localhost:8000` (Docs: `http://localhost:8000/docs`)
+- 💻 **Next.js Frontend**: `http://localhost:3000`
+
+---
+
+### 3. Running Services Individually (Alternative)
+
+#### Terminal 1 — Start the Backend Server (Port 8000)
+```bash
+pip install -r requirements.txt
+python3 -m backend.main
+```
+
+#### Terminal 2 — Start the Next.js Frontend (Port 3000)
+```bash
+npm run dev
+```
+*(Or `cd frontend && npm run dev`)*
+
+Open your browser at:
+```text
+http://localhost:3000
+```
+
+---
+
+### 3. Build & Test Commands
+
+| Task | Command (from Root) | Alternative (from Subdirectory) |
+| :--- | :--- | :--- |
+| **Install Python Deps** | `pip install -r requirements.txt` | `cd backend && pip install -r ../requirements.txt` |
+| **Install Frontend Deps**| `npm --prefix frontend install` | `cd frontend && npm install` |
+| **Start Backend** | `python3 -m backend.main` | `python3 -m backend.main` |
+| **Start Frontend Dev** | `npm run dev` | `cd frontend && npm run dev` |
+| **Build Frontend** | `npm run build` | `cd frontend && npm run build` |
+| **Verify Backend** | `python3 -c "import backend.main; print('OK')"` | `python3 -c "import backend.main; print('OK')"` |
+
+---
+
+## 🎬 Step-by-Step Live Demo Walkthrough
+
+Once both servers are running, follow this 3-minute interactive workflow:
+
+### Step 1 — Intake & Gemma Q&A (Tab 1)
+1. In **Tab 1 ("1. CVE Intake & Questioning")**, click on the **Log4Shell (`CVE-2021-44228`)** preset scenario (or paste any security blog text).
+2. Notice how the CVE Link preview card safely echoes the target URL.
+3. In the *"Ask Local Gemma"* box, ask: `"What are the exploit primitives and mitigation steps?"` and click **"Ask Gemma"** to see real-time streaming insights.
+4. Click **"Stream PoC Script with Gemma"** or **"Launch Autonomous Verification"**.
+
+### Step 2 — Side-by-Side Docker Containers (Tab 2)
+1. The UI automatically transitions to **Tab 2 ("2. Docker Sandbox (Side-by-Side)")**.
+2. Watch the **PoC Verification Script** stream live into the code viewer.
+3. Observe the side-by-side terminal consoles:
+   - **Left Pane (`sandbox-attacker-node` at `172.20.0.2`)**: Transmits the synthesized payload and verifies assertions.
+   - **Right Pane (`sandbox-victim-target` at `172.20.0.3:8080`)**: Logs the incoming connection, JNDI lookup, and daemon response.
+4. Review the **Investigation Timeline**, visual **Attack Graph**, and **Evidence Events**.
+
+### Step 3 — Reports & Findings Hub (Tab 3)
+1. Switch to **Tab 3 ("3. Reports & Findings Hub")** (or click *"View Generated Report"*).
+2. Browse through the report ledger with severity badges (`CRITICAL`, `HIGH`, `MEDIUM`) and verdicts (`CONFIRMED VULNERABLE`).
+3. Read the synthesized executive report complete with CVSS vectors, MITRE ATT&CK mappings, and remediation guidance.
+4. Click **"Copy"** or **"Download MD"** to export the markdown report.
+
+---
+
+## 🛡️ Key Technical Differentiators
+
+| Capability | Standard Triage / LLM Scrapers | CyberTriage AI (AIsploitable) |
+| :--- | :--- | :--- |
+| **Privacy & Compliance** | Sends code & zero-days to cloud APIs | **100% Local Gemma via Ollama (Air-gapped ready)** |
+| **Threat Intelligence** | Generic hallucinated MITRE mappings | **755 Indexed ATT&CK + ATLAS Techniques (Offline RAG)** |
+| **Verification Method** | Theoretical LLM assertion | **Deterministic Dual-Container Docker Sandbox** |
+| **Network Realism** | Single localhost loopback | **Dual-node bridge isolation (`172.20.0.2` ➔ `172.20.0.3`)** |
+| **Interface** | Basic single-prompt chat | **3-Tab Mission Control with Side-by-Side Terminals** |
+| **Speed** | Slow multi-step manual reproduction | **Automated end-to-end triage in < 15 seconds** |
+
+---
+
+## 👥 Contributors & Hackathon Team
+- **Project**: CyberTriage AI (`AIsploitable`)
+- **Engine**: Gemma 4 e2b / e4b + FastAPI + Next.js 15

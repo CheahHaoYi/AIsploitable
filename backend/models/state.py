@@ -13,6 +13,7 @@ class InvestigationStage(str, Enum):
     ANALYZE = "ANALYZE"
     RETRIEVE = "RETRIEVE"
     PLAN = "PLAN"
+    GENERATE_SCRIPT = "GENERATE_SCRIPT"
     SANDBOX = "SANDBOX"
     EXECUTE = "EXECUTE"
     VERIFY = "VERIFY"
@@ -37,7 +38,10 @@ class Investigation(BaseModel):
     vulnerability: Optional[Vulnerability] = None
     techniques: List[Technique] = Field(default_factory=list)
     attack_plan: Optional[AttackPlan] = None
+    generated_script: Optional[str] = None
     terminal_output: str = ""
+    attacker_logs: str = ""
+    victim_logs: str = ""
     evidence_events: List[EvidenceEvent] = Field(default_factory=list)
     verification: Optional[VerificationResult] = None
     report_markdown: Optional[str] = None
@@ -55,3 +59,29 @@ class ModelInfo(BaseModel):
     size: Optional[str] = None
     description: Optional[str] = None
     is_default: bool = False
+
+class ReportSummary(BaseModel):
+    id: str
+    cve_id: Optional[str] = None
+    title: str
+    severity: str = "HIGH"
+    cvss_score: float = 7.5
+    verdict: str = "CONFIRMED VULNERABLE"
+    confidence_score: float = 0.95
+    created_at: str
+    model_used: str = "gemma4:e2b"
+    summary: str = ""
+    report_markdown: str = ""
+
+class BlogQuestionRequest(BaseModel):
+    blog_text: str
+    question: str
+    cve_url: Optional[str] = None
+    model: Optional[str] = "gemma4:e2b"
+
+class ScriptGenerateRequest(BaseModel):
+    cve_id: Optional[str] = None
+    title: Optional[str] = None
+    description: str
+    target_environment: Optional[str] = "Debian 12 Target Container"
+    model: Optional[str] = "gemma4:e2b"
