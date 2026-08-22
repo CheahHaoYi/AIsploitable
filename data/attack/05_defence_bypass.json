@@ -1,0 +1,757 @@
+[
+  {
+    "technique_id": "L5.1.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Process Injection > Injecting through the LD_PRELOAD process",
+    "description": "LD_PRELOAD is a Linux environment variable that forces the dynamic linker to load specified shared libraries before all others. Attackers can set it to load a malicious .so file, hooking and replacing legitimate library functions to alter program behavior. Effective only against dynamically linked binaries.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Container"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Monitor LD_PRELOAD environment variable for unexpected values",
+      "Check /etc/ld.so.preload for unauthorized entries",
+      "Use process memory mapping audits (cat /proc/[pid]/maps) to detect injected .so files"
+    ],
+    "detection_opportunities": [
+      "Unexpected LD_PRELOAD environment variable set on processes",
+      "Malicious .so files in /etc/ld.so.preload",
+      "Anomalous shared library mappings in /proc/[pid]/maps"
+    ],
+    "exploit_primitives": [
+      "Process Injection"
+    ],
+    "code_examples_patterns": [
+      "Export LD_PRELOAD=/path/to/malicious.so and execute target binary"
+    ],
+    "related_tools": [],
+    "url": "https://www.anquanke.com/post/id/91318",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.1.1.2",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Process Injection > Injecting Data Using the ptrace Process",
+    "description": "The ptrace system call allows a process to attach to another process, read/write its registers and memory, and inject code. When /proc/sys/kernel/yama/ptrace_scope is set to 0 (classic mode), any process can ptrace another process with the same UID, enabling dynamic code injection via compiled .so payloads.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Container"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Set /proc/sys/kernel/yama/ptrace_scope to 1, 2, or 3 to restrict ptrace access",
+      "Monitor for unexpected PTRACE_ATTACH syscalls"
+    ],
+    "detection_opportunities": [
+      "Unexpected ptrace attach events on critical processes",
+      "ptrace_scope set to 0 (classic unrestricted mode)",
+      "Anomalous .so library injection into running processes"
+    ],
+    "exploit_primitives": [
+      "Process Injection"
+    ],
+    "code_examples_patterns": [
+      "Use ptrace(PTRACE_ATTACH, pid) to attach and inject code into target process",
+      "Use injector <pid> <libpath> to inject compiled .so payload into target"
+    ],
+    "related_tools": [
+      "kubo/injector"
+    ],
+    "url": "https://man7.org/linux/man-pages/man2/ptrace.2.html",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.2.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "File System Isolation Bypass > chroot bypass",
+    "description": "Attackers can escape chroot file system isolation by exploiting unisolated network sockets, file descriptors opened before chroot, or named pipes that reference paths outside the jail.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Use namespaces and containers instead of chroot for isolation",
+      "Close all file descriptors before entering chroot",
+      "Audit network socket bindings within chroot environments"
+    ],
+    "detection_opportunities": [
+      "Processes accessing paths outside chroot root",
+      "Unexpected network connections from chrooted processes"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Exploit pre-chroot file descriptors or network sockets to escape chroot jail"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Non-Executable Bypass > Noexec mounting option bypass",
+    "description": "Attackers bypass the noexec mount option by using ld.so to load non-executable shared libraries, using source/. commands to execute non-executable scripts, or using mmap to create anonymous RWX memory mappings and copying payload content into them.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Combine noexec with nosuid and nodev mount options",
+      "Monitor for mmap calls with PROT_EXEC flag",
+      "Restrict ld.so preload capabilities"
+    ],
+    "detection_opportunities": [
+      "mmap calls requesting RWX (PROT_READ|PROT_WRITE|PROT_EXEC) memory",
+      "Execution of scripts from noexec-mounted filesystems via source command"
+    ],
+    "exploit_primitives": [
+      "Process Injection"
+    ],
+    "code_examples_patterns": [
+      "Use mmap with PROT_READ|PROT_WRITE|PROT_EXEC to map RWX memory bypassing noexec",
+      "Use ld.so to load and execute .so files without executable permission bit"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.2.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "System Call Restriction Bypass > Bypassing the Seccomp Filter Blocklist",
+    "description": "Under specific CPU/kernel configurations, 64-bit programs can invoke 32-bit syscalls to bypass seccomp filters that only block 64-bit variants. Additionally, incomplete blocklists (e.g., blocking mprotect but not mmap) allow attackers to use unrestricted syscalls to achieve the same effect.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Apply seccomp filters for both 32-bit and 64-bit syscall tables",
+      "Use allowlist-based seccomp profiles instead of blocklists",
+      "Restrict both mprotect and mmap with PROT_EXEC"
+    ],
+    "detection_opportunities": [
+      "32-bit syscalls invoked from 64-bit processes",
+      "mmap calls with RWX permissions in seccomp-restricted environments"
+    ],
+    "exploit_primitives": [
+      "Process Injection"
+    ],
+    "code_examples_patterns": [
+      "Invoke 32-bit syscalls from 64-bit process to bypass seccomp filter blocklist",
+      "Use mmap with RWX flags when mprotect is blocked by seccomp"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.3.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Address Randomization Bypass > ASLR bypass",
+    "description": "ASLR can be bypassed through weak randomness (insufficient entropy below 20 bits allows brute-force or address spraying) or through information leakage vulnerabilities that expose memory addresses, defeating the randomization entirely.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Ensure full ASLR entropy (at least 28-29 bits on 64-bit systems)",
+      "Patch information disclosure vulnerabilities promptly",
+      "Enable hardlink and RELRO protections"
+    ],
+    "detection_opportunities": [
+      "Repeated exploit attempts suggesting address spraying",
+      "Memory information leakage via vulnerable syscalls or application bugs"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Perform address spraying or exploit info leak to bypass ASLR randomization"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.4.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "CFI Bypass > CFI Bypass",
+    "description": "Control Flow Integrity (CFI) can be bypassed by exploiting edge cases in the CFI implementation, such as fine-grained vs coarse-grained checking gaps, allowing attackers to redirect execution flow and achieve arbitrary code execution.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Use fine-grained CFI implementations",
+      "Combine CFI with other mitigations (ASLR, DEP, stack canaries)"
+    ],
+    "detection_opportunities": [
+      "Unexpected indirect branch targets in CFI-protected processes",
+      "Control flow violations logged by CFI enforcement mechanisms"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Exploit CFI edge cases to redirect control flow and achieve code execution"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.5.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Shadow Call Stack Bypass > Shadow Call Stack Bypass",
+    "description": "The Shadow Call Stack Guard (RFG) can be bypassed by simultaneously modifying both the function return address on the normal stack and the corresponding entry on the shadow call stack, allowing arbitrary code execution despite RFG protection.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Keep RFG/Shadow Stack implementations updated with latest patches",
+      "Combine shadow stack with CFI and other control-flow protections"
+    ],
+    "detection_opportunities": [
+      "Shadow stack mismatch exceptions",
+      "Simultaneous stack and shadow stack modifications in exploit attempts"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Simultaneously modify return address and Shadow Call Stack to bypass RFG"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.3.6.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Version Downgrade Attack > Version Downgrade Attack",
+    "description": "Attackers downgrade system tools, command interpreters, or script engines to older, vulnerable versions, then exploit known vulnerabilities in those versions to carry out attacks. Maps to MITRE T1562.010 (Disable or Modify Software Protection).",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Remove outdated and unnecessary tools from the environment",
+      "Implement package integrity verification and version pinning",
+      "Monitor for unexpected version changes of system binaries"
+    ],
+    "detection_opportunities": [
+      "Unexpected version downgrade of system interpreters or tools",
+      "Hash mismatch of system binaries compared to known-good baselines"
+    ],
+    "exploit_primitives": [
+      "Masquerading"
+    ],
+    "code_examples_patterns": [
+      "Replace system interpreter with vulnerable older version to exploit known CVEs"
+    ],
+    "related_tools": [],
+    "url": "https://attack.mitre.org/techniques/T1562/010/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.4.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Signature Verification Bypass > Compatibility Bypass",
+    "description": "Products that check version numbers before signature verification may skip verification for older versions that did not support signing. Attackers modify the version number field to a lower value, causing the verification step to be bypassed entirely.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Enforce signature verification regardless of version number",
+      "Implement monotonic version enforcement to prevent downgrades"
+    ],
+    "detection_opportunities": [
+      "Version number field modified to an older value",
+      "Signature verification skipped for packages with downgraded version fields"
+    ],
+    "exploit_primitives": [
+      "Code Signing Spoofing",
+      "Masquerading"
+    ],
+    "code_examples_patterns": [
+      "Modify version number field to a lower value to skip signature verification"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.4.1.2",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Signature Verification Bypass > Forgery of Private Key Signature",
+    "description": "If a private key is pre-installed or embedded in a product, an attacker can extract it and use it to sign arbitrary malicious files, bypassing all integrity and signature verification mechanisms.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Never embed private keys in products; use hardware-backed key storage (TPM/HSM)",
+      "Implement key attestation to detect key extraction"
+    ],
+    "detection_opportunities": [
+      "Unexpected signing operations using embedded private keys",
+      "Multiple artifacts signed with the same private key in short timeframes"
+    ],
+    "exploit_primitives": [
+      "Encryption",
+      "Code Signing Spoofing"
+    ],
+    "code_examples_patterns": [
+      "Extract pre-installed private key and sign malicious payloads with it"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.4.1.3",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Signature Verification Bypass > Verification Logic Bypass",
+    "description": "Attackers bypass signature verification by exploiting logic flaws: (1) accessing the installation interface directly without going through the verification interface, or (2) appending malicious data after the verified portion of a package (verified length A, actual length A+B), or (3) exploiting compatibility scenarios where patch packages skip verification.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Ensure verification and installation use the same data source atomically",
+      "Verify the entire package length, not just a prefix",
+      "Enforce signature verification for all package types including patches"
+    ],
+    "detection_opportunities": [
+      "Package size mismatch between verified and installed data",
+      "Installation interface accessed without prior verification step"
+    ],
+    "exploit_primitives": [
+      "Code Signing Spoofing"
+    ],
+    "code_examples_patterns": [
+      "Append malicious data after verified portion of package (verified length A, delivered A+B)"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.4.1.4",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Signature Verification Bypass > OTP Write Protection Not Implemented",
+    "description": "Devices store the hash of a public key certificate in OTP (one-time programmable) memory for boot-time verification. If OTP write protection is not enabled, an attacker can replace the device public key with their own and rewrite the OTP hash to match, then sign and load arbitrary malicious firmware.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Enable OTP write protection (fuse blowing) immediately after initial provisioning",
+      "Implement tamper-evident packaging for OTP programming stage"
+    ],
+    "detection_opportunities": [
+      "OTP hash value does not match expected public key certificate",
+      "Unexpected public key certificate on device compared to manufacturing baseline"
+    ],
+    "exploit_primitives": [
+      "Encryption",
+      "Code Signing Spoofing"
+    ],
+    "code_examples_patterns": [
+      "Rewrite OTP hash value before write protection is enabled to inject attacker public key"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.4.1.5",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Signature Verification Bypass > Missing Software Integrity Verification for Secure Boot",
+    "description": "Devices without secure boot support often skip both TPM-based certificate validation and runtime software signature verification. This allows unsigned and unverified malicious software to load and execute at runtime without any integrity checks.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Enforce software signature verification even on boards without secure boot",
+      "Implement runtime attestation to verify loaded software integrity"
+    ],
+    "detection_opportunities": [
+      "Unsigned software loaded on devices that should enforce signature verification",
+      "Missing secure boot verification steps in boot log"
+    ],
+    "exploit_primitives": [
+      "Code Signing Spoofing"
+    ],
+    "code_examples_patterns": [
+      "Exploit missing secure boot verification to load unsigned malicious firmware"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L5.5.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Using Files to Bypass > HTML Smuggling",
+    "description": "Attackers hide malicious payloads within seemingly benign HTML files using JavaScript Blobs and the HTML5 download attribute to smuggle data past content filters and security controls. Maps to MITRE T1027.006.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Browser"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Deploy advanced web gateways that decode and inspect HTML/JavaScript content",
+      "Enable script block logging and AMSI for client-side detection",
+      "Block or sandbox HTML files with embedded JavaScript Blobs"
+    ],
+    "detection_opportunities": [
+      "HTML files containing JavaScript Blob creation with binary data",
+      "Unexpected HTML5 download attribute usage triggering file downloads",
+      "Obfuscated JavaScript within HTML payload delivery mechanisms"
+    ],
+    "exploit_primitives": [
+      "Obfuscation",
+      "Encoding"
+    ],
+    "code_examples_patterns": [
+      "Embed payload in HTML using JavaScript Blobs and HTML5 download attribute"
+    ],
+    "related_tools": [],
+    "url": "https://attack.mitre.org/techniques/T1027/006/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.1.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Log Cleanup > Deleting Container and Host Machine Logs",
+    "description": "After obtaining write permissions for system and service logs within containers and on the host, attackers delete or modify log entries to erase evidence of their activities and evade detection.",
+    "attack_complexity": "Low",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Restrict write permissions on log files",
+      "Implement real-time log forwarding to a remote SIEM",
+      "Use immutable log storage (append-only)"
+    ],
+    "detection_opportunities": [
+      "Sudden gaps in log timelines",
+      "Log file deletion or truncation events",
+      "wevtutil cl (clear log) command execution"
+    ],
+    "exploit_primitives": [
+      "Indicator Removal",
+      "File Deletion",
+      "Log Clearing"
+    ],
+    "code_examples_patterns": [
+      "Delete EventLog entries: wevtutil cl Security",
+      "Remove container log files: rm -rf /var/log/containers/*"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.1.1.2",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Log Cleanup > Kubernetes Audit Log Cleanup",
+    "description": "Attackers conceal K8s cluster operations by clearing local audit log files and severing log upload channels (uninstalling collection agents or blocking network paths to log services), making their activities invisible to security monitoring.",
+    "attack_complexity": "Low",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Container",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Generate alerts when log collection fails or agents go offline",
+      "Forward Kubernetes audit logs to external immutable storage in real time",
+      "Restrict agent uninstallation permissions"
+    ],
+    "detection_opportunities": [
+      "Kubernetes audit log collection agent goes offline unexpectedly",
+      "Network connectivity to log collection endpoints is blocked",
+      "Audit log files cleared or truncated on API Server nodes"
+    ],
+    "exploit_primitives": [
+      "Indicator Removal",
+      "Log Clearing"
+    ],
+    "code_examples_patterns": [
+      "Clear Kubernetes audit logs and disconnect log collection agents",
+      "Block network path to log collection service to prevent log upload"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.1.2.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Log Service Attack > Creating Extra Long Annotations to Parse Logs Fails",
+    "description": "Attackers create Kubernetes resources with excessively long annotation fields that trigger log parsing truncation in collection agents. The truncated logs cause sensitive attack data to be cut off, allowing malicious operations to bypass audit rules and evade intrusion detection.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Implement proper field length handling in log parsers without silent truncation",
+      "Alert on annotation fields exceeding expected length thresholds",
+      "Validate log completeness at ingestion time"
+    ],
+    "detection_opportunities": [
+      "Kubernetes annotations with abnormally long field values",
+      "Log parsing errors or truncation warnings in collection agents",
+      "Audit log entries with missing or truncated fields"
+    ],
+    "exploit_primitives": [
+      "Obfuscation"
+    ],
+    "code_examples_patterns": [
+      "Create extra-long annotations to trigger log truncation and bypass audit rules"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.2.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Concealment During Access > Accessing the K8s API Server via Proxy or Anonymous Network",
+    "description": "Attackers route Kubernetes API Server requests through proxies or anonymous networks (e.g., Tor) to obscure their true source IP address, making attack attribution and source tracing significantly more difficult.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Enforce mTLS authentication for all API Server connections",
+      "Implement network-level access controls and IP allowlisting",
+      "Deploy API Server audit logging with connection metadata"
+    ],
+    "detection_opportunities": [
+      "API Server requests originating from known proxy or Tor exit node IPs",
+      "Anonymous or unauthenticated API Server access attempts"
+    ],
+    "exploit_primitives": [
+      "Obfuscation"
+    ],
+    "code_examples_patterns": [
+      "Route K8s API requests through proxy or anonymous network to hide attack source"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.2.2.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Concealment During Operation > Using System Pods to Masquerade",
+    "description": "Attackers create pods with names similar to legitimate K8s built-in system pods, or embed backdoor code within common system pods, achieving covert and persistent access that blends in with normal cluster operations.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Restrict kubectl execution permissions and separate from application users",
+      "Implement pod admission controllers with name validation",
+      "Maintain an inventory of expected system pods and alert on deviations"
+    ],
+    "detection_opportunities": [
+      "Pods with names similar to but not matching known system pods",
+      "Unexpected pods in system namespaces (kube-system, kube-public)",
+      "Pod image hash mismatch for supposed system pods"
+    ],
+    "exploit_primitives": [
+      "Masquerading"
+    ],
+    "code_examples_patterns": [
+      "Create pods with names similar to built-in K8s system pods for concealment"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.2.2.2",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Concealment During Operation > Creating a Shadow API Server",
+    "description": "Attackers replicate the native K8s API Server configuration with modified parameters (disabled authentication, anonymous access, HTTP instead of HTTPS) to create a shadow API Server. This provides direct anonymous access to etcd data while making subsequent activities invisible in official audit logs.",
+    "attack_complexity": "High",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Restrict kubectl and API Server binary execution permissions",
+      "Monitor for unauthorized API Server process instances",
+      "Implement network policies to prevent rogue API Server endpoints"
+    ],
+    "detection_opportunities": [
+      "Multiple API Server processes running on the cluster",
+      "API Server instances with authentication disabled or using HTTP",
+      "Pods providing API-like services outside the control plane namespace"
+    ],
+    "exploit_primitives": [
+      "Masquerading",
+      "Indicator Removal"
+    ],
+    "code_examples_patterns": [
+      "Replicate API Server config with auth disabled to create anonymous shadow API"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.2.2.3",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Concealment During Operation > Hidden Files and Processes",
+    "description": "Attackers conceal malicious activities by hiding processes and files involved in illegal operations, using techniques such as hidden file naming conventions, process name spoofing, and in-memory execution to avoid detection.",
+    "attack_complexity": "Low",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Apply latest security patches and harden device security configurations",
+      "Use file integrity monitoring (FIM) to detect hidden file creation",
+      "Monitor for process name spoofing and in-memory execution"
+    ],
+    "detection_opportunities": [
+      "Files with hidden naming conventions (dotfiles, Unicode tricks)",
+      "Processes with names mimicking legitimate system processes",
+      "In-memory execution without corresponding disk artifacts"
+    ],
+    "exploit_primitives": [
+      "Obfuscation",
+      "Masquerading"
+    ],
+    "code_examples_patterns": [
+      "Use hidden file prefixes and process name spoofing to conceal malicious artifacts"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C5.3.1.1",
+    "tactic_id": "TA0005",
+    "tactic_name": "Defense Evasion",
+    "technique_name": "Remove Antivirus Software Components > Clean Up Security Product Agent",
+    "description": "After gaining cluster management permissions or escaping to the host, attackers remove security product probes and agents, compromising log integrity and making subsequent attack behaviors invisible to auditing and detection tools.",
+    "attack_complexity": "Low",
+    "privileges_required": "Elevated",
+    "execution_context": [
+      "Linux",
+      "Cloud",
+      "Container",
+      "Kubernetes"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Run security agents as daemon processes under high-privilege system accounts",
+      "Generate immediate alerts when security agents go offline",
+      "Implement agent health monitoring with redundant heartbeat mechanisms"
+    ],
+    "detection_opportunities": [
+      "Security agent process terminated unexpectedly",
+      "Agent heartbeat/telemetry stops arriving at management console",
+      "Security product binaries or configuration files deleted from disk"
+    ],
+    "exploit_primitives": [
+      "Indicator Removal",
+      "File Deletion"
+    ],
+    "code_examples_patterns": [
+      "Kill security agent daemon processes and remove their file system artifacts"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  }
+]

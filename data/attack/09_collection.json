@@ -1,0 +1,1373 @@
+[
+  {
+    "technique_id": "L9.1 Google hacking",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.1.1 Using the Google Search Engine > L9.1.1.1 The techniques and behaviors of using Google search engine to search for information in order to carry out an intrusion.",
+    "description": "Using search engines such as Google to identify potential security risks and vulnerable points on the internet",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Search Engine Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Use dork queries like site:target.com filetype:pdf to find sensitive documents"
+    ],
+    "related_tools": [
+      "Search engines such as Google"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.2 Shodan",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.2.1 Using Shodan > L9.2.1.1 Using Shodan for Online Network Device Search",
+    "description": "Using Shadan to conduct a full network search and analysis of online network devices, identifying attack entry points.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Search Engine Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Query Shodan API with device fingerprints to identify exposed services"
+    ],
+    "related_tools": [
+      "Shadan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.1 Server Type > L9.3.1.1 Collecting Linux Server Information",
+    "description": "Scan Linux server",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.2 Website Container > L9.3.2.1 Collect Apache Information",
+    "description": "Scan Apache",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.2 Website Container > L9.3.2.2 Collecting Nginx Information",
+    "description": "Scan nginx",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.2 Website Container > L9.3.2.3 Collect Tomcat Information",
+    "description": "Scan Tomcat",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.3 Script Type > L9.3.3.1 Using php to collect information",
+    "description": "Scan PHP scripts",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.3 Script Type > L9.3.3.2 Using JSP to Collect Information",
+    "description": "Scan JSP scripts",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.3 Script Type > L9.3.3.3 Using Python to Collect Information",
+    "description": "Scan Python script",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "AppScan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.4 Database Type > L9.3.4.1 Collecting MySQL Database Information",
+    "description": "By scanning the MySQL database",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "dbscan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.4 Database Type > L9.3.4.2 Collecting Oracle Database Information",
+    "description": "By scanning the Oracle database",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "dbscan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.3 Entire site analysis",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.3.4 Database Type > L9.3.4.3 Collecting GaussDB Database Information",
+    "description": "By scanning the GaussDB database",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "dbscan"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.4 Host Scanning",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.4.1 Host Scanning > L9.4.1.1 Collects by scanning the host",
+    "description": "By completing a full host scan, host information is collected.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Applications should be promptly updated with the latest patches.",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Nexpose"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.5 Port Scanning",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.5.1 Port Scanning > L9.5.1.1 Collecting Data by Scanning Ports",
+    "description": "Obtaining Port Information by Scanning Ports",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Close unused ports",
+      "Network segmentation and firewall rules",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "nmap -sV -sC -p- <target> for comprehensive port and service scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.6 Sensitive Directories",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.6.1 Sensitive Directories > L9.6.1.1 Collecting through Sensitive Directories",
+    "description": "Collect the directory structure of a website or service, as well as hidden sensitive files.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "The directory is in the WEB-INF directory. Do not access resources directly.",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Directory Enumeration"
+    ],
+    "code_examples_patterns": [
+      "dirsearch -u https://target.com -e php,jsp,asp,aspx -w common.txt"
+    ],
+    "related_tools": [
+      "dirsearch"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.7 Section C Scan",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.7.1 Segment C Scanning > L9.7.1.1 Obtain information through other servers within the same internal network segment.",
+    "description": "The attacker obtains information through other servers within the same C segment.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Information Gathering"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "K8 Side Station, Imperial Sword 1.5"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.8 Standby Scanning",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.8.1 On-site Scanning > L9.8.1.1 Obtaining information through other websites on the same server",
+    "description": "Attackers obtain information from other websites on the server they have compromised.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Information Gathering"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "K8 Side Station, Imperial Sword 1.5"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.1 System Type > L9.9.1.1 Intranet Collection System Name",
+    "description": "Use the command \"\"cat /etc/issue\"\" to collect the system name.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Information Gathering"
+    ],
+    "code_examples_patterns": [
+      "cat /etc/passwd, /etc/shadow, /etc/group to enumerate users"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.1 System Type > L9.9.1.2 Collecting Kernel Versions on the Internal Network",
+    "description": "Use uname -a to collect the system kernel version.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "None"
+    ],
+    "potential_defenses": [
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Kernel Version Discovery"
+    ],
+    "code_examples_patterns": [
+      "uname -a to collect kernel and OS version information"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.2 Process > L9.9.2.1 Intranet Collection Process",
+    "description": "Run the ps aux command to collect process information.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Process Enumeration"
+    ],
+    "code_examples_patterns": [
+      "ps aux to enumerate running processes"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.3 Software Package > L9.9.3.1 Collecting and installing software packages on the internal network",
+    "description": "Use dpkg -l to collect the installed software packages.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Installed Software Enumeration"
+    ],
+    "code_examples_patterns": [
+      "dpkg -l to list installed software packages"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.4 Network Configuration > L9.9.4.1 Collecting NIC Configuration Files",
+    "description": "Using the command cat /etc/network/interfaces",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Configuration File Access"
+    ],
+    "code_examples_patterns": [
+      "cat /etc/passwd, /etc/shadow, /etc/group to enumerate users"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.4 Network Configuration > L9.9.4.2 Collecting DNS Configuration Files",
+    "description": "Use the command cat /etc/resolv.conf",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+   "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "DNS Zone Transfer",
+      "Configuration File Access"
+    ],
+    "code_examples_patterns": [
+      "cat /etc/passwd, /etc/shadow, /etc/group to enumerate users"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.4 Network Configuration > L9.9.4.3 Collecting Firewall Configuration",
+    "description": "Use iptables -L to collect the firewall configuration (note that root privileges are required)",
+    "attack_complexity": "Low",
+    "privileges_required": "Root/Administrator",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Configuration File Access",
+      "Firewall Rule Enumeration"
+    ],
+    "code_examples_patterns": [
+      "iptables -L -n -v to enumerate firewall rules"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.5 Network Communication > L9.9.5.1 Collecting the Network Connection Status of Each Port",
+    "description": "Run the netstat command to collect the network connection information of each port.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Connection Enumeration"
+    ],
+    "code_examples_patterns": [
+      "netstat -antp to enumerate active network connections"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.5 Network Communication > L9.9.5.1 Collecting the Network Connection Status of Each Port",
+    "description": "Use route to collect routing information.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+     ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Connection Enumeration"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.6 User Information > L9.9.6.1 Collect the current user",
+    "description": "Use Whoami to collect information about the current user.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "User/Group Enumeration"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.6 User Information > L9.9.6.2 Collecting the Current User ID and Group ID",
+    "description": "Use the ID to collect the current user ID and group ID.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "User/Group Enumeration"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.6 User Information > L9.9.6.3 Collecting Password Information",
+    "description": "Use `cat /etc/passwd` to collect password information.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+   "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "None"
+    ],
+    "potential_defenses": [
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "User/Group Enumeration"
+    ],
+    "code_examples_patterns": [
+      "cat /etc/passwd, /etc/shadow, /etc/group to enumerate users"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.6 User Information > L9.9.6.4 Collecting User Group Information",
+    "description": "Use the command \"\"cat /etc/group\"\" to collect user group information.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "User/Group Enumeration"
+    ],
+    "code_examples_patterns": [
+      "cat /etc/passwd, /etc/shadow, /etc/group to enumerate users"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.7 Log Information > L9.9.7.1 Collecting System Logs",
+    "description": "Use sudo cat /var/log/syslog to collect system logs.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Log Collection"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.9 System Information",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.9.7 Log Information > L9.9.7.2 Collect Login Logs",
+    "description": "Use commands such as w, who, and lastlog to collect login logs.",
+   "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Log Collection"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.10 Collect SMB shares",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.10.1 Collect SMB shares > L9.10.1.1 Collect SMB shares",
+    "description": "Use smb-enum-shares.nse to collect SMB shares.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "SMB Share Enumeration"
+    ],
+    "code_examples_patterns": [
+      "nmap -sV -sC -p- <target> for comprehensive port and service scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.11 Program used for privilege escalation",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.11.1 Collect programs with the suid or sgid bit set. > L9.11.1.1 Collect programs with the suid or sgid bit set",
+    "description": "Using the command: find / -perm -g=s -o -perm -u=s -type f 2>/dev/null",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "SUID/SGID Binary Search"
+    ],
+    "code_examples_patterns": [
+      "find / -perm -g=s -o -perm -u=s -type f 2>/dev/null to find SUID binaries"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+   "technique_id": "L9.11 Program used for privilege escalation",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.11.2 Collect directories that can be written to or accessed > L9.11.2.1 Collect directories that can be written to or accessed",
+    "description": "Use find / -writable -type d 2 > /dev/null",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "None"
+    ],
+    "potential_defenses": [
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Information Gathering"
+    ],
+    "code_examples_patterns": [
+      "find / -perm -g=s -o -perm -u=s -type f 2>/dev/null to find SUID binaries"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.12 Detecting Domain Transfer Vulnerabilities",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.12.1 Detecting Domain Transfer Vulnerabilities > L9.12.1.1 Detection of Domain Transfer Vulnerabilities",
+    "description": "Using dns-zone-transfer to detect domain transfer vulnerabilities",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Information collection does not involve",
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Information Gathering"
+    ],
+    "code_examples_patterns": [
+      "nmap -sV -sC -p- <target> for comprehensive port and service scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.13 Passive Sniffing of Data Packets",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.13.1 Netdiscover > L9.13.1.1 Netdiscover",
+    "description": "To enter the passive sniffing mode, you only need to add the -p parameter.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Information collection does not involve",
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Sniffing"
+    ],
+    "code_examples_patterns": [
+      "netdiscover -i eth0 -r <subnet> -p for passive network discovery"
+    ],
+    "related_tools": [
+      "netdiscover"
+    ],
+   "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.13 Passive Sniffing of Data Packets",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.13.1 Disguised as some common service sniffing collection > L9.13.1.2 Responder",
+    "description": "Disguised as some common services to sniff passwords and the like",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Attack tools/scripts"
+    ],
+    "potential_defenses": [
+      "Ensure internal network security protection",
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Information collection does not involve",
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Network Sniffing"
+    ],
+    "code_examples_patterns": [
+      "python Responder.py -I eth0 -A for LLMNR/NBT-NS poisoning"
+    ],
+    "related_tools": [
+      "Responder"
+    ],
+    "url": null,
+    "is_atlas": true
+  },
+  {
+    "technique_id": "L9.14 Configuration Library Information Collection",
+    "tactic_id": "TA0009",
+    "tactic_name": "Collection",
+    "technique_name": "L9.14.1 Configuration Library Information Collection > L9.14.1.1 Configuration Library Information Collection",
+    "description": "The configuration library management system stores the configuration, management, or control information of devices. This information may be disclosed through various protocols or software. Therefore, attackers may target the configuration library as an attack objective, enabling them to collect a large amount of sensitive system management data.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "None"
+    ],
+    "potential_defenses": [
+      "Endpoint detection and response (EDR)",
+      "File access monitoring and DLP"
+    ],
+    "detection_opportunities": [
+      "Unusual file access patterns and bulk data collection",
+      "Reconnaissance tool usage and scanning activity"
+    ],
+    "exploit_primitives": [
+      "Directory Enumeration",
+      "Configuration File Access"
+    ],
+    "code_examples_patterns": [
+      "Use reconnaissance tools to gather target information"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": true
+  }
+]

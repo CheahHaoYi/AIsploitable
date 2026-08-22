@@ -1,0 +1,871 @@
+[
+  {
+    "technique_id": "L1.1.1.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "L1.1.1 Side Channel Attack > L1.1.1.1 Time analysis, power consumption analysis, electromagnetic radiation analysis, etc.",
+    "description": "By utilizing the device's interface, electromagnetic and power consumption analysis of the chip can be performed without causing damage to the chip.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "Power consumption signal collection platform, electromagnetic signal collection platform, etc.",
+      "ChipWhisperer"
+    ],
+    "potential_defenses": [
+      "Masking techniques, hiding techniques, obfuscation techniques, etc."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Side-Channel Analysis",
+      "Power Analysis",
+      "Electromagnetic Analysis"
+    ],
+    "code_examples_patterns": [
+      "Capture power/electromagnetic signals during cryptographic operations"
+    ],
+    "related_tools": [
+      "Power consumption signal collection platform, electromagnetic signal collection platform, etc.",
+      "ChipWhisperer"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L1.1.2.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "L1.1.2 Fault injection attacks > L1.1.2.1 Voltage injection, clock injection, electromagnetic injection, temperature injection",
+    "description": "By exploiting faults (such as voltage, clock, etc.) that cause abnormalities in the circuit, sensitive information inside the chip can be analyzed based on the abnormal information. Alternatively, the induced circuit abnormalities can be directly used to alter program execution, etc.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Redundancy technology, digital sensor technology, special packaging technology, etc."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Fault Injection",
+      "Electromagnetic Analysis"
+    ],
+    "code_examples_patterns": [
+      "Capture power/electromagnetic signals during cryptographic operations",
+      "Inject voltage/clock glitch to bypass authentication check"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L1.1.3.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "L1.1.3 Physical Attack > L1.1.3.1 FIB circuit modification/probe attack, board-level wiring tampering/probe eavesdropping, system-level attack",
+    "description": "Remove the chip packaging, establish electrical contact with the internal circuitry, and combine other attack methods to obtain sensitive information stored within the chip.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "Focused ion beam (FIB), scanning electron microscope (SEM)"
+    ],
+    "potential_defenses": [
+      "Passive shield, active shield, signal integrity protection, etc."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Physical Tampering",
+      "Data Tampering"
+    ],
+    "code_examples_patterns": [
+      "Modify protected data region with root access to bypass lock"
+    ],
+    "related_tools": [
+      "Focused ion beam (FIB), scanning electron microscope (SEM)"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.1.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.1 Public Network Exposure > C1.1.1.1 Public Network Exposure of Private Image Repository Service",
+    "description": "In containerized application scenarios, companies use images for continuous integration and automatic deployment. These images are usually managed by dedicated private image libraries.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Port scanning tools (such as nmap)",
+      "netstat",
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. Minimize monitoring addresses",
+      "Restrict service exposure using firewall rules and network segmentation",
+      "Implement container image scanning and allowlisting in CI/CD pipeline"
+    ],
+    "detection_opportunities": [
+      "1. Verify whether the address mapping of the image repository has been mapped to the public network.",
+      "Network scan logs showing exposed service ports on public IP",
+      "Container image vulnerability scan alerts for known CVEs"
+    ],
+    "exploit_primitives": [
+      "Network Exposure Exploitation",
+      "Malicious Container Image"
+    ],
+    "code_examples_patterns": [
+      "Port scan to discover exposed service endpoints",
+      "HTTP/HTTPS request to unauthenticated public endpoint",
+      "Pull malicious container image from public registry and deploy"
+    ],
+    "related_tools": [
+      "Port scanning tools (such as nmap)",
+      "netstat",
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.1.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.1 Public Network Exposure > C1.1.1.2 K8s dashboard exposed to the public internet",
+    "description": "K8s Dashbord is a web console used to monitor and manage Kubernetes clusters. By default, the ClusterIP service provides services only on the intranet. If the service is exposed to the public network, attackers may manage the cluster without authentication. Take the K8S as an example:",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. Minimize monitoring addresses",
+      "Restrict service exposure using firewall rules and network segmentation"
+    ],
+    "detection_opportunities": [
+      "1. Check whether there are any ports incorrectly exposed to the public network."
+    ],
+    "exploit_primitives": [
+      "Network Exposure Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Port scan to discover exposed service endpoints",
+      "HTTP/HTTPS request to unauthenticated public endpoint"
+    ],
+    "related_tools": [
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.1.3",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.1 Public Network Exposure > C1.1.1.3 Public Network Exposure of K8s API Server",
+    "description": "Kubernetes API Server, as the management entry of Kubernetes clusters, usually uses ports 8080 and 6443. Port 8080 does not require authentication, and port 6443 needs authentication and is protected by TLS.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Port scanning tools (such as nmap)",
+      "netstat",
+      "testssl.sh",
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. Minimize monitoring addresses",
+      "Restrict service exposure using firewall rules and network segmentation"
+    ],
+    "detection_opportunities": [
+      "1. Check whether there are any ports incorrectly exposed to the public network."
+    ],
+    "exploit_primitives": [
+      "Network Exposure Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Port scan to discover exposed service endpoints",
+      "HTTP/HTTPS request to unauthenticated public endpoint"
+    ],
+    "related_tools": [
+      "Port scanning tools (such as nmap)",
+      "netstat",
+      "testssl.sh",
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.1.4",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.1 Public Network Exposure > C1.1.1.4 Docker daemon public network exposure",
+    "description": "Docker operates in a client-server mode, where the Docker daemon service runs in the background. It is responsible for managing the creation, running, and stopping of containers, and it also provides many other runtime functions for Docker.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Docker CLI"
+    ],
+    "potential_defenses": [
+      "1. Minimize monitoring addresses"
+    ],
+    "detection_opportunities": [
+      "1. Check whether there are any ports incorrectly exposed to the public network."
+    ],
+    "exploit_primitives": [
+      "Network Exposure Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Port scan to discover exposed service endpoints",
+      "HTTP/HTTPS request to unauthenticated public endpoint"
+    ],
+    "related_tools": [
+      "Docker CLI"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.2.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.2 Malicious Resources > C1.1.2.1 Malicious Images in the Public Image Library",
+    "description": "Some container developers may use public mirrored sources (such as Docker Hub) to download images and run them in a business environment. If a developer inadvertently uses an image with known vulnerabilities, it can pose security risks to the business.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Docker CLI",
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. Use a private image repository. If the business requires the use of images from a public image repository, the corresponding images must undergo strict review before being migrated into the private image repository.",
+      "Restrict service exposure using firewall rules and network segmentation"
+    ],
+    "detection_opportunities": [
+      "1. Check whether the public image library is added to the Docker configuration file.",
+      "Network scan logs showing exposed service ports on public IP"
+    ],
+    "exploit_primitives": [
+      "Remote Code Execution (RCE)",
+      "Malicious Container Image"
+    ],
+    "code_examples_patterns": [
+      "Pull malicious container image from public registry and deploy"
+    ],
+    "related_tools": [
+      "Docker CLI",
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.3.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.3 Key information disclosure > C1.1.3.1 Credential Disclosure on the Cloud Platform",
+    "description": "The cloud platform serves as the foundation for cloud services (container services, VM services). If the Access Key or login credentials of the cloud platform are leaked, attackers will gain the authority to control the entire cluster.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "1. If the service code needs to be authenticated and communicate with the cloud service by using credentials such as AccessKey, consider creating a subaccount for each cloud service and minimizing permissions. In addition, use the authorization management function of the cloud platform if available. (for example, IAM of  CLOUD and RAM of  Cloud) To implement rights-based management and unified resource management for different users.\n2. The administrator must strictly confirm the code hosting to avoid the disclosure of related credentials.",
+      "Use secret management solutions (e.g., HashiCorp Vault) instead of hardcoded credentials"
+    ],
+    "detection_opportunities": [
+      "1. Verify whether there are exposed credentials in the managed code by means such as regular expression matching."
+    ],
+    "exploit_primitives": [
+      "Credential Theft"
+    ],
+    "code_examples_patterns": [
+      "Extract credentials from leaked configuration files",
+      "Authenticate with harvested credentials to target service"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.3.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.3 Key information disclosure > C1.1.3.2 Leak of SSH login credentials for the primary node",
+    "description": "A common method for managing container clusters is by logging into the Master node or an operations jump server, and then using the kubectl command-line tool to control Kubernetes (K8s). In this scenario, if the SSH credentials of the front-end node are leaked or compromised, the K8s cluster will also be exposed to risks.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "kubectl",
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. When permitted, establish SSH connections solely through private key authentication. Otherwise, avoid using the product's default SSH login credentials.\n2. When administrators perform code hosting, they must conduct strict verification to prevent the leakage of related credentials.",
+      "Restrict service exposure using firewall rules and network segmentation",
+      "Use secret management solutions (e.g., HashiCorp Vault) instead of hardcoded credentials"
+    ],
+    "detection_opportunities": [
+      "1. Verify whether there are exposed credentials in the managed code by means such as regular expression matching.",
+      "Network scan logs showing exposed service ports on public IP"
+    ],
+    "exploit_primitives": [
+      "Credential Theft",
+      "Network Exposure Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Port scan to discover exposed service endpoints",
+      "HTTP/HTTPS request to unauthenticated public endpoint",
+      "Extract credentials from leaked configuration files",
+      "Authenticate with harvested credentials to target service"
+    ],
+    "related_tools": [
+      "kubectl",
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.1.3.3",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.1.3 Key information disclosure > C1.1.3.3 Kubernetes kubeconfig leak",
+    "description": "As a management credential for Kubernetes (K8s) clusters, the K8s kubecfg file contains detailed information about the K8s cluster, including the address of its API Server and login credentials. When purchasing a managed container service, the cloud provider will provide the user with this file, enabling the user to manage the cluster through kubectl.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "CodeDex/CodeMars",
+      "kubectl",
+      "Nmap"
+    ],
+    "potential_defenses": [
+      "1. When an administrator performs code hosting, strict confirmation is required to prevent the leakage of related files.",
+      "Restrict service exposure using firewall rules and network segmentation",
+      "Use secret management solutions (e.g., HashiCorp Vault) instead of hardcoded credentials"
+    ],
+    "detection_opportunities": [
+      "1. Perform global search to ensure that no related configuration file is leaked.",
+      "Network scan logs showing exposed service ports on public IP",
+      "SIEM alerts for credential exposure in code repositories"
+    ],
+    "exploit_primitives": [
+      "Credential Theft"
+    ],
+    "code_examples_patterns": [
+      "Extract credentials from leaked configuration files",
+      "Authenticate with harvested credentials to target service"
+    ],
+    "related_tools": [
+      "CodeDex/CodeMars",
+      "kubectl",
+      "Nmap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C1.2.1.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "C1.2.1 Application Attacks Inside Containers > C1.2.1.1 Exploiting vulnerabilities in applications within containers",
+    "description": "Similar to host security, vulnerabilities on the application side running within containers (such as RCE vulnerabilities in web applications, unauthorized access to Redis, etc.) can also become a breakthrough point for attackers. Attackers can exploit these vulnerabilities to gain access inside the container and achieve initial access.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "1. Refer to the protection measures of Public & Linux for the corresponding attack points."
+    ],
+    "detection_opportunities": [
+      "1. Refer to the public & Linux detection measures for corresponding attack points."
+    ],
+    "exploit_primitives": [
+      "Remote Code Execution (RCE)"
+    ],
+    "code_examples_patterns": [
+      "Send crafted HTTP request exploiting RCE vulnerability in containerized web app",
+      "Connect to exposed Redis instance within container without authentication"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.1.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.1 Hardware Detachment Attack > M1.1.1.1 JTAG Port Attack",
+    "description": "By connecting an external JTAG device for debugging, a large amount of runtime information about the device can be obtained. Alternatively, the Flash memory can be read from or written to.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "360 flash tool",
+      "OpenOCD"
+    ],
+    "potential_defenses": [
+      "It is strictly prohibited to directly expose the JTAG port. On the PCB version, there should be no debugging port silkscreen next to the port.",
+      "Disable debug ports in production firmware builds"
+    ],
+    "detection_opportunities": [
+      "Physical security logs showing unauthorized JTAG device connection"
+    ],
+    "exploit_primitives": [
+      "JTAG Debug Interface Exploitation",
+      "Flash Memory Extraction"
+    ],
+    "code_examples_patterns": [
+      "Connect JTAG debugger to device port and dump memory",
+      "Physically remove Flash chip and dump memory contents"
+    ],
+    "related_tools": [
+      "360 flash tool",
+      "OpenOCD"
+    ],
+    "url": "https://hclxing.wordpress.com/2010/01/11/%E5%88%A9%E7%94%A8jtag%E6%BC%8F%E6%B4%9E%E7%A0%B4%E8%A7%A3xbox-360%E5%88%B7%E8%87%AA%E5%88%B6%E7%B3%BB%E7%BB%9F/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.1.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.1 Hardware Detachment Attack > M1.1.1.2 Serial Port Attack",
+    "description": "The serial port can be used to obtain debugging information or receive and send underlying commands.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "Oscilloscope/Multimeter/Serial Port Wizard"
+    ],
+    "potential_defenses": [
+      "It is strictly prohibited to directly expose the serial port, or to impose restrictions through methods such as whitelisting or password protection. On the PCB version, there is no debugging port silkscreen next to the port.",
+      "Disable debug ports in production firmware builds"
+    ],
+    "detection_opportunities": [
+      "Unexpected serial port activity or debug output access"
+    ],
+    "exploit_primitives": [
+      "Serial Port Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Connect to serial port and intercept debug output"
+    ],
+    "related_tools": [
+      "Oscilloscope/Multimeter/Serial Port Wizard"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.1.3",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.1 Hardware Detachment Attack > M1.1.1.3 USB Port Attack",
+    "description": "By switching through the USB port, user data theft and privilege escalation can be achieved. 1.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "1. After receiving the instruction to switch the PC port through ep0, it is only allowed to be configured into production mode, and other modes must be filtered out.\n2. It is strictly prohibited to directly expose ports such as PCUI and Diag, or to impose restrictions using methods such as whitelisting or password protection."
+    ],
+    "detection_opportunities": [
+      "USB device connection logs showing unauthorized mode switching"
+    ],
+    "exploit_primitives": [
+      "USB Interface Exploitation",
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Send USB control transfer commands to switch device mode"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.2.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.2 Side-channel Attack > M1.1.2.1 Voice Attack",
+    "description": "Performing voice control operations using silent signals 1. Identifying the voice control recognition system on the mobile device side 2.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Acoustic Side-Channel"
+    ],
+    "code_examples_patterns": [
+      "Generate ultrasonic audio signal targeting microphone nonlinearity"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.3.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.3 Physical Card Attack > M1.1.3.1 SD Card Attack",
+    "description": "Application data is stored on an external SD card. Malicious applications can remotely access the data on the SD card through malicious JavaScript code executed by applications such as a web browser.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "CodeDex/CodeMars"
+    ],
+    "potential_defenses": [
+      "For critical data that needs to be stored on the SD card, encryption can be used as a method of processing."
+    ],
+    "detection_opportunities": [
+      "SecHunter (Privacy Security Detection Platform))"
+    ],
+    "exploit_primitives": [
+      "Physical Tampering",
+      "External Storage Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Execute malicious JavaScript to access external SD card data"
+    ],
+    "related_tools": [
+      "CodeDex/CodeMars"
+    ],
+    "url": "https://securityaffairs.co/wordpress/18270/hacking/android-firefox-browser-flaw.html",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.1.3.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.1.3 Physical Card Attack > M1.1.3.2 SIM Card Attack",
+    "description": "Attackers use tools such as Mobiledit and MagicSIM to perform cloning operations on SIM cards.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "Mobiledit/MagicSIM",
+      "MobileEdit",
+      "MagicSIM"
+    ],
+    "potential_defenses": [
+      "Add a signature verification mechanism"
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Physical Tampering",
+      "Device Cloning",
+      "SIM Card Cloning"
+    ],
+    "code_examples_patterns": [
+      "Use SIM cloning tool to duplicate SIM card data"
+    ],
+    "related_tools": [
+      "Mobiledit/MagicSIM",
+      "MobileEdit",
+      "MagicSIM"
+    ],
+    "url": "https://www.coolmuster.com/phone-transfer/clone-sim-card.html",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.1.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.1 Secure Boot Attack > M1.2.1.1 Starting a chain signature attack",
+    "description": "Analyze the security mechanisms of the boot chain, such as whether there is signature-based integrity verification.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Enhance security mechanisms, such as signature-based integrity verification."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Boot Chain Manipulation",
+      "Signature Bypass"
+    ],
+    "code_examples_patterns": [
+      "Analyze boot chain signature verification and bypass",
+      "Forge or bypass digital signature verification in boot chain"
+    ],
+    "related_tools": [],
+    "url": "https://paper.seebug.org/237/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.1.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.1 Secure Boot Attack > M1.2.1.2 Code Overflow Attack",
+    "description": "Analyze the code that initiates the chain. Through source code review, identify security risks, such as overflow attacks.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "CodeDex/CodeMars"
+    ],
+    "potential_defenses": [
+      "Integrity check is performed on the validity of external parameters."
+    ],
+    "detection_opportunities": [
+      "CodeDex/CodeMars"
+    ],
+    "exploit_primitives": [
+      "Buffer Overflow",
+      "Remote Code Execution (RCE)",
+      "Boot Chain Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Analyze boot chain signature verification and bypass",
+      "Craft oversized input to trigger buffer overflow in target binary"
+    ],
+    "related_tools": [
+      "CodeDex/CodeMars"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.1",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.1 Firmware Plaintext Attack",
+    "description": "By performing reverse analysis on the firmware's execution program, identify key calling functions (authentication, authorization), and check whether there are any special hardcoded keys.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "IDA",
+      "CodeDex/CodeMars",
+      "IDA Pro",
+      "Ghidra"
+    ],
+    "potential_defenses": [
+      "Perform security scanning on the entire upgrade package.",
+      "Enforce firmware signature verification on all updates"
+    ],
+    "detection_opportunities": [
+      "Firmware integrity check failures or signature mismatches"
+    ],
+    "exploit_primitives": [
+      "Firmware Manipulation",
+      "Reverse Engineering"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines"
+    ],
+    "related_tools": [
+      "IDA",
+      "CodeDex/CodeMars",
+      "IDA Pro",
+      "Ghidra"
+    ],
+    "url": "http://www.oschina.net/news/45251/reverse-engineering-a-d-link-backdoor",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.2",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.2 Backdoor implant attacks",
+    "description": "Tampering with firmware can involve implanting backdoors within the firmware. An attempt is made to load the tampered firmware.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "IDA Pro",
+      "Ghidra"
+    ],
+    "potential_defenses": [
+      "Verify the digital signature of the upgrade package."
+    ],
+    "detection_opportunities": [
+      "Firmware integrity check failures or signature mismatches",
+      "Firmware hash mismatch compared to known-good baseline"
+    ],
+    "exploit_primitives": [
+      "Firmware Manipulation",
+      "Backdoor Implantation",
+      "Data Tampering"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines",
+      "Modify firmware binary to inject backdoor payload",
+      "Modify protected data region with root access to bypass lock"
+    ],
+    "related_tools": [
+      "IDA Pro",
+      "Ghidra"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.3",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.3 Reset mode attack",
+    "description": "Attempt to perform a reset operation on the device. Generate a file for the reset operation and analyze it to extract sensitive information.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Sensitive information printed in the logs is anonymized."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Firmware Manipulation",
+      "Reset Attack"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines",
+      "Trigger device reset mode and capture sensitive log output"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.4",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.4 Data Tampering Attacks",
+    "description": "The root user bypasses the fastboot lock by rewriting the oeminfo data.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Data that needs to be protected against root users must be stored in the trust zone."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Firmware Manipulation",
+      "Boot Chain Manipulation",
+      "Data Tampering"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines",
+      "Analyze boot chain signature verification and bypass",
+      "Modify protected data region with root access to bypass lock"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.5",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.5 Flash chip attacks",
+    "description": "Peel off the Flash chip, dump the data of the Flash chip, and complete information collection by analyzing the dumped data.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Firmware Manipulation",
+      "Flash Memory Extraction"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines",
+      "Physically remove Flash chip and dump memory contents"
+    ],
+    "related_tools": [],
+    "url": "https://www.blackhat.com/docs/us-14/materials/us-14-Oh-Reverse-Engineering-Flash-Memory-For-Fun-And-Benefit-WP.pdf",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M1.2.2.6",
+    "tactic_id": "TA0001",
+    "tactic_name": "Initial Access",
+    "technique_name": "M1.2.2 Firmware Attack > M1.2.2.6 Side-channel attack",
+    "description": "By utilizing hardware attack methods to obtain electromagnetic signals, and based on the content of the signals, obtaining key information.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "Local"
+    ],
+    "resource_required": [
+      "Radio Frequency Acquisition Device"
+    ],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Electromagnetic Analysis",
+      "Firmware Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Disassemble firmware binary and analyze authentication routines",
+      "Capture power/electromagnetic signals during cryptographic operations"
+    ],
+    "related_tools": [
+      "Radio Frequency Acquisition Device"
+    ],
+    "url": null,
+    "is_atlas": false
+  }
+]
