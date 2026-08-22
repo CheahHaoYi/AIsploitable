@@ -26,6 +26,31 @@ AIsploitable is an autonomous, privacy-preserving cybersecurity triage and verif
 
 ---
 
+## What it does
+
+### Analyse CVE locally
+
+![Landing page](./images/landing.png)
+
+### Generate Proof of Concept
+
+![exploit gen](./images/exploit_gen.png)
+
+### Run exploit in sandbox
+
+![sb](./images/sandboxes.png)
+
+### Map attack to MITRE Attack and Atlas Techniques
+
+![map](./images/analysis.png)
+
+### Report and Remediation
+
+![rep](./images/reporting.png)
+
+
+---
+
 ## 🏗️ System Architecture
 
 ```text
