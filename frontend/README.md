@@ -1,4 +1,4 @@
-# CyberTriage AI — Frontend Mission Control
+# AIsploitable — Frontend Mission Control
 
 Next.js 15 (App Router) + React 19 + TailwindCSS interface designed with Google design aesthetics for autonomous cybersecurity triage, interactive Gemma PoC customization, and live Docker container observation.
 

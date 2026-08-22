@@ -1,19 +1,30 @@
-# CyberTriage AI — Demo Choreography & Speaker Script
+# AIsploitable — Demo Choreography & Speaker Script
 
-> **Target Duration:** 3 Minutes (180 Seconds)  
+> **Supported Formats:** 1-Minute Pitch Track (60 Seconds) & Deep Dive Track (180 Seconds)  
 > **Speaker Roles:** 1 Presenter / Screen Pilot
 
 ---
 
-## ⏱️ Timeline & Choreography
+## ⚡ 1-Minute Fast Track (60 Seconds) — Aligned with Marp Slides
+
+| Time | Slide / Action | Key Talk Track |
+| :--- | :--- | :--- |
+| **0:00 - 0:15** | **Slide 1 (Title & Hook)** | *"Enterprise SOC teams spend 4 to 8 hours triaging every CVE, while cloud LLMs hallucinate exploits and leak zero-days. Meet **AIsploitable**: an autonomous, privacy-preserving security investigation engine."* |
+| **0:15 - 0:30** | **Slide 2 (The Problem & Philosophy)** | *"Instead of asking an AI if an exploit works, our core breakthrough is **Evidence Over Assertion** — executing controlled experiments in isolated sandboxes to empirically prove exploitability."* |
+| **0:30 - 0:45** | **Slide 3 (The 3-Step Loop)** | *"In under 15 seconds, local Gemma retrieves threat intel across 755 offline MITRE vectors, synthesizes a safe Python PoC with 1-click AST guardrails, and triggers our isolated dual-container testbed."* |
+| **0:45 - 1:00** | **Slide 4 (Value & Closing)** | *"No localhost loopback false positives, 100% on-device privacy, and instant SIGMA rules with executive PDF reports. AIsploitable turns guesswork into empirical proof."* |
+
+---
+
+## ⏱️ 3-Minute Deep Dive Track (180 Seconds)
 
 ### 1. The Hook & The Problem (0:00 - 0:30)
 - **Slide / UI:** Mission Control Tab 1 ("Vulnerability Analysis & PoC Workspace")
 - **Action:** Open `http://localhost:3000`. Select the **Log4Shell (CVE-2021-44228)** preset.
 - **Speaker Script:**
-  > *"Every single day, enterprise SOC teams are flooded with dozens of critical CVEs and security advisories. The manual triage process takes hours, while typical AI tools merely hallucinate theoretical code and leak sensitive proprietary zero-days to cloud APIs.*
+  > *"Every single day, enterprise SOC teams are flooded with dozens of critical CVEs and security advisories. The manual triage process takes hours, while typical AI tools merely hallucinate theoretical code and leak sensitive proprietary zero-days to cloud APIs.
   > 
-  > *Meet **CyberTriage AI** — an autonomous, privacy-preserving threat intelligence and empirical verification engine powered entirely by local **Gemma 3** models, offline MITRE RAG, and isolated Docker sandboxes."*
+  > *Meet **AIsploitable** — an autonomous, privacy-preserving threat intelligence and empirical verification engine powered entirely by local **Gemma 3** models, offline MITRE RAG, and isolated Docker sandboxes."*
 
 ---
 
@@ -58,4 +69,4 @@
   > 
   > With one click, we can export publication-ready PDF and Markdown reports for enterprise ticketing. 
   > 
-  > CyberTriage AI transforms vulnerability management from theoretical guesswork into **empirical, privacy-preserving proof in under 15 seconds**. Thank you!"*
+  > AIsploitable transforms vulnerability management from theoretical guesswork into **empirical, privacy-preserving proof in under 15 seconds**. Thank you!"*

@@ -73,7 +73,7 @@ export default function MarkdownReportRenderer({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `CyberTriage_${cveId || 'Report'}_${new Date().toISOString().slice(0, 10)}.md`;
+    a.download = `AIsploitable_${cveId || 'Report'}_${new Date().toISOString().slice(0, 10)}.md`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -315,7 +315,7 @@ export default function MarkdownReportRenderer({
 
         {/* Official Report Footer */}
         <div className="mt-8 pt-4 border-t border-[#f1f3f4] flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#80868b] font-mono gap-2">
-          <span>CyberTriage AI • Automated Evidence-Driven Verification Ledger</span>
+          <span>AIsploitable • Automated Evidence-Driven Verification Ledger</span>
           <span>Verified in Docker Ephemeral Sandbox Lab</span>
         </div>
       </div>

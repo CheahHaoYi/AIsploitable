@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'CyberTriage AI | Autonomous Incident & Vulnerability Verification',
-  description: 'Autonomous cyber triage command center powered by local Gemma with MITRE ATT&CK/ATLAS RAG and empirical sandbox verification.',
+  title: 'AIsploitable | Autonomous Incident & Vulnerability Verification',
+  description: 'Autonomous cyber triage and exploitability verification command center powered by local Gemma with MITRE ATT&CK/ATLAS RAG and empirical sandbox verification.',
 };
 
 export default function RootLayout({

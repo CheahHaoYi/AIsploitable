@@ -80,7 +80,7 @@ Script Requirements:
         cve = vuln.cve_id or "CVE-TARGET"
         return f'''#!/usr/bin/env python3
 """
-CyberTriage AI - Empirical Verification Script
+AIsploitable - Empirical Verification Script
 Target: {cve} ({vuln.title})
 Hypothesis: {plan.hypothesis}
 """
@@ -101,7 +101,7 @@ def step_1_recon():
     log(f"Probing target service at {{TARGET_HOST}}:{{TARGET_PORT}}...", "*")
     try:
         url = f"http://{{TARGET_HOST}}:{{TARGET_PORT}}/health"
-        req = urllib.request.Request(url, headers={{"User-Agent": "CyberTriage-Probe/1.0"}})
+        req = urllib.request.Request(url, headers={{"User-Agent": "AIsploitable-Probe/1.0"}})
         with urllib.request.urlopen(req, timeout=5) as response:
             status = response.getcode()
             server_header = response.headers.get("Server", "Unknown")
@@ -129,7 +129,7 @@ def step_3_verify_artifact():
     return True
 
 if __name__ == "__main__":
-    log("Starting CyberTriage AI Autonomous Sandbox Verification Run", "*")
+    log("Starting AIsploitable Autonomous Sandbox Verification Run", "*")
     step_1_recon()
     step_2_exploit()
     step_3_verify_artifact()
@@ -142,7 +142,7 @@ if __name__ == "__main__":
         cve = cve_match.group(0).upper() if cve_match else "CVE-ADVISORY"
         first_line = summary.split("\n")[0][:60] if summary else "Target Security Advisory"
 
-        headers_code = '{"User-Agent": "CyberTriage-Verifier/1.0"}'
+        headers_code = '{"User-Agent": "AIsploitable-Verifier/1.0"}'
         payload_code = f'{{"advisory": "{cve}", "probe": "AIsploitable-Verification", "cmd": "id; whoami > /tmp/pwned.txt"}}'
         port_num = 8080
         recon_extra = ""
@@ -150,11 +150,11 @@ if __name__ == "__main__":
         if custom_instruction:
             inst_lower = custom_instruction.lower()
             if "hello" in inst_lower:
-                recon_extra += '\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")'
+                recon_extra += '\n    log("👋 [GREETING] Hello from AIsploitable automated verification harness!", "+")'
             if "identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower:
-                recon_extra += '\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")'
+                recon_extra += '\n    log("🆔 [IDENTITY] AIsploitable Autonomous PoC Agent v1.0 - Operator Verified", "+")'
             if "bearer" in inst_lower or "auth" in inst_lower or "token" in inst_lower:
-                headers_code = '{"User-Agent": "CyberTriage-Verifier/1.0", "Authorization": "Bearer CYBERTRIAGE_VALIDATION_TOKEN_99"}'
+                headers_code = '{"User-Agent": "AIsploitable-Verifier/1.0", "Authorization": "Bearer AISPLOITABLE_VALIDATION_TOKEN_99"}'
             if "waf" in inst_lower or "encode" in inst_lower or "url" in inst_lower:
                 payload_code = f'{{"advisory": "{cve}", "payload": "%24%7Bjndi%3Aldap%3A%2F%2F127.0.0.1%3A1389%2Fa%7D", "waf_bypass": True}}'
             if "base64" in inst_lower:
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
         return f'''#!/usr/bin/env python3
 """
-CyberTriage AI - Verification Harness for {cve}
+AIsploitable - Verification Harness for {cve}
 Advisory Context: {first_line}
 Target: 127.0.0.1:{port_num}
 """
@@ -209,7 +209,7 @@ def step_3_verify_assertions():
     return True
 
 if __name__ == "__main__":
-    log("Starting CyberTriage AI Autonomous Sandbox Verification Run for {cve}", "*")
+    log("Starting AIsploitable Autonomous Sandbox Verification Run for {cve}", "*")
     step_1_recon()
     step_2_deliver_payload()
     step_3_verify_assertions()

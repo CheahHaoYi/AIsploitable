@@ -263,7 +263,7 @@ export default function MissionControlPage() {
       {/* Clean SOC Footer */}
       <footer className="border-t border-[#dadce0] bg-[#f8f9fa] py-4 px-6 text-center text-xs text-[#5f6368] mt-12">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>CyberTriage AI (AIsploitable) — Local Security Verification Platform</span>
+          <span>AIsploitable — Local Security Verification Platform</span>
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-[#1e8e3e]"></span>

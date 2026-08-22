@@ -88,7 +88,7 @@ export default function ReportsTab({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `CyberTriage_${selectedReport.cve_id || 'Report'}_${new Date().toISOString().slice(0, 10)}.md`;
+    a.download = `AIsploitable_${selectedReport.cve_id || 'Report'}_${new Date().toISOString().slice(0, 10)}.md`;
     a.click();
     URL.revokeObjectURL(url);
   };

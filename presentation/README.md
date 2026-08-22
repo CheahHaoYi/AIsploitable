@@ -1,4 +1,4 @@
-# CyberTriage AI (AIsploitable) — Presentation & Pitch Subsystem
+# AIsploitable — Presentation & Pitch Subsystem
 
 > **Autonomous Threat Intelligence & Evidence-Driven Empirical Sandbox Verification**
 > Hackathon Pitch Strategy, Marp Presentation Deck, Demonstration Choreography, and Subsystem Intelligence Compendium.
@@ -7,9 +7,9 @@
 
 ## 🎯 Executive Summary & Learning Compendium
 
-CyberTriage AI was constructed to solve the fundamental flaw in modern AI cybersecurity tooling: **LLMs assert without verifying, hallucinate exploit paths, and leak sensitive vulnerability disclosures to cloud APIs.** 
+AIsploitable was constructed to solve the fundamental flaw in modern AI cybersecurity tooling: **LLMs assert without verifying, hallucinate exploit paths, and leak sensitive vulnerability disclosures to cloud APIs.** 
 
-CyberTriage AI implements **"Evidence Over Assertion"**: combining local Gemma 3 reasoning (`gemma4:e2b` / `gemma4:e4b`), sub-5ms offline Threat Intelligence RAG (755 ATT&CK & ATLAS techniques), and an isolated dual-container Docker testbed (`172.20.0.2` ➔ `172.20.0.3:8080`) that produces empirical proof of vulnerability.
+AIsploitable implements **"Evidence Over Assertion"**: combining local Gemma 3 reasoning (`gemma4:e2b` / `gemma4:e4b`), sub-5ms offline Threat Intelligence RAG (755 ATT&CK & ATLAS techniques), and an isolated dual-container Docker testbed (`172.20.0.2` ➔ `172.20.0.3:8080`) that produces empirical proof of vulnerability.
 
 ### 🧠 Cross-Subsystem Intelligence Summary
 
@@ -24,26 +24,23 @@ CyberTriage AI implements **"Evidence Over Assertion"**: combining local Gemma 3
 
 ## 📽️ Presentation Deck (`presentation/slides.md`)
 
-The official hackathon slide deck is authored in **Marp** using custom **Google Visual Design** CSS variables, Google Sans typography, card containers, and color accents.
+The official hackathon slide deck is authored in **Marp** using the pristine **White Google Visual Design Aesthetic** (`#ffffff` canvas, Google Sans typography, Google Blue/Red/Green/Yellow accents, and elevated cards with generous whitespace).
 
-### Narrative Arc (4 Key Pillars):
+### 1-Minute Executive Pitch Structure (4 Slides / 60 Seconds):
 
-1. **What the Product Is (Slides 1–4)**:
-   - Product Identity: Autonomous Threat Intelligence & Empirical Sandbox Verification.
-   - Core Pillars: Local Gemma 3 Multi-Agent reasoning, 755 offline threat intel techniques, and deterministic Docker dual-node sandboxing.
-   - Gemma Ensemble Architecture: Analyzer, Planner, PoC Generator, Verifier, and Reporter agents.
-2. **Why It Matters (Slides 5–6)**:
-   - The Triage Crisis: Alert fatigue (50+ CVEs daily), cloud LLM privacy leaks, and AI hallucination hazards.
-   - Paradigm Shift: *"Evidence Over Assertion"* — replacing theoretical claims with empirical sandbox exit codes and network traces.
-3. **How To Use It (Slides 7–10)**:
-   - 3-Tab Mission Control Walkthrough:
-     - **Tab 1 (Intake & PoC Workspace)**: CVE input, streaming Gemma Q&A, and natural-language PoC customizer.
-     - **Tab 2 (Docker Sandbox Lab)**: Side-by-side terminals (`172.20.0.2` vs `172.20.0.3`), attack graph, and evidence inspector.
-     - **Tab 3 (Reports & Findings Hub)**: Master-detail ledger, TLP:AMBER classification, and direct PDF/MD export.
-4. **What Are The Impact (Slides 11–13)**:
-   - Quantified Gains: Triage time reduced from hours to **&lt; 15 seconds** (95% efficiency gain).
-   - Zero Data Leakage: Complete air-gapped compliance for sensitive enterprise code.
-   - Future Horizon: Automated Exploit-Fix validation loops and CI/CD DevSecOps integration.
+1. **Slide 1: Title & Hero Metrics (0:00 - 0:15)**
+   - **Hero Tagline**: *"Evidence-Driven Autonomous Vulnerability Investigation"*
+   - **3 Value Pillars**: 100% On-Device Privacy (zero cloud leaks) • 755 Offline MITRE Techniques • &lt; 15s End-to-End Triage.
+2. **Slide 2: The Problem & Philosophy (0:15 - 0:30)**
+   - **The Bottleneck**: 4–8h manual triage delay, LLM hallucination risks, zero-day leakage to cloud APIs.
+   - **The Breakthrough**: *"Evidence Over Assertion"* — running safe, isolated experiments rather than relying on theoretical LLM claims.
+3. **Slide 3: The 3-Step Autonomous Loop (0:30 - 0:45)**
+   - **Stage 1 (Intake & Offline RAG)**: Maps writeups to 755 ATT&CK/ATLAS vectors in sub-5ms.
+   - **Stage 2 (Gemma PoC Synthesis)**: Generates safe 3-phase Python harnesses with 1-click AST guardrails.
+   - **Stage 3 (Dual-Node Lab & Report)**: Isolated bridge (`172.20.0.2 ➔ .3`), real packet traces, and automated SIGMA/PDF defense rules.
+4. **Slide 4: Enterprise Value & SOC Impact (0:45 - 1:00)**
+   - **Value Proposition**: 95% reduction in triage time, zero network false positives, turnkey defense artifacts.
+   - **Google Technology**: Powered by local Gemma multi-agent reasoning, air-gapped sovereign execution, and Next.js 15 UI.
 
 ---
 

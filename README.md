@@ -1,7 +1,7 @@
-# CyberTriage AI (AIsploitable)
+# AIsploitable
 > **Autonomous Threat Intelligence & Evidence-Driven Empirical Sandbox Verification**
 
-CyberTriage AI is an autonomous, privacy-preserving cybersecurity triage and verification platform powered by local **Gemma** models (`gemma4:e2b` / `gemma4:e4b` via Ollama), offline **MITRE ATT&CK & ATLAS RAG** threat intelligence (755 indexed techniques), and isolated **Docker dual-sandbox execution** with real-time streaming telemetry.
+AIsploitable is an autonomous, privacy-preserving cybersecurity triage and verification platform powered by local **Gemma** models (`gemma4:e2b` / `gemma4:e4b` via Ollama), offline **MITRE ATT&CK & ATLAS RAG** threat intelligence (755 indexed techniques), and isolated **Docker dual-sandbox execution** with real-time streaming telemetry.
 
 ---
 
@@ -203,7 +203,7 @@ Once both servers are running, follow this 3-minute interactive workflow:
 
 ## 🛡️ Key Technical Differentiators
 
-| Capability | Standard Triage / LLM Scrapers | CyberTriage AI (AIsploitable) |
+| Capability | Standard Triage / LLM Scrapers | AIsploitable |
 | :--- | :--- | :--- |
 | **Privacy & Compliance** | Sends code & zero-days to cloud APIs | **100% Local Gemma via Ollama (Air-gapped ready)** |
 | **Threat Intelligence** | Generic hallucinated MITRE mappings | **755 Indexed ATT&CK + ATLAS Techniques (Offline RAG)** |
@@ -257,6 +257,6 @@ Once both servers are running, follow this 3-minute interactive workflow:
 ---
 
 ## 👥 Contributors & Hackathon Team
-- **Project**: CyberTriage AI (`AIsploitable`)
+- **Project**: `AIsploitable`
 - **Engine**: Gemma 4 e2b / e4b + FastAPI + Next.js 15
 

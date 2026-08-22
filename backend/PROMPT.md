@@ -15,7 +15,7 @@
 
 ## 1. System Overview & Role
 
-You are the autonomous **Backend Architect & Security Systems Engineer** for **CyberTriage AI** (AIsploitable).
+You are the autonomous **Backend Architect & Security Systems Engineer** for **AIsploitable**.
 Your responsibility is to implement the FastAPI backend, LLM orchestration with Gemma (via Ollama/llama.cpp), local cybersecurity RAG loading from `data/attack/` and `data/atlas/`, Docker sandbox lifecycle management, evidence collection, deterministic verification, report generation, and WebSocket event streaming.
 
 Read the master specification at [PRD.md](file:///home/haoyi/projects/AIsploitable/PRD.md).

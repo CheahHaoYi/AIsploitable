@@ -29,10 +29,7 @@ export default function Header({
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-bold text-xl tracking-tight text-[#202124]">CyberTriage</span>
-              <span className="bg-[#1a73e8] text-white text-xs font-semibold px-1.5 py-0.5 rounded tracking-wide">
-                AI
-              </span>
+              <span className="font-bold text-xl tracking-tight text-[#202124]">AIsploitable</span>
               <div className="flex items-center gap-1 ml-2">
                 <span className="w-2 h-2 rounded-full bg-[#34a853] inline-block animate-pulse"></span>
                 <span className="text-[11px] font-medium text-[#5f6368] uppercase tracking-wider">

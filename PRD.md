@@ -1,4 +1,4 @@
-# CyberTriage AI — Hackathon Product Requirements + Technical Design
+# AIsploitable — Hackathon Product Requirements + Technical Design
 
 > **Hackathon goal:** Build an impressive, technically credible, usable cybersecurity investigation application in approximately one day, with **Gemma as the central AI reasoning/orchestration component**.
 >
@@ -10,9 +10,9 @@
 
 ## 1.1 Product
 
-**CyberTriage AI** is an evidence-driven vulnerability investigation platform.
+**AIsploitable** is an evidence-driven vulnerability investigation platform.
 
-A user submits a CVE ID, security advisory, blog URL, or prepared demonstration scenario. CyberTriage:
+A user submits a CVE ID, security advisory, blog URL, or prepared demonstration scenario. AIsploitable:
 
 1. Ingests and analyzes the vulnerability.
 2. Extracts structured vulnerability information.
@@ -33,7 +33,7 @@ The key distinction is:
 
 ## 2.1 One-line pitch
 
-> **CyberTriage AI turns vulnerability intelligence into an evidence-backed security investigation using local Gemma reasoning, cybersecurity RAG, and an isolated attack laboratory.**
+> **AIsploitable turns vulnerability intelligence into an evidence-backed security investigation using local Gemma reasoning, cybersecurity RAG, and an isolated attack laboratory.**
 
 ## 2.2 Judge-facing story
 
@@ -221,7 +221,7 @@ Do not spend hackathon time on:
 
 ```text
 +----------------------------------------------------------------+
-| CYBERTRIAGE AI                       GEMMA ● LOCAL              |
+| AISPLOITABLE                         GEMMA ● LOCAL              |
 +-------------------+--------------------------------------------+
 |                   |                                            |
 | INVESTIGATION     | VULNERABILITY OVERVIEW                     |
@@ -880,7 +880,7 @@ ERROR
 # 18. Repository Structure
 
 ```text
-cybertriage/
+aisploitable/
 |
 +-- frontend/
 |   +-- app/
@@ -1350,7 +1350,7 @@ Do not continue into future features.
 Example:
 
 ```text
-You are working on CyberTriage AI.
+You are working on AIsploitable.
 
 Read:
 - PRD.md
@@ -1903,7 +1903,7 @@ The ideal demo should take:
 # 52. Suggested Demo Script
 
 ```text
-1. "This is CyberTriage AI."
+1. "This is AIsploitable."
 
 2. "Instead of asking an LLM to tell us whether a vulnerability
    is exploitable, we make it investigate the vulnerability."

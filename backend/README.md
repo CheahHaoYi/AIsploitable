@@ -1,4 +1,4 @@
-# CyberTriage AI — Backend Engine
+# AIsploitable — Backend Engine
 
 FastAPI backend orchestrating local Gemma models via Ollama, offline Threat Intelligence RAG (755 ATT&CK and ATLAS techniques), and isolated Docker dual-container sandboxing.
 

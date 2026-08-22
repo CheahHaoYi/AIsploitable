@@ -344,12 +344,12 @@ INSTRUCTIONS:
             inst_lower = req.instruction.lower()
 
             if "hello" in inst_lower:
-                if 'def step_1_recon():' in mod_script and 'Hello from CyberTriage' not in mod_script:
-                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")')
+                if 'def step_1_recon():' in mod_script and 'Hello from AIsploitable' not in mod_script:
+                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from AIsploitable automated verification harness!", "+")')
 
             if ("identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower):
-                if 'def step_1_recon():' in mod_script and 'CyberTriage AI Autonomous PoC Agent' not in mod_script:
-                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")')
+                if 'def step_1_recon():' in mod_script and 'AIsploitable Autonomous PoC Agent' not in mod_script:
+                    mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] AIsploitable Autonomous PoC Agent v1.0 - Operator Verified", "+")')
 
             if "8080" in inst_lower and "TARGET_PORT" in mod_script:
                 mod_script = re.sub(r'TARGET_PORT\s*=\s*\d+', 'TARGET_PORT = 8080', mod_script)
@@ -362,10 +362,10 @@ INSTRUCTIONS:
 
             if ("bearer" in inst_lower or "auth" in inst_lower or "token" in inst_lower) and "Authorization" not in mod_script:
                 if 'headers={' in mod_script or 'headers = {' in mod_script:
-                    mod_script = mod_script.replace('headers={"User-Agent": "CyberTriage-Probe/1.0"}', 'headers={"User-Agent": "CyberTriage-Probe/1.0", "Authorization": "Bearer CYBERTRIAGE_USER_TOKEN_99"}')
-                    mod_script = mod_script.replace('headers={"User-Agent": "CyberTriage-Verifier/1.0"}', 'headers={"User-Agent": "CyberTriage-Verifier/1.0", "Authorization": "Bearer CYBERTRIAGE_USER_TOKEN_99"}')
+                    mod_script = mod_script.replace('headers={"User-Agent": "AIsploitable-Probe/1.0"}', 'headers={"User-Agent": "AIsploitable-Probe/1.0", "Authorization": "Bearer AISPLOITABLE_USER_TOKEN_99"}')
+                    mod_script = mod_script.replace('headers={"User-Agent": "AIsploitable-Verifier/1.0"}', 'headers={"User-Agent": "AIsploitable-Verifier/1.0", "Authorization": "Bearer AISPLOITABLE_USER_TOKEN_99"}')
                 else:
-                    mod_script = mod_script.replace('urllib.request.Request(url', 'urllib.request.Request(url, headers={"Authorization": "Bearer CYBERTRIAGE_USER_TOKEN_99", "User-Agent": "CyberTriage-Verifier/1.0"}')
+                    mod_script = mod_script.replace('urllib.request.Request(url', 'urllib.request.Request(url, headers={"Authorization": "Bearer AISPLOITABLE_USER_TOKEN_99", "User-Agent": "AIsploitable-Verifier/1.0"}')
 
             if ("waf" in inst_lower or "encode" in inst_lower or "url" in inst_lower) and "urllib.parse" not in mod_script:
                 mod_script = mod_script.replace('import urllib.request', 'import urllib.request\nimport urllib.parse')
@@ -432,11 +432,11 @@ INSTRUCTIONS:
         mod_script = req.current_script
         inst_lower = req.instruction.lower()
         if "hello" in inst_lower and "def step_1_recon" in mod_script:
-            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from CyberTriage automated verification harness!", "+")')
+            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("👋 [GREETING] Hello from AIsploitable automated verification harness!", "+")')
         if ("identif" in inst_lower or "whoami" in inst_lower or "agent" in inst_lower) and "def step_1_recon" in mod_script:
-            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] CyberTriage AI Autonomous PoC Agent v1.0 - Operator Verified", "+")')
+            mod_script = mod_script.replace('def step_1_recon():', 'def step_1_recon():\n    log("🆔 [IDENTITY] AIsploitable Autonomous PoC Agent v1.0 - Operator Verified", "+")')
         if ("bearer" in inst_lower or "auth" in inst_lower or "token" in inst_lower):
-            mod_script = mod_script.replace('headers={"User-Agent": "CyberTriage-Probe/1.0"}', 'headers={"User-Agent": "CyberTriage-Probe/1.0", "Authorization": "Bearer CYBERTRIAGE_USER_TOKEN_99"}')
+            mod_script = mod_script.replace('headers={"User-Agent": "AIsploitable-Probe/1.0"}', 'headers={"User-Agent": "AIsploitable-Probe/1.0", "Authorization": "Bearer AISPLOITABLE_USER_TOKEN_99"}')
         if "8080" in inst_lower and "TARGET_PORT" in mod_script:
             mod_script = re.sub(r'TARGET_PORT\s*=\s*\d+', 'TARGET_PORT = 8080', mod_script)
         extracted_script = mod_script

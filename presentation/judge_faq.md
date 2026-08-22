@@ -1,4 +1,4 @@
-# CyberTriage AI — Technical Judge Defense & FAQ
+# AIsploitable — Technical Judge Defense & FAQ
 
 Comprehensive technical defense and architectural justification for hackathon judges.
 

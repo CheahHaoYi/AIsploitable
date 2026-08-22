@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# CyberTriage AI (AIsploitable) — All-in-One Startup Script
+# AIsploitable — All-in-One Startup Script
 # Starts FastAPI Backend (Port 8000) & Next.js Frontend (Port 3000)
 # ==============================================================================
 
@@ -17,7 +17,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT_DIR"
 
 echo -e "${BLUE}======================================================================${NC}"
-echo -e "${BLUE}  🛡️  Starting CyberTriage AI (AIsploitable) Mission Control  🛡️ ${NC}"
+echo -e "${BLUE}  🛡️  Starting AIsploitable Mission Control  🛡️ ${NC}"
 echo -e "${BLUE}======================================================================${NC}"
 
 # Check Python and Node
@@ -33,7 +33,7 @@ fi
 
 # Cleanup on exit
 cleanup() {
-    echo -e "\n${YELLOW}[*] Shutting down CyberTriage AI services...${NC}"
+    echo -e "\n${YELLOW}[*] Shutting down AIsploitable services...${NC}"
     if [ -n "$BACKEND_PID" ]; then
         kill "$BACKEND_PID" 2>/dev/null || true
     fi
@@ -60,7 +60,7 @@ npm --prefix frontend run dev &
 FRONTEND_PID=$!
 
 echo -e "\n${GREEN}======================================================================${NC}"
-echo -e "${GREEN}  ✓ CyberTriage AI is LIVE!${NC}"
+echo -e "${GREEN}  ✓ AIsploitable is LIVE!${NC}"
 echo -e "${GREEN}  - Web UI (Mission Control):  http://localhost:3000${NC}"
 echo -e "${GREEN}  - Backend API & OpenAPI Doc: http://localhost:8000/docs${NC}"
 echo -e "${GREEN}======================================================================${NC}"

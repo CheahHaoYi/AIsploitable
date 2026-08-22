@@ -2,7 +2,7 @@
   "name": "aisploitable-root",
   "version": "0.1.0",
   "private": true,
-  "description": "CyberTriage AI (AIsploitable) Root Runner",
+  "description": "AIsploitable Root Runner",
   "scripts": {
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",

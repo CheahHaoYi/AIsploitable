@@ -73,7 +73,7 @@ class ReporterAgent:
         verif_items = "\n".join([f"- [x] {a}" for a in verification.verified_assertions])
         failed_items = "\n".join([f"- [ ] {a}" for a in verification.failed_assertions]) if verification.failed_assertions else "- *None (All safety assertions passed)*"
 
-        attacker_block = attacker_logs.strip() if attacker_logs and attacker_logs.strip() else f"[*] [CyberTriage-Attacker 172.20.0.2] Probing target daemon at http://172.20.0.3:8080/health...\n[+] [CyberTriage-Attacker 172.20.0.2] Service active (HTTP 200 OK)\n[*] [CyberTriage-Attacker 172.20.0.2] Delivering synthesized payload to trigger {vulnerability.cve_id or 'target vulnerability'}...\n[+] [CyberTriage-Attacker 172.20.0.2] Target responded with execution confirmation. State artifact created.\n[+] [CyberTriage-Attacker 172.20.0.2] Verification complete. Exit code 0."
+        attacker_block = attacker_logs.strip() if attacker_logs and attacker_logs.strip() else f"[*] [AIsploitable-Attacker 172.20.0.2] Probing target daemon at http://172.20.0.3:8080/health...\n[+] [AIsploitable-Attacker 172.20.0.2] Service active (HTTP 200 OK)\n[*] [AIsploitable-Attacker 172.20.0.2] Delivering synthesized payload to trigger {vulnerability.cve_id or 'target vulnerability'}...\n[+] [AIsploitable-Attacker 172.20.0.2] Target responded with execution confirmation. State artifact created.\n[+] [AIsploitable-Attacker 172.20.0.2] Verification complete. Exit code 0."
         victim_block = victim_logs.strip() if victim_logs and victim_logs.strip() else f"[DAEMON] [sandbox-victim-target 172.20.0.3:8080] Incoming connection from 172.20.0.2\n[DAEMON] [sandbox-victim-target 172.20.0.3:8080] Parsing request headers & deserializing payload\n[EXPLOIT] [sandbox-victim-target 172.20.0.3:8080] Unhandled payload execution triggered -> writing assertion token to /tmp\n[SYSTEM] [sandbox-victim-target 172.20.0.3:8080] State modified: /tmp/pwned.txt (UID 0)"
 
         return f"""# Security Triage & Empirical Verification Report
@@ -184,7 +184,7 @@ level: high
 ```
 - **Network Signature (Snort/Suricata)**:
 ```text
-alert tcp any any -> $HOME_NET 8080 (msg:"CYBERTRIAGE EXPLOIT - Ingress Payload Injection Attempt"; flow:to_server,established; content:"cmd="; nocase; classtype:attempted-admin; sid:9000101; rev:1;)
+alert tcp any any -> $HOME_NET 8080 (msg:"AISPLOITABLE EXPLOIT - Ingress Payload Injection Attempt"; flow:to_server,established; content:"cmd="; nocase; classtype:attempted-admin; sid:9000101; rev:1;)
 ```
 """
 
