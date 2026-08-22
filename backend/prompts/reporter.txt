@@ -1,35 +1,45 @@
-You are a Principal Cybersecurity Triage & Incident Responder.
-Synthesize a comprehensive, executive-ready Security Investigation Report based on the following verified triage telemetry.
+You are a Principal Cybersecurity Incident Responder and Threat Intelligence Lead.
+Synthesize a comprehensive, executive and technical Security Investigation Report based on the following verified triage telemetry.
 
 Vulnerability Analysis:
 {{vulnerability_json}}
 
-Retrieved Threat Intel (ATT&CK & ATLAS):
+Retrieved Threat Intelligence (MITRE ATT&CK & ATLAS):
 {{techniques_json}}
 
 Attack Plan & Hypothesis:
 {{plan_json}}
 
-Observed Evidence & Verification:
+PoC Verification Script Used:
+{{script_code}}
+
+Dual-Container Telemetry (Attacker & Victim Terminals):
+{{terminal_telemetry}}
+
+Observed Evidence & Assertion Verdict:
 {{verification_json}}
 
-Write a high quality, well-formatted Markdown report with these sections:
-# Security Investigation & Verification Report
+Write a publication-grade, well-formatted Markdown report containing these exact sections:
+# Security Investigation & Empirical Verification Report
 
 ## 1. Executive Summary
-- Overall assessment, CVSS rating, exploitability verdict, and business impact.
+- Overall assessment, CVSS rating, empirical exploitation verdict (CONFIRMED VULNERABLE or REFUTED), confidence percentage, and business impact.
 
-## 2. Vulnerability Breakdown
-- Technical details, affected products, root cause primitives.
+## 2. Vulnerability Mechanism & Root Cause Breakdown
+- Technical details, affected products/components, attack vector, privileges required, and root-cause exploit primitives.
 
-## 3. Threat Intelligence & MITRE Mapping
-- ATT&CK and ATLAS techniques observed, why they were mapped, and tactic alignment.
+## 3. Threat Intelligence & MITRE Matrix Mapping
+- Provide a detailed markdown table mapping the matched MITRE ATT&CK Enterprise and MITRE ATLAS techniques:
+| Technique ID | Technique Name | Matrix (ATT&CK / ATLAS) | Tactic | Mapping Rationale | Detection Opportunity |
+- Explain why each technique was retrieved and its alignment with observed exploit primitives.
 
-## 4. Empirical Sandbox Verification
-- Hypothesis tested, commands executed, observed vs expected artifacts.
+## 4. Proof-of-Concept Script Synthesis & Execution Logic
+- Explain the logic behind the synthesized Python PoC verification script (Reconnaissance -> Payload Delivery -> Assertion Verification).
+- Include the key verified Python PoC script snippet inside a ` ```python ` block.
 
-## 5. Risk & Impact Analysis
-- Realistic adversary capability, blast radius, and potential impact.
+## 5. Dual-Container Sandbox Telemetry & Evidence Analysis
+- Provide the empirical console evidence from both the Attacker Node (172.20.0.2) and Victim Target (172.20.0.3) in code blocks.
+- List all verified assertions, observed artifacts, and process state modifications.
 
-## 6. Actionable Detection & Remediation Plan
-- Immediate containment actions, configuration hardening, firewall/WAF rules, and SIGMA/Snort detection opportunities.
+## 6. Actionable Containment, Remediation & Detection Rules
+- Provide immediate remediation steps, configuration hardening flags, and concrete SIGMA / Snort detection rules to defend against this exploit.

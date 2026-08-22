@@ -47,7 +47,8 @@ class OllamaProvider(BaseLLMProvider):
             "stream": False,
             "options": {
                 "temperature": 0.2,
-                "num_predict": 4096
+                "num_predict": settings.max_predict,
+                "num_ctx": settings.context_size
             }
         }
         if system:
@@ -77,7 +78,8 @@ class OllamaProvider(BaseLLMProvider):
             "stream": True,
             "options": {
                 "temperature": 0.2,
-                "num_predict": 4096
+                "num_predict": settings.max_predict,
+                "num_ctx": settings.context_size
             }
         }
         if system:

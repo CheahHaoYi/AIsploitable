@@ -155,9 +155,17 @@ class InvestigationOrchestrator:
             investigation.current_stage = InvestigationStage.REPORT
             investigation.progress = 95
             await emit("STATUS", {"stage": investigation.current_stage, "progress": investigation.progress})
-            await log(InvestigationStage.REPORT, "Synthesizing executive triage report with Gemma...")
-
-            report_md = await reporter_agent.report(vuln, techniques, plan, verif, model=investigation.model_used)
+            report_md = await reporter_agent.report(
+                vulnerability=vuln,
+                techniques=techniques,
+                plan=plan,
+                verification=verif,
+                script=generated_script,
+                attacker_logs=investigation.attacker_logs,
+                victim_logs=investigation.victim_logs,
+                terminal_output=investigation.terminal_output,
+                model=investigation.model_used
+            )
             investigation.report_markdown = report_md
             await emit("REPORT", {"report": report_md})
 

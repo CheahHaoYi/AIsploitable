@@ -63,6 +63,38 @@ FastAPI backend orchestrating local Gemma models via Ollama, offline Threat Inte
 
 ---
 
+## ⚙️ Configuration (`.env`)
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `OLLAMA_BASE_URL` | `http://localhost:11434` | Ollama service endpoint |
+| `DEFAULT_MODEL` | `gemma4:e2b` | Primary fast triage model (Google Gemma 4 E2B) |
+| `FALLBACK_MODEL` | `gemma4:e4b` | High-reasoning fallback model (Google Gemma 4 E4B) |
+| `CONTEXT_SIZE` | `8192` | Model context window (`num_ctx` in Ollama options for multi-turn triage) |
+| `MAX_PREDICT` | `4096` | Maximum generation tokens per agent response |
+| `PORT` | `8000` | FastAPI server listener port |
+| `DEMO_MODE` | `false` | Fallback deterministic simulation when Docker or Ollama are unavailable |
+
+---
+
+## 🧠 Explainability & Verification Architecture
+
+1. **Threat Intelligence Mapping (MITRE ATT&CK & ATLAS)**:
+   - Evaluates vulnerability primitives against 755 offline techniques.
+   - Assigns a dynamic `why_retrieved` rationale to every matched technique, explaining the exact token, primitive, or CVE mapping context.
+   - Embeds detection opportunities and mitigations directly into both the live UI and the final Markdown report.
+
+2. **3-Phase PoC Verification Pipeline**:
+   - `step_1_recon()`: Service reachability check, HTTP banner probing, and port validation at `172.20.0.3:8080`.
+   - `step_2_exploit()`: Delivery of structured vulnerability vector over isolated Docker bridge network.
+   - `step_3_verify_artifact()`: Empirical state assertion checking process UID, file creation (`/tmp/pwned.txt`), or HTTP response codes.
+
+3. **Report Generation & Evidence Synthesis**:
+   - The `ReporterAgent` integrates the verified Python script snippet and dual-container terminal logs (`sandbox-attacker-node` @ `172.20.0.2` and `sandbox-victim-target` @ `172.20.0.3:8080`).
+   - Produces executive summaries, CVSS breakdowns, MITRE correlation tables, and SIGMA/Snort detection rules.
+
+---
+
 ## 🐳 Docker Container Sandbox Architecture
 
 The backend sandbox engine ([`backend/sandbox/manager.py`](manager.py)) manages real, ephemeral dual-container environments:

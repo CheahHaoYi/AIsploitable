@@ -37,7 +37,7 @@ export default function KnowledgePanel({ techniques }: KnowledgePanelProps) {
         {techniques.map((tech) => (
           <div
             key={tech.id}
-            className="p-4 rounded-xl border border-[#dadce0] hover:border-[#1a73e8] bg-[#f8f9fa] hover:bg-white transition-all shadow-sm group"
+            className="p-4 rounded-xl border border-[#dadce0] hover:border-[#1a73e8] bg-[#f8f9fa] hover:bg-white transition-all shadow-sm group space-y-2.5"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div className="flex items-center gap-2 flex-wrap">
@@ -51,6 +51,9 @@ export default function KnowledgePanel({ techniques }: KnowledgePanelProps) {
                   {tech.id}
                 </span>
                 <span className="font-semibold text-sm text-[#202124]">{tech.name}</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-[#e8eaed] text-[#3c4043] border border-[#dadce0]">
+                  {tech.is_atlas ? 'MITRE ATLAS (AI)' : 'MITRE ATT&CK'}
+                </span>
                 {tech.tactic_name && (
                   <span className="text-[11px] bg-white border border-[#dadce0] text-[#5f6368] px-2 py-0.5 rounded-full font-medium">
                     {tech.tactic_name}
@@ -73,17 +76,29 @@ export default function KnowledgePanel({ techniques }: KnowledgePanelProps) {
             </div>
 
             {/* Description */}
-            <p className="text-xs text-[#5f6368] mt-2 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-[#5f6368] leading-relaxed">
               {tech.description}
             </p>
 
             {/* Why Retrieved Rationale */}
             {tech.why_retrieved && (
-              <div className="mt-2.5 p-2 bg-[#ffffff] border border-[#dadce0] rounded-lg text-xs flex items-start gap-1.5 text-[#3c4043]">
-                <Sparkles className="w-3.5 h-3.5 text-[#fbbc04] shrink-0 mt-0.5" />
-                <span>
-                  <strong className="text-[#202124]">Why retrieved:</strong> {tech.why_retrieved}
-                </span>
+              <div className="p-2.5 bg-[#ffffff] border border-[#d2e3fc] rounded-lg text-xs flex items-start gap-2 text-[#202124]">
+                <Sparkles className="w-4 h-4 text-[#1a73e8] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-[#1a73e8]">Mapping Rationale: </span>
+                  <span className="text-[#3c4043]">{tech.why_retrieved}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Detection Opportunities */}
+            {tech.detection_opportunities && tech.detection_opportunities.length > 0 && (
+              <div className="p-2 bg-[#f1f3f4] border border-[#dadce0] rounded-lg text-[11px] text-[#3c4043] flex items-start gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#188038] shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-[#202124]">Detection Strategy: </strong>
+                  <span>{tech.detection_opportunities[0]}</span>
+                </div>
               </div>
             )}
           </div>

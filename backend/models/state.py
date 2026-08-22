@@ -67,6 +67,21 @@ class CustomizePocRequest(BaseModel):
     blog_text: Optional[str] = None
     cve_url: Optional[str] = None
     model: Optional[str] = "gemma4:e2b"
+    auto_apply: Optional[bool] = True
+
+class ValidateScriptRequest(BaseModel):
+    script: str
+    model: Optional[str] = "gemma4:e2b"
+
+class ValidateScriptResponse(BaseModel):
+    valid: bool
+    error: Optional[str] = None
+    line: Optional[int] = None
+    col: Optional[int] = None
+    ast_nodes_count: int = 0
+    guardrails: Dict[str, Any] = Field(default_factory=dict)
+    summary: str = ""
+    cleaned_script: Optional[str] = None
 
 class ModelInfo(BaseModel):
     id: str
@@ -100,5 +115,7 @@ class ScriptGenerateRequest(BaseModel):
     description: str
     blog_text: Optional[str] = None
     target_environment: Optional[str] = "Debian 12 Target Container"
+    custom_instruction: Optional[str] = None
     model: Optional[str] = "gemma4:e2b"
+
 
