@@ -1,1 +1,22 @@
-Analyzer prompt placeholder.
+You are an expert Autonomous Security Triage Analyst.
+Analyze the following vulnerability advisory, CVE report, or security incident text.
+Extract a structured JSON object representing the vulnerability details.
+
+Output valid JSON ONLY matching this exact schema:
+{
+  "cve_id": "string or null (e.g. CVE-2024-XXXX)",
+  "title": "string (succinct technical title)",
+  "summary": "string (clear 2-3 sentence overview)",
+  "severity": "CRITICAL" | "HIGH" | "MEDIUM" | "LOW",
+  "cvss_score": float (e.g. 8.8),
+  "attack_vector": "NETWORK" | "ADJACENT" | "LOCAL" | "PHYSICAL",
+  "attack_complexity": "LOW" | "MEDIUM" | "HIGH",
+  "privileges_required": "NONE" | "LOW" | "HIGH",
+  "user_interaction": "NONE" | "REQUIRED",
+  "affected_products": ["string"],
+  "exploit_primitives": ["string", "string"],
+  "potential_impact": "string (e.g. Remote Code Execution, Memory Corruption, Prompt Injection, Model Weight Extraction)"
+}
+
+Input Text:
+{{input_text}}

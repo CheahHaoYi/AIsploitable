@@ -3,10 +3,11 @@
 > [!IMPORTANT]
 > **MANDATORY AGENT PROTOCOL — UPFRONT AND CONTINUOUS REQUIREMENT**
 > Before executing any task and throughout your session, you **MUST** maintain and update `README.md` in this directory (`frontend/README.md`).
+> **The Presentation Agent continuously reads this `README.md` alongside all other subfolder `README.md` files to build the live pitch deck.**
 > You must clearly document:
 > 1. **Your Main Goal**: What objective you are tackling right now.
-> 2. **Your Current Progress**: What is currently working, complete, or blocked.
-> 3. **What You Have Attempted**: A precise log of steps executed, UI components created, bugs fixed, build results, and how issues were resolved.
+> 2. **Your Current Progress**: What UI components are complete, active routes, screenshots/mockup states, demo flow readiness, or what is blocked.
+> 3. **What You Have Attempted**: A precise log of steps executed, components created, build results, styling adjustments, and how issues were resolved.
 >
 > *Never complete a turn without updating `README.md` to reflect your latest state.*
 
@@ -55,7 +56,7 @@ frontend/
 
 ### 1. Mission Control & Header
 - **Gemma Status Badge**: Show model status (`GEMMA ● LOCAL`, inference time, tool invocation counter).
-- **Vulnerability Intake**: Support custom text input or 1-click golden-path demo scenarios (e.g., "Demo CVE-2024-XXXX: Command Injection").
+- **Vulnerability Intake**: Support custom text input or 1-click golden-path demo scenarios.
 
 ### 2. Investigation Timeline
 - Distinct visual state progression:
@@ -110,6 +111,6 @@ The frontend must listen to `/ws/{id}` and handle the following message types:
 
 1. **No Infinite Loading**: Always display active stage names or explicit error/retry states.
 2. **Action-Oriented Views**: Do not render raw internal LLM reasoning tokens; render structured event state.
-3. **Responsive & Cyber-Themed Aesthetic**: Professional dark-mode security operations center aesthetic with high contrast and clean typography.
-4. **Build Integrity**: Ensure `npm run build` or `next build` passes with zero TypeScript/lint breaks.
-5. **Maintain `frontend/README.md`**: Document progress, components, and current status continuously!
+3. **Professional SOC Aesthetic**: High-contrast cyber dark mode, clean typography, responsive layout.
+4. **Build Integrity**: Ensure `npm run build` passes with zero errors.
+5. **Log Progress for Presentation Agent**: Keep `frontend/README.md` updated with completed components, demo flow notes, and layout screenshots for the pitch deck!
