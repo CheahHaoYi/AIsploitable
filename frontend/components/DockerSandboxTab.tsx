@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Investigation } from '../lib/types';
+import { Investigation, Vulnerability } from '../lib/types';
 import InvestigationTimeline from './InvestigationTimeline';
 import DualTerminal from './DualTerminal';
 import ScriptStreamViewer from './ScriptStreamViewer';
@@ -9,7 +9,7 @@ import AttackGraph from './AttackGraph';
 import VulnerabilityCard from './VulnerabilityCard';
 import KnowledgePanel from './KnowledgePanel';
 import EvidencePanel from './EvidencePanel';
-import { Server, Shield, Sparkles, Terminal, Activity, ArrowRight } from 'lucide-react';
+import { Server, Activity, ArrowRight, Play, Loader2 } from 'lucide-react';
 
 interface DockerSandboxTabProps {
   investigation: Investigation | null;
@@ -17,6 +17,14 @@ interface DockerSandboxTabProps {
   isStreamingScript?: boolean;
   selectedModel: string;
   onSwitchToReportsTab?: () => void;
+  isLoading?: boolean;
+  onScriptChange?: (script: string) => void;
+  onStartInvestigation?: (
+    inputText: string,
+    sourceUrl?: string,
+    customVuln?: Vulnerability,
+    customScript?: string
+  ) => Promise<void>;
 }
 
 export default function DockerSandboxTab({
@@ -25,6 +33,9 @@ export default function DockerSandboxTab({
   isStreamingScript = false,
   selectedModel,
   onSwitchToReportsTab,
+  isLoading = false,
+  onScriptChange,
+  onStartInvestigation,
 }: DockerSandboxTabProps) {
   if (!investigation && !manualScript) {
     return (
@@ -45,6 +56,7 @@ export default function DockerSandboxTab({
   }
 
   const isExecuting =
+    isLoading ||
     investigation?.current_stage === 'SANDBOX' ||
     investigation?.current_stage === 'EXECUTE' ||
     investigation?.current_stage === 'GENERATE_SCRIPT';

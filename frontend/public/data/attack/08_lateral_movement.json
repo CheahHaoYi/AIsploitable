@@ -1,0 +1,812 @@
+[
+  {
+    "technique_id": "T1021",
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Remote Services > Remote Desktop Protocol > Obtaining account credentials through RDP brute force attack and lateral movement",
+    "description": "Obtaining Account and Passwords Through RDP Blasting Horizontally",
+    "attack_complexity": "Low",
+    "privileges_required": "None (brute force does not require prior credentials)",
+    "execution_context": [
+      "Windows",
+      "Linux (via xfreerdp/rdesktop)"
+    ],
+    "resource_required": [
+      "Credential list or wordlist",
+      "Network access to target RDP port (3389)"
+    ],
+    "potential_defenses": [
+      "Disable Remote Desktop Service where not needed",
+      "Apply RDP security patches (e.g., CVE-2019-0708)",
+      "Enforce Network Level Authentication (NLA) for RDP",
+      "Restrict RDP port (3389) access via firewall whitelist",
+      "Enforce strong password policies and MFA for RDP",
+      "Monitor for frequent RDP connection attempts"
+    ],
+    "detection_opportunities": [
+      "Multiple RDP connection attempts from a single source",
+      "RDP logins from unexpected source IPs",
+      "Frequent failed RDP authentication events",
+      "RDP sessions initiated outside business hours"
+    ],
+    "exploit_primitives": [
+      "RDP Brute Force"
+    ],
+    "code_examples_patterns": [
+      "Use hydra to brute force RDP credentials against target host on port 3389"
+    ],
+    "related_tools": [
+      "hydra",
+      "xfreerdp",
+      "rdesktop",
+      "Impacket"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1021/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1021",
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Remote Services > Remote Desktop Protocol > Obtain through the target machine the existence of enumerable users.",
+    "description": "By using hashing, determine whether the target machine has enumerated users.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux (via xfreerdp/rdesktop)"
+    ],
+    "resource_required": [
+      "NTLM password hash",
+      "Network access to target RDP service"
+    ],
+    "potential_defenses": [
+      "Disable Remote Desktop Service where not needed",
+      "Apply RDP security patches (e.g., CVE-2019-0708)",
+      "Enforce Network Level Authentication (NLA) for RDP",
+      "Restrict RDP port (3389) access via firewall whitelist",
+      "Enforce strong password policies and MFA for RDP",
+      "Monitor for frequent RDP connection attempts"
+    ],
+    "detection_opportunities": [
+      "Multiple RDP connection attempts from a single source",
+      "RDP logins from unexpected source IPs",
+      "Frequent failed RDP authentication events",
+      "RDP sessions initiated outside business hours"
+    ],
+    "exploit_primitives": [
+      "Pass-the-Hash"
+    ],
+    "code_examples_patterns": [
+      "Use Impacket rdp_check.py with NTLM hash to enumerate valid users on target"
+    ],
+    "related_tools": [
+      "Impacket Toolkit",
+      "hydra",
+      "xfreerdp",
+      "rdesktop",
+      "Impacket"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1021/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1021",
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Remote Services > Remote Desktop Protocol > RDP Man-in-the-Middle",
+    "description": "Obtain traffic analysis through a proxy",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux (via xfreerdp/rdesktop)"
+    ],
+    "resource_required": [
+      "Network access to target RDP port (3389)"
+    ],
+    "potential_defenses": [
+      "Disable Remote Desktop Service where not needed",
+      "Apply RDP security patches (e.g., CVE-2019-0708)",
+      "Enforce Network Level Authentication (NLA) for RDP",
+      "Restrict RDP port (3389) access via firewall whitelist",
+      "Enforce strong password policies and MFA for RDP",
+      "Monitor for frequent RDP connection attempts"
+    ],
+    "detection_opportunities": [
+      "Multiple RDP connection attempts from a single source",
+      "RDP logins from unexpected source IPs",
+      "Frequent failed RDP authentication events",
+      "RDP sessions initiated outside business hours"
+    ],
+    "exploit_primitives": [
+      "RDP Session Hijacking"
+    ],
+    "code_examples_patterns": [
+      "Use rdesktop or xfreerdp to establish RDP session to remote Windows host"
+    ],
+    "related_tools": [
+      "Seth",
+      "hydra",
+      "xfreerdp",
+      "rdesktop",
+      "Impacket"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1021/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1021",
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Remote Services > Remote Desktop Protocol > Establishing a Remote Connection",
+    "description": "Establish a remote connection through the rdesktop.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux (via xfreerdp/rdesktop)"
+    ],
+    "resource_required": [
+      "Network access to target RDP port (3389)"
+    ],
+    "potential_defenses": [
+      "Disable Remote Desktop Service where not needed",
+      "Apply RDP security patches (e.g., CVE-2019-0708)",
+      "Enforce Network Level Authentication (NLA) for RDP",
+      "Restrict RDP port (3389) access via firewall whitelist",
+      "Enforce strong password policies and MFA for RDP",
+      "Monitor for frequent RDP connection attempts"
+    ],
+    "detection_opportunities": [
+      "Multiple RDP connection attempts from a single source",
+      "RDP logins from unexpected source IPs",
+      "Frequent failed RDP authentication events",
+      "RDP sessions initiated outside business hours"
+    ],
+    "exploit_primitives": [
+      "RDP Session Hijacking"
+    ],
+    "code_examples_patterns": [
+      "Use rdesktop or xfreerdp to establish RDP session to remote Windows host"
+    ],
+    "related_tools": [
+      "Linux commands",
+      "hydra",
+      "xfreerdp",
+      "rdesktop",
+      "Impacket"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1021/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1021",
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Remote Services > Remote Desktop Protocol > Login Using User Hash",
+    "description": "Logging in using a user hash through xfreerdp",
+    "attack_complexity": "Low",
+    "privileges_required": "Domain User (with NTLM hash)",
+    "execution_context": [
+      "Windows",
+      "Linux (via xfreerdp/rdesktop)"
+    ],
+    "resource_required": [
+      "NTLM password hash",
+      "Network access to target host"
+    ],
+    "potential_defenses": [
+      "Disable Remote Desktop Service where not needed",
+      "Apply RDP security patches (e.g., CVE-2019-0708)",
+      "Enforce Network Level Authentication (NLA) for RDP",
+      "Restrict RDP port (3389) access via firewall whitelist",
+      "Enforce strong password policies and MFA for RDP",
+      "Monitor for frequent RDP connection attempts"
+    ],
+    "detection_opportunities": [
+      "Multiple RDP connection attempts from a single source",
+      "RDP logins from unexpected source IPs",
+      "Frequent failed RDP authentication events",
+      "RDP sessions initiated outside business hours"
+    ],
+    "exploit_primitives": [
+      "Pass-the-Hash",
+      "RDP Session Hijacking"
+    ],
+    "code_examples_patterns": [
+      "Use xfreerdp with /pth flag and NTLM hash to authenticate to remote host"
+    ],
+    "related_tools": [
+      "Linux Command +D426:F426",
+      "hydra",
+      "xfreerdp",
+      "rdesktop",
+      "Impacket"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1021/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Using Tools Horizontally > EW penetration > Executing the ew Command",
+    "description": "Execute the ew command separately on Linux and a compromised host.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux"
+    ],
+    "resource_required": [
+      "EW binary for target platform",
+      "Open port for SOCKS listener"
+    ],
+    "potential_defenses": [
+      "Disable non-essential ports",
+      "Monitor for SOCKS proxy listeners",
+      "Restrict port forwarding capabilities"
+    ],
+    "detection_opportunities": [
+      "Unnecessary open ports detected",
+      "SOCKS proxy listener on non-standard ports"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Deploy EW SOCKS proxy on compromised host and connect from attacker machine"
+    ],
+    "related_tools": [
+      "New tools"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Using Tools Horizontally > proxychains proxy > Running the proxychains Command",
+    "description": "Run the proxychains command to configure the proxy.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux"
+    ],
+    "resource_required": [
+      "Proxy configuration file",
+      "Network routing access"
+    ],
+    "potential_defenses": [
+      "Disable unnecessary proxy configurations",
+      "Monitor outbound proxy traffic",
+      "Restrict proxy tool usage via application control"
+    ],
+    "detection_opportunities": [
+      "Proxy configuration file modifications",
+      "Unusual SOCKS proxy traffic patterns"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Configure proxychains.conf with SOCKS5 proxy and route tools through compromised host"
+    ],
+    "related_tools": [
+      "Proxychains tool"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Using Tools Horizontally > psexec > Running the psexec Command",
+    "description": "Using psexec to remotely execute commands",
+    "attack_complexity": "Low",
+    "privileges_required": "Domain User or Administrator credentials",
+    "execution_context": [
+      "Windows"
+    ],
+    "resource_required": [
+      "Valid credentials or NTLM hash",
+      "Admin$ share access",
+      "SMB port (445) accessibility"
+    ],
+    "potential_defenses": [
+      "Restrict Admin$ share access",
+      "Implement network segmentation",
+      "Apply least privilege principles",
+      "Monitor SMB connections and PsExec process creation"
+    ],
+    "detection_opportunities": [
+      "PsExec.exe process creation events",
+      "Multiple SMB connections from a single host",
+      "Named pipe creation on Admin$ share",
+      "Remote process creation via SMB"
+    ],
+    "exploit_primitives": [
+      "SMB/PSEXEC",
+      "Pass-the-Hash"
+    ],
+    "code_examples_patterns": [
+      "Use psexec.py from Impacket with NTLM hash to execute commands on remote host",
+      "Run PsExec.exe with domain credentials to spawn remote interactive shell"
+    ],
+    "related_tools": [
+      "psexe tool",
+      "PsExec",
+      "Impacket psexec.py"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Using Tools Horizontally > WMIEXEC > Executing WMIEXEC Commands",
+    "description": "Using WMIEXE to remotely execute commands",
+    "attack_complexity": "Low",
+    "privileges_required": "Domain User or Administrator credentials",
+    "execution_context": [
+      "Windows"
+    ],
+    "resource_required": [
+      "Valid credentials",
+      "WMI service enabled on target",
+      "DCOM port accessibility"
+    ],
+    "potential_defenses": [
+      "Disable WMI remote access where not needed",
+      "Apply least privilege principles",
+      "Monitor WMI event subscriptions and remote calls",
+      "Restrict DCOM access via firewall rules"
+    ],
+    "detection_opportunities": [
+      "Unusual WMI remote calls from non-admin hosts",
+      "WMI event subscription creation",
+      "Remote process creation via WMI",
+      "DCOM activation from unexpected sources"
+    ],
+    "exploit_primitives": [
+      "WMI Remote Execution",
+      "DCOM Abuse"
+    ],
+    "code_examples_patterns": [
+      "Invoke-WMICommand to execute on remote host",
+      "Use wmiexec.vbs to run commands via WMI on target system"
+    ],
+    "related_tools": [
+      "The WMIEXE Tool",
+      "WMIEXEC",
+      "Impacket wmiexec.py",
+      "Invoke-WMI"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Using Tools Horizontally > cobaltstrike > Executing the cobaltstrike Command",
+    "description": "Use cobaltstrike horizontal",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows"
+    ],
+    "resource_required": [
+      "CobaltStrike team server",
+      "Initial Beacon implant",
+      "SMB named pipe access"
+    ],
+    "potential_defenses": [
+      "Implement network segmentation",
+      "Deploy endpoint detection and response (EDR)",
+      "Monitor SMB named pipe activity",
+      "Perform security hardening on internal hosts"
+    ],
+    "detection_opportunities": [
+      "SMB Beacon named pipe communication patterns",
+      "Unusual outbound SMB traffic to internal hosts",
+      "Multiple simultaneous Beacon sessions"
+    ],
+    "exploit_primitives": [
+      "SMB/PSEXEC",
+      "WMI Remote Execution"
+    ],
+    "code_examples_patterns": [
+      "Generate SMB Beacon from CobaltStrike and pivot to internal host via named pipes"
+    ],
+    "related_tools": [
+      "CobaltStrike tool",
+      "CobaltStrike"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Hash Passing > Hash Transfer > Hash Transfer",
+    "description": "Bypass the standard authentication and go directly to the hash authentication part.",
+    "attack_complexity": "Low",
+    "privileges_required": "Domain User (with NTLM hash)",
+    "execution_context": [
+      "Windows"
+    ],
+    "resource_required": [
+      "NTLM password hash",
+      "Network access to target host"
+    ],
+    "potential_defenses": [
+      "Disable LM hash storage",
+      "Enforce Kerberos authentication over NTLM",
+      "Implement Credential Guard",
+      "Monitor Pass-the-Hash patterns in authentication logs"
+    ],
+    "detection_opportunities": [
+      "NTLM authentication without prior interactive logon",
+      "Multiple hosts authenticating with the same hash",
+      "Pass-the-Hash patterns in security event logs"
+    ],
+    "exploit_primitives": [
+      "Pass-the-Hash"
+    ],
+    "code_examples_patterns": [
+      "Use Mimikatz SEKURLSA::pth module with NTLM hash to impersonate user remotely"
+    ],
+    "related_tools": [
+      "Nexpose",
+      "Mimikatz",
+      "Impacket"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Software Installation > Software Installation > Distribute Planting by Installation",
+    "description": "Automatically modify the downloaded installation package, and during installation, implant the modified software.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux"
+    ],
+    "resource_required": [
+      "Modified installation package",
+      "User execution on target"
+    ],
+    "potential_defenses": [
+      "Implement proper access control for software distribution",
+      "Verify installation package integrity",
+      "Use application allowlisting"
+    ],
+    "detection_opportunities": [
+      "Unsigned or modified installation packages",
+      "Unexpected software installation events"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Inject malicious payload into installation package and distribute to targets"
+    ],
+    "related_tools": [
+      "Nexpose"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Exploiting Vulnerability Horizontally > Scanning for system vulnerabilities > Exploiting System Vulnerabilities Horizontally",
+    "description": "Malicious code will scan for system vulnerabilities, implant malware, and perform lateral movement.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Windows",
+      "Linux"
+    ],
+    "resource_required": [
+      "Vulnerability scanner",
+      "Exploit payload for identified CVE"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches",
+      "Conduct regular vulnerability scanning",
+      "Implement network segmentation"
+    ],
+    "detection_opportunities": [
+      "Vulnerability scanning activity from internal hosts",
+      "Exploit payload delivery attempts"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Scan internal network for vulnerable services and deploy exploit payloads"
+    ],
+    "related_tools": [
+      "Nexpose"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Login Script > Login Run > Running the Login Script When Logging In to the System",
+    "description": "Run the login script when logging in to the system",
+    "attack_complexity": "Low",
+    "privileges_required": "Domain User (executes at logon)",
+    "execution_context": [
+      "Windows",
+      "Active Directory"
+    ],
+    "resource_required": [
+      "Write access to login script location",
+      "Active Directory Group Policy access"
+    ],
+    "potential_defenses": [
+      "Restrict write access to login script directories",
+      "Monitor startup item modifications",
+      "Implement application whitelisting"
+    ],
+    "detection_opportunities": [
+      "Login script modification events",
+      "Unexpected startup item additions"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Modify Group Policy login script to download and execute payload on user logon"
+    ],
+    "related_tools": [
+      "Nexpose"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Inter-Board Communication Transverse Movement > Cross-board communication > Horizontal movement of inter-communication between service boards and between service boards and the main control board.",
+    "description": "Attackers tamper with terminal software to send specially crafted abnormal protocol packets. They exploit vulnerabilities in service boards to implant malicious code. Then, through inter-board communication messages, they intrude other boards, thereby expanding the attack impact. In extreme cases, attackers can use this channel to attack the main control board, gaining control over the main control board and further intruding the network management system to control the entire network.",
+    "attack_complexity": "High",
+    "privileges_required": "Compromised service board access",
+    "execution_context": [
+      "Embedded Systems",
+      "Industrial Control"
+    ],
+    "resource_required": [
+      "Compromised terminal or service board",
+      "Protocol vulnerability exploit"
+    ],
+    "potential_defenses": [
+      "Harden inter-board communication protocols",
+      "Implement message integrity checks",
+      "Segment service boards from main control board"
+    ],
+    "detection_opportunities": [
+      "Abnormal inter-board protocol packets",
+      "Unexpected board-to-board communication patterns"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Send crafted protocol packets via compromised terminal to exploit service board vulnerability"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Platform Service Lateral Movement > Lateral Movement on the K8s Platform > Accessing the K8s API via a Service Account",
+    "description": "An attacker inside a container can access the Kubernetes (K8s) API through a Service Account. The attacker can then probe the current pod user permissions. If the permissions allow, the attacker can issue commands through the API or exploit Kubernetes privilege escalation vulnerabilities to access other resources within the cluster.",
+    "attack_complexity": "High",
+    "privileges_required": "Container-level access with Service Account token",
+    "execution_context": [
+      "Kubernetes",
+      "Container"
+    ],
+    "resource_required": [
+      "Service Account token mounted in pod",
+      "Kubernetes API server access"
+    ],
+    "potential_defenses": [
+      "Minimize pod permissions using RBAC",
+      "Split external-facing and sensitive pods into separate privilege levels",
+      "Audit Service Account token usage",
+      "Monitor Kubernetes API Server logs"
+    ],
+    "detection_opportunities": [
+      "Unusual API Server access from pod Service Accounts",
+      "Privilege escalation attempts via API calls",
+      "Anomalous pod-to-API server communication"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Use mounted Service Account token to query K8s API and enumerate cluster resources"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Platform Service Lateral Movement > Lateral Movement on the K8s Platform > Accessing the K8s Dashboard",
+    "description": "After discovering the service address where the dashboard is located, the attacker, in the event of improper configuration of administrative permissions, issues commands through the K8s Dashboard.",
+    "attack_complexity": "High",
+    "privileges_required": "Container-level access with Service Account token",
+    "execution_context": [
+      "Kubernetes",
+      "Container"
+    ],
+    "resource_required": [
+      "K8s Dashboard URL",
+      "Dashboard credentials or misconfigured permissions"
+    ],
+    "potential_defenses": [
+      "Restrict K8s Dashboard access with RBAC",
+      "Disable Dashboard in production if not needed",
+      "Enforce authentication and authorization on Dashboard"
+    ],
+    "detection_opportunities": [
+      "Unauthorized Dashboard access attempts",
+      "Dashboard commands from unexpected users"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Access K8s Dashboard with stolen credentials to execute commands on cluster"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Platform Service Lateral Movement > Lateral Movement on the K8s Platform > Attacking a Third-Party K8s Plugin",
+    "description": "If the platform deploys third-party Kubernetes plugins with misconfigurations and vulnerabilities, these insecure configurations and the use of third-party Kubernetes plugins/tools will introduce new attack surfaces and provide entry points for lateral movement.",
+    "attack_complexity": "High",
+    "privileges_required": "Container-level access with Service Account token",
+    "execution_context": [
+      "Kubernetes",
+      "Container"
+    ],
+    "resource_required": [
+      "Vulnerable third-party K8s plugin",
+      "Network access to plugin endpoint"
+    ],
+    "potential_defenses": [
+      "Avoid deploying unvetted third-party K8s plugins",
+      "Conduct security audits before deploying plugins",
+      "Monitor plugin network activity"
+    ],
+    "detection_opportunities": [
+      "Unusual plugin API calls",
+      "Plugin network traffic to external endpoints"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Exploit misconfigured third-party K8s plugin API to gain cluster access"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Platform Service Lateral Movement > Lateral Movement on Cloud Platform > Stealing Credentials Attack on Cloud Services",
+    "description": "Attackers exploit internal container files or communication credentials of cloud services obtained from K8s secrets to perform lateral movement and access cloud service APIs.",
+    "attack_complexity": "High",
+    "privileges_required": "Compromised container or pod with credential access",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "K8s secrets or cloud credential files",
+      "Cloud API access"
+    ],
+    "potential_defenses": [
+      "Restrict access to K8s secrets",
+      "Rotate cloud credentials regularly",
+      "Implement least-privilege IAM policies",
+      "Monitor cloud API access patterns"
+    ],
+    "detection_opportunities": [
+      "Credential access from unexpected pods",
+      "Cloud API calls using stolen credentials",
+      "Anomalous secret mount activity"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Extract cloud credentials from K8s secrets and use to access cloud service APIs"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Platform Service Lateral Movement > Lateral Movement on Cloud Platform > Stealing credentials to attack other applications",
+    "description": "In scenarios where infrastructure is highly containerized, the vast majority of services are API-based. This makes credential theft a critical method for expanding the attack surface and obtaining target data. Communication credentials for K8s clusters, cloud products, and self-built applications are all targets for attackers to steal.",
+    "attack_complexity": "High",
+    "privileges_required": "Compromised container or pod with credential access",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "K8s secrets or cloud credential files",
+      "Cloud API access"
+    ],
+    "potential_defenses": [
+      "Restrict access to K8s secrets",
+      "Rotate cloud credentials regularly",
+      "Implement least-privilege IAM policies",
+      "Monitor cloud API access patterns"
+    ],
+    "detection_opportunities": [
+      "Credential access from unexpected pods",
+      "Cloud API calls using stolen credentials",
+      "Anomalous secret mount activity"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Extract cloud credentials from K8s secrets and use to access cloud service APIs"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0008",
+    "tactic_name": "Lateral Movement",
+    "technique_name": "Application Layer Service Horizontal Movement > Lateral Movement of Internal Network Services within a Cluster > Internal Network Penetration within a Cluster",
+    "description": "A Kubernetes cluster forms an environment similar to an internal network. Attackers can use internal network penetration techniques to discover services of other pods and perform lateral movement.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Kubernetes",
+      "Container"
+    ],
+    "resource_required": [
+      "Internal cluster network access",
+      "Service discovery tools"
+    ],
+    "potential_defenses": [
+      "Implement network policies between pods",
+      "Segment internal cluster traffic",
+      "Monitor inter-pod communication"
+    ],
+    "detection_opportunities": [
+      "Unusual inter-pod service discovery",
+      "Internal cluster port scanning activity"
+    ],
+    "exploit_primitives": [],
+    "code_examples_patterns": [
+      "Discover internal pod services and pivot through cluster network"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  }
+]

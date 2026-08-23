@@ -1,0 +1,376 @@
+[
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "L12.1.1 Disrupting the Availability of System Services > L12.1.1.1 Loop DoS Attack",
+    "description": "Loop Dos is used to attack UDP-based user-layer protocols. If both services are defective, for example, when an error message is received as input, both services respond with an error message. If a bad input produces a bad output, and the second system behaves the same, the two systems will send error messages to each other endlessly after receiving the attack trigger, causing the service to be DoSed and the network bandwidth to be exhausted. The attack procedure is as follows:",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Avoid responding to illegal requests and error messages",
+      "Increase traffic limits and discard UDP packets under high load",
+      "Restrict access to privileged ports (0-1024)",
+      "Network segmentation and rate limiting"
+    ],
+    "detection_opportunities": [
+      "Monitor for abnormal UDP connection spikes via netstat",
+      "Detect endless error message loops between services",
+      "Use open-source detection scripts (e.g., CISPA loop-DoS verifier)"
+    ],
+    "exploit_primitives": [
+      "DDoS Amplification",
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Craft malformed UDP packets to trigger error-loop between two services",
+      "Use scapy or raw socket scripts to send trigger packets to UDP endpoints"
+    ],
+    "related_tools": [
+      ""
+    ],
+    "url": "https://cispa.de/en/loop-dos",
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.1.1 Disrupting the Availability of System Services > C12.1.1.1 Destruction of Systems and Data",
+    "description": "Attackers with the intent to cause disruption may stop or disable services on a system, delete certain core files and data, thereby preventing legitimate users from accessing these services. Stopping critical services may hinder the defender's response to the incident and facilitate the attacker's ultimate objectives.",
+    "attack_complexity": "Low",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Redundant data storage and offline backups",
+      "Immutable storage for critical data",
+      "Rapid backup restoration procedures",
+      "File integrity monitoring"
+    ],
+    "detection_opportunities": [
+      "Detection of service stop commands and abnormal service termination",
+      "Mass file deletion events via file system monitoring",
+      "Alerts on critical service unavailability"
+    ],
+    "exploit_primitives": [
+      "Data Deletion",
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Execute service stop commands (e.g., systemctl stop, net stop) on critical services",
+      "Delete core system files and databases using rm, del, or cipher commands"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.1.1 Disrupting the Availability of System Services > C12.1.1.2 Container Process Connection Attack",
+    "description": "Containers do not limit the number of process connections. Processes can be created cyclically in containers, which affects host machines, for example, occupying host machine memory and CPU. Docker is used as an example:",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Limit the number of processes within the container",
+      "Configure cgroup pids.max limits",
+      "Resource quotas and container hardening"
+    ],
+    "detection_opportunities": [
+      "Monitor rapid process creation within containers",
+      "Alert on unbounded PID growth affecting host CPU and memory",
+      "Check container PidMode and process limits via docker inspect"
+    ],
+    "exploit_primitives": [
+      "File System Resource Consumption",
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Fork bomb to exhaust system resources: () { :; : & }; :",
+      "Cyclic process creation within unbounded containers"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.1.1 Disrupting the Availability of System Services > C12.1.1.3 Container Network Storm",
+    "description": "A large network load is created in the container. As a result, data cannot be transmitted on the host machine network, causing network storms.",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Plan container network with appropriate MTU and QoS parameters",
+      "Configure BPS and IOPS restrictions on container networks",
+      "Network segmentation and traffic shaping"
+    ],
+    "detection_opportunities": [
+      "Monitor container BPS and IOPS for anomalous spikes",
+      "Detect network storms on host interfaces caused by container traffic",
+      "Alert when container network load exceeds configured thresholds"
+    ],
+    "exploit_primitives": [
+      "DDoS Amplification",
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Generate massive I/O load: dd if=/dev/zero of=test.out bs=1M count=800 oflag=direct",
+      "Flood container network interface with synthetic traffic"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.1 Hardware resource utilization > C12.2.1.1 Hijacking Hardware Resources",
+    "description": "Attackers intrude through automated scripts, implant mining programs, and other methods to hijack computing resources for profit.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Monitor abnormal high usage of hardware resources",
+      "Restrict outbound connections to known mining pools",
+      "Application whitelisting and endpoint protection"
+    ],
+    "detection_opportunities": [
+      "Monitor for sustained abnormal CPU/GPU utilization",
+      "Detect connections to known mining pool domains and IPs",
+      "Alert on unauthorized mining processes"
+    ],
+    "exploit_primitives": [
+      "GPU Resource Hijacking"
+    ],
+    "code_examples_patterns": [
+      "Deploy cryptocurrency mining malware (e.g., xmrig, kworker) via automated scripts",
+      "Implant mining programs that consume CPU/GPU cycles for profit"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.1 Hardware resource utilization > C12.2.1.2 Container Hijacks the Host CPU",
+    "description": "Containers do not have CPU restrictions. The CPU usage of containers can be continuously occupied, causing the CPU usage of the host machine to increase sharply or even become unavailable. Containerd is used as an example.",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Limit CPU within the container using cpu_shares or CPU quotas",
+      "Enforce resource limits via container orchestration policies",
+      "Monitor host CPU usage for container-induced spikes"
+    ],
+    "detection_opportunities": [
+      "Check containers for missing cpu_shares configuration via crictl inspect",
+      "Alert when container CPU usage causes host CPU to spike",
+      "Monitor for containers running without CPU restrictions"
+    ],
+    "exploit_primitives": [
+      "GPU Resource Hijacking",
+      "File System Resource Consumption"
+    ],
+    "code_examples_patterns": [
+      "Run CPU-intensive workloads in containers without cpu_shares configured",
+      "Use crictl to identify and exploit containers without CPU limits"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.1 Hardware resource utilization > C12.2.1.3 Container Hijacking Host Machine Memory",
+    "description": "Containers do not have memory restrictions. The memory of containers can be occupied continuously, causing the memory of the host machine to increase sharply or even become unavailable. Docker is used as an example:",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Limit memory within the container using Memory cgroup limits",
+      "Set docker --memory flags or Kubernetes memory requests/limits",
+      "Monitor host memory for container-induced exhaustion"
+    ],
+    "detection_opportunities": [
+      "Check containers for missing memory limits via docker inspect",
+      "Alert when container memory consumption causes host memory spike",
+      "Monitor for containers with Memory=0 (unlimited) configuration"
+    ],
+    "exploit_primitives": [
+      "File System Resource Consumption"
+    ],
+    "code_examples_patterns": [
+      "Allocate unlimited memory in containers: dd if=/dev/zero count=1048576 bs=4096 > big.csv",
+      "Construct scripts to continuously consume container memory without limits"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.1 Hardware resource utilization > C12.2.1.4 Container Hijacking Host Machine Disks",
+    "description": "The container uses the same root directory as the host machine. Big data can be constructed in the container to fully occupy the root directory disk, causing the host machine disk to be fully occupied. Docker is used as an example:",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Restrict container disk mounting to independent directories, not host root",
+      "Set disk quotas and storage limits for containers",
+      "Use volume mounts with size constraints"
+    ],
+    "detection_opportunities": [
+      "Check container mount points via docker info and grep Root Dir",
+      "Monitor host disk usage for rapid growth from container activity",
+      "Alert when container working directory is mounted to host root"
+    ],
+    "exploit_primitives": [
+      "File System Resource Consumption"
+    ],
+    "code_examples_patterns": [
+      "Fill host disk from container: dd if=/dev/zero count=1048576 bs=4096 > big.csv",
+      "Create large files in containers mounted to host root directory"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.1 Hardware resource utilization > C12.2.1.5 Improper Container Isolation Leading to DOS Attack",
+    "description": "If multiple containers are mounted to the same disk directory, the disk of a single container can be fully written. As a result, the containers mounted to the same disk directory cannot be used. Docker is used as an example.",
+    "attack_complexity": "Low",
+    "privileges_required": "Container access",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Ensure containers use independent disk directories, not shared mounts",
+      "Restrict disk mounting and enforce isolation between containers",
+      "Set per-container storage quotas"
+    ],
+    "detection_opportunities": [
+      "Verify containers are not mounted under the same disk directory via docker info",
+      "Monitor for disk space exhaustion affecting multiple containers",
+      "Alert when dd or similar commands fill shared storage"
+    ],
+    "exploit_primitives": [
+      "File System Resource Consumption",
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Fill shared disk from one container: dd if=/dev/zero count=1048576 bs=4096 > big.csv",
+      "Exploit shared mount points to deny service to co-located containers"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.2.2 Utilization of Data Resources > C12.2.2.1 Service Data Encryption Ransom",
+    "description": "Attackers encrypt an enterprise's core data and use it to extort money.",
+    "attack_complexity": "Low",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Redundant data storage and offline backups",
+      "Immutable storage for critical data",
+      "Rapid backup restoration procedures",
+      "Network segmentation to limit lateral spread"
+    ],
+    "detection_opportunities": [
+      "Detection of mass file modification and rapid encryption operations",
+      "Alert on sudden file extension changes across data stores",
+      "Monitor for abnormal service behavior during encryption"
+    ],
+    "exploit_primitives": [
+      "Ransomware Encryption"
+    ],
+    "code_examples_patterns": [
+      "Recursive file encryption using RSA-AES hybrid scheme on enterprise data stores",
+      "Encrypt core service databases and demand ransom for decryption keys"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": null,
+    "tactic_id": "TA0040",
+    "tactic_name": "Impact",
+    "technique_name": "C12.3.1 Ingesting Sensitive Messages to Content > C12.3.1.1 Content Ingestion",
+    "description": "Attackers use the platform to mass-send sensitive messages to users, triggering a political crisis.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Perform content risk control and verification before delivery",
+      "Rate limiting on messaging APIs",
+      "Content moderation and filtering pipelines"
+    ],
+    "detection_opportunities": [
+      "Monitor for mass-sending patterns from single accounts",
+      "Detect unusual content volume spikes targeting user populations",
+      "Alert on politically sensitive or policy-violating content patterns"
+    ],
+    "exploit_primitives": [
+      "Service Disruption"
+    ],
+    "code_examples_patterns": [
+      "Automated mass-messaging scripts to inject sensitive content at scale",
+      "API abuse to flood user inboxes with politically sensitive messages"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  }
+]

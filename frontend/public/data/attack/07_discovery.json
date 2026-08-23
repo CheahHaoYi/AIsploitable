@@ -1,0 +1,1283 @@
+[
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.1 View Shared Materials",
+    "description": "Discovering Intranet Hosts by Viewing Shared Documents",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Execute system enumeration commands to discover target information"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.2 View ARP Table",
+    "description": "Querying the ARP Table to Discover Intranet Hosts",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'arp -a' to query the ARP table for host discovery"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.3 View the hosts file",
+    "description": "Querying the hosts File to Discover Intranet Hosts",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Read '/etc/hosts' or 'c:\\Windows\\system32\\drivers\\etc\\hosts' for host mapping"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.4 Viewing the DNS Cache",
+    "description": "By examining the DNS cache method, internal network hosts can be discovered.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "DNS Query Analysis"
+    ],
+    "code_examples_patterns": [
+      "Run 'ipconfig /displaydns' for DNS cache discovery"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.5 Using the nbtscan Tool to Discover Hosts",
+    "description": "Using the nbtscan tool to discover hosts",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nbtscan",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Execute 'nbtscan.exe <target_range>' for NetBIOS host discovery"
+    ],
+    "related_tools": [
+      "nbtscan"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.6 Using the Nmap Tool to Discover Hosts",
+    "description": "Using the nmap tool to discover hosts",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sP <target_range>' for host discovery scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.7 Host Discovery Based on the ICMP Protocol",
+    "description": "Using the nmap and ping tools to discover hosts",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "\"nmap, ping, fping\""
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices."
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sP <target_range>' for host discovery scanning",
+      "Execute 'ping <target>' or 'nmap -sn <target>' for ICMP-based host discovery"
+    ],
+    "related_tools": [
+      "\"nmap, ping, fping\""
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.8 TCP-SYN Scanning (also known as stealth scanning or half-open scanning)",
+    "description": "Send a SYN packet to the designated port on the target host.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sS <target>' for TCP SYN stealth scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.9 TCP-ACK-based Scanning",
+    "description": "Send a TCP packet with only the ACK flag to a port on the target host.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sA <target>' for TCP ACK scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.10 TCP window scanning",
+    "description": "Detect the TCP window field in the returned RST packet.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sW <target>' for TCP Window scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.11 TCP-FIN Scanning",
+    "description": "Send a FIN packet to the destination port.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sF <target>' for TCP FIN scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.12 TCP-Xmas Scan (Christmas Tree Scan)",
+    "description": "Send a TCP data packet with the URG, PSH, and FIN flags (note: URG, PSH, and FIN are flag bits in TCP packets)",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sX <target>' for TCP Xmas Tree scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1040",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.1 Network Sniffing > L7.1.1.13 TCP-null Scanning",
+    "description": "By sending unconventional TCP communication data packets to probe the target computer",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sN <target>' for TCP Null scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1040",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1087",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.2 The system owner/user discovers > L7.2.1.1 Viewing Domain Users",
+    "description": "Use the command to view domain users",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Monitor command execution for enumeration commands"
+    ],
+    "detection_opportunities": [
+      "Unusual process execution patterns for user/group enumeration commands"
+    ],
+    "exploit_primitives": [
+      "User/Group Discovery"
+    ],
+    "code_examples_patterns": [
+      "Execute 'net user /domain' for user enumeration"
+    ],
+    "related_tools": [
+      "Linux commands"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1087",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1087",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.2 The system owner/user discovers > L7.2.1.2 View Domain Management",
+    "description": "View Domain Management",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Monitor command execution for enumeration commands"
+    ],
+    "detection_opportunities": [
+      "Unusual process execution patterns for user/group enumeration commands"
+    ],
+    "exploit_primitives": [
+      "User/Group Discovery"
+    ],
+    "code_examples_patterns": [
+      "Execute system enumeration commands to discover target information"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1087",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1087",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.2 The system owner/user discovers > L7.2.1.3 Quickly locate the domain controller IP, which is generally the DNS or time server.",
+    "description": "Quickly locate the domain controller IP, which is generally the DNS or time server.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Monitor command execution for enumeration commands"
+    ],
+    "detection_opportunities": [
+      "Unusual process execution patterns for user/group enumeration commands"
+    ],
+    "exploit_primitives": [
+      "User/Group Discovery"
+    ],
+    "code_examples_patterns": [
+      "Execute 'net time /domain' or 'nslookup -type=all _ldap._tcp.dc._msdcs.<domain>' to locate domain controllers"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1087",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1087",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.2 The system owner/user discovers > L7.2.1.4 Viewing Domain Controllers",
+    "description": "Viewing Domain Controllers",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Monitor command execution for enumeration commands"
+    ],
+    "detection_opportunities": [
+      "Unusual process execution patterns for user/group enumeration commands"
+    ],
+    "exploit_primitives": [
+      "User/Group Discovery"
+    ],
+    "code_examples_patterns": [
+      "Execute 'net group \"domain controllers\" /domain' to enumerate domain controllers"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1087",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1614/001",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.2 The system owner/user discovers > L7.2.2.1 System Language Discovery",
+    "description": "An attacker may attempt to collect information about the system language of the victim to infer the geographical location of the host. This information can be used to shape subsequent actions, including whether the attacker infects the target and/or attempts specific operations.\nThe attacker can use various data sources to infer the system language, such as system default settings and keyboard layouts.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [],
+    "potential_defenses": [
+      "Monitor command execution for enumeration commands"
+    ],
+    "detection_opportunities": [
+      "Unusual process execution patterns for user/group enumeration commands"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Query WMI Win32_* classes for system language and locale information"
+    ],
+    "related_tools": [],
+    "url": "https://attack.mitre.org/techniques/T1614/001",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.3 Network Service Scanning > L7.3.1.1 UDP Scan",
+    "description": "Specifically targeting UDP ports",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "netstat",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sU <target>' for UDP port scanning"
+    ],
+    "related_tools": [
+      "netstat"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.3 Network Service Scanning > L7.3.1.2 UDP-ping Scanning",
+    "description": "By sending UDP packets to the target host and waiting for a response",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'nmap -sU <target>' for UDP port scanning"
+    ],
+    "related_tools": [
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.3 Network Service Scanning > L7.3.2.1 Analyze and Obtain Vulnerabilities",
+    "description": "Analyzing and obtaining vulnerabilities",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "appscan",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Execute system enumeration commands to discover target information"
+    ],
+    "related_tools": [
+      "appscan"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.3 Network Service Scanning > L7.3.3.1 Obtaining the Installed Software List",
+    "description": "Obtain the list of installed software",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "hydra",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Query registry or package managers to enumerate installed software"
+    ],
+    "related_tools": [
+      "hydra"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.3 Network Service Scanning > L7.3.4.1 Scan SPNs within the internal network to quickly identify services registered within the internal network.",
+    "description": "Scan SPNs within the intranet to quickly identify services registered within the intranet.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "hydra",
+      "Network scanning tools"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Restrict network scanning from internal hosts",
+      "Alert on enumeration patterns"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Large number of network connections from a single host in short time"
+    ],
+    "exploit_primitives": [
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Execute 'setspn -T <domain> -Q */*' to enumerate service principal names"
+    ],
+    "related_tools": [
+      "hydra"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1213/003",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.4.1 Discovering Cloud Storage Objects",
+    "description": "An attacker could enumerate objects in the cloud storage infrastructure. An attacker can use this information during autodiscovery to shape subsequent behavior, including requesting all or specific objects from cloud storage. Similar to file and directory discovery on the local host, after determining available storage services (i.e., cloud infrastructure discovery), the attacker can access the content/objects stored in the cloud infrastructure.\nCloud service providers provide APIs that allow users to enumerate objects stored in cloud storage.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Peirates",
+      "Cloud API access"
+    ],
+    "potential_defenses": [
+      "\"Restrict the permissions related to querying and accessing cloud storage objects, and only grant these permissions to necessary users.\"",
+      "Restrict permissions related to querying and accessing cloud storage objects",
+      "Secure cloud metadata service access"
+    ],
+    "detection_opportunities": [
+      "Abnormal queries on cloud storage services",
+      "Abnormal calls to enumeration APIs in cloud logs"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "File System Enumeration"
+    ],
+    "code_examples_patterns": [
+      "Query cloud storage enumeration APIs to list stored objects"
+    ],
+    "related_tools": [
+      "Peirates"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1213/003",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1018",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "L7.4 Route Tracing > L7.4.1.1 Using Commands to Probe the Attack Distance",
+    "description": "Determine how many levels of routing are required for the target IP/domain name under attack using traceroute commands.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Network"
+    ],
+    "resource_required": [
+      "Linux commands",
+      "Network utilities"
+    ],
+    "potential_defenses": [
+      "Update to the latest security patches and ensure proper security protection for the devices.",
+      "Monitor command execution for route tracing commands",
+      "Restrict outbound network reconnaissance"
+    ],
+    "detection_opportunities": [
+      "Repeated enumeration commands from a single host",
+      "Unusual process execution patterns for traceroute commands"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Execute 'traceroute <target_ip>' to probe attack distance and network topology"
+    ],
+    "related_tools": [
+      "Linux commands",
+      "traceroute",
+      "tracert"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1018",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.1 Accessing the Kubernetes API Server",
+    "description": "After entering a pod, an attacker can directly access the Kubernetes REST API through curl or wget. With high-privilege service accounts, attackers can issue commands for lateral movement. Low-privilege accounts can still detect resource info, running status, and secrets in the cluster.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "wget",
+      "Kubernetes service account token"
+    ],
+    "potential_defenses": [
+      "Restrict service account permissions using RBAC",
+      "Rotate service account tokens regularly",
+      "Monitor API server access patterns",
+      "Secure pod-to-API server communication"
+    ],
+    "detection_opportunities": [
+      "Unusual API server access from pod contexts",
+      "Repeated namespace and pod enumeration via API calls",
+      "Abnormal token usage patterns in cloud logs"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Run 'cat ./run/secrets/kubernetes.io/serviceaccount/token' to obtain token",
+      "Execute 'curl https://<apiserver>:443/api/v1/namespaces -H Authorization:Bearer <token> -k' to query cluster resources"
+    ],
+    "related_tools": [
+      "curl",
+      "wget",
+      "kubectl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.2 Accessing Kubelet APIs",
+    "description": "In a Kubernetes cluster, each node runs Kubelet with APIs on ports 10250 (auth), 10255 (read-only, no auth), and 10256 (health check). The 10255 port allows unauthenticated read-only access to /pods, exposing node/pod addresses, mount status, and environment variables.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "Network access to Kubelet endpoints"
+    ],
+    "potential_defenses": [
+      "Disable Kubelet read-only API (port 10255)",
+      "Enable authentication and authorization on Kubelet API",
+      "Restrict network access to Kubelet ports",
+      "Monitor cloud metadata service access"
+    ],
+    "detection_opportunities": [
+      "Unauthenticated access to Kubelet /pods endpoint",
+      "Repeated queries to cloud metadata service (169.254.169.254)",
+      "Abnormal curl commands targeting Kubelet ports from within containers"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Execute 'curl 169.254.169.254/latest/meta-data/local-ipv4' to obtain host IP",
+      "Access Kubelet read-only API: 'curl <node_ip>:10255/pods' to enumerate pod details"
+    ],
+    "related_tools": [
+      "curl",
+      "crictl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.3 Enter the pod where the K8s Dashboard is located",
+    "description": "Kubernetes Dashboard provides a web UI for managing resources. After entering a pod, attackers can scan the intranet to discover the Dashboard service address and authenticate using the kubernetes-dashboard service account. Container environment variables may also leak sensitive configuration.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "Network scanning tools",
+      "Container access"
+    ],
+    "potential_defenses": [
+      "Restrict pod-to-pod network communication",
+      "Harden Kubernetes Dashboard authentication",
+      "Remove sensitive data from container environment variables",
+      "Monitor Dashboard access patterns"
+    ],
+    "detection_opportunities": [
+      "Internal scanning for Kubernetes Dashboard endpoints",
+      "Authentication attempts using service account tokens against Dashboard",
+      "Abnormal env command execution within containers"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "Process Enumeration"
+    ],
+    "code_examples_patterns": [
+      "Check for Docker: test -f /.dockerenv or grep docker /proc/1/cgroup",
+      "Run 'env' to enumerate container environment variables for leaked credentials"
+    ],
+    "related_tools": [
+      "curl",
+      "nmap"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.4 Accessing K8s Service via NodePort",
+    "description": "Attackers can use NodePort services to access Kubernetes services horizontally. NodePort services are more stable than ClusterIP and can bypass network border controls and firewall restrictions.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "Network access to NodePort range"
+    ],
+    "potential_defenses": [
+      "Restrict NodePort usage and prefer ClusterIP/Ingress",
+      "Monitor NodePort range (30000-32767) for unauthorized access",
+      "Implement network policies to control pod-to-NodePort traffic"
+    ],
+    "detection_opportunities": [
+      "External access to NodePort range ports",
+      "Abnormal curl commands targeting NodePort endpoints",
+      "Unusual env command execution to discover Kubernetes deployment ports"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Run 'env' to discover Kubernetes deployment port and IP",
+      "Execute 'curl <node_ip>:<nodeport>' to access Kubernetes services externally"
+    ],
+    "related_tools": [
+      "curl",
+      "kubectl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.5 Unauthorized Access Exploiting etcd",
+    "description": "etcd stores all Kubernetes cluster data. When misconfigured or combined with SSRF, unauthorized access to etcd is equivalent to taking over the entire cluster. Accessing https://etcd:2379/v2/keys/?recursive=true returns all stored keys in JSON format.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "Network access to etcd endpoint"
+    ],
+    "potential_defenses": [
+      "Enable etcd authentication and TLS encryption",
+      "Restrict etcd network exposure to internal cluster only",
+      "Monitor etcd access logs for unauthorized queries"
+    ],
+    "detection_opportunities": [
+      "Unauthorized access to etcd endpoint on port 2379",
+      "Recursive key enumeration queries against etcd API",
+      "Abnormal netstat commands querying etcd connections"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Run 'netstat -pantu | grep etcd' to locate etcd endpoint",
+      "Access etcd: 'curl https://etcd:2379/v2/keys/?recursive=true' to dump all cluster data"
+    ],
+    "related_tools": [
+      "curl",
+      "etcdctl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.6 Utilize the mounted service account to obtain information",
+    "description": "By leveraging mounted Kubernetes service accounts, attackers can discover the API server address, query API permissions, and check capabilities like pod creation for further lateral movement.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "kubectl",
+      "Kubernetes service account token"
+    ],
+    "potential_defenses": [
+      "Apply least-privilege RBAC to service accounts",
+      "Disable automatic service account mounting",
+      "Monitor kubectl commands executed from within pods"
+    ],
+    "detection_opportunities": [
+      "kubectl commands with --token flag from within containers",
+      "Permission enumeration via kubectl auth can-i --list",
+      "Abrequent API permission queries from service accounts"
+    ],
+    "exploit_primitives": [
+      "System Command Execution",
+      "Network Scanning"
+    ],
+    "code_examples_patterns": [
+      "Run 'netstat -pantu | grep kube-api' to find API server",
+      "Execute 'kubectl auth can-i --list' to enumerate permissions",
+      "Check pod creation: 'kubectl auth can-i create pod'"
+    ],
+    "related_tools": [
+      "kubectl",
+      "curl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.1.7 Exploiting historical vulnerabilities in Kubernetes-related components",
+    "description": "Check Kubernetes version for known vulnerabilities (CVE-2020-8555, CVE-2020-8558, CVE-2020-8554) that could allow unauthorized access or privilege escalation within the cluster.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "kubectl",
+      "Vulnerability scanning tools"
+    ],
+    "potential_defenses": [
+      "Keep Kubernetes components updated to latest patched versions",
+      "Monitor for known CVE exploitation attempts",
+      "Implement network segmentation for control plane"
+    ],
+    "detection_opportunities": [
+      "kubectl version commands from unauthorized contexts",
+      "Exploitation attempts targeting known Kubernetes CVEs",
+      "Abnormal API access patterns matching known vulnerability exploits"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Run 'kubectl version' to check for vulnerable Kubernetes versions",
+      "Verify CVE-2020-8555, CVE-2020-8558, CVE-2020-8554 applicability"
+    ],
+    "related_tools": [
+      "kubectl",
+      "CVE-2020-8555",
+      "CVE-2020-8558",
+      "CVE-2020-8554"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1537",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.2.1 Accessing a Private Image Repository",
+    "description": "After entering a pod, attackers can discover and access private container image repositories to enumerate available images, potentially exposing sensitive application code, configurations, and credentials stored within images.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "kubectl",
+      "curl",
+      "Container access"
+    ],
+    "potential_defenses": [
+      "Secure private image repository access with authentication",
+      "Restrict kubectl exec permissions",
+      "Monitor image repository access patterns"
+    ],
+    "detection_opportunities": [
+      "kubectl exec commands from unauthorized pods",
+      "curl requests to private image repository endpoints",
+      "Abnormal image catalog enumeration attempts"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Run 'kubectl get pod -o wide -A' to enumerate pods",
+      "Execute 'curl 127.0.0.1:5000/v2/_catalog' to list private image repository contents"
+    ],
+    "related_tools": [
+      "kubectl",
+      "curl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1537",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1530",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.1 Discovery Platform Services > C7.1.3.1 Interface for Accessing Cloud Vendor Services",
+    "description": "Attackers collect login credentials or test for unauthorized access to cloud vendor APIs. They can access OpenStack-compatible metadata interfaces and use tools like CDK to probe Amazon, Google, Tencent, and other cloud provider APIs.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "curl",
+      "Cloud metadata service access",
+      "CDK (Cloud Detection Kit)"
+    ],
+    "potential_defenses": [
+      "Restrict cloud metadata service access",
+      "Implement IAM policies limiting API access",
+      "Monitor cloud API access for unauthorized queries"
+    ],
+    "detection_opportunities": [
+      "Repeated queries to cloud metadata endpoints (169.254.169.254)",
+      "CDK tool usage for cloud API enumeration",
+      "Abnormal cloud vendor API access patterns"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Query metadata: 'curl 169.254.169.254/openstack/latest/meta_data.json'",
+      "Use CDK to access multi-cloud vendor APIs for reconnaissance"
+    ],
+    "related_tools": [
+      "curl",
+      "CDK (Cloud Detection Kit)"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1530",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1046",
+    "tactic_id": "TA0007",
+    "tactic_name": "Discovery",
+    "technique_name": "C7.2 Discovering Application Layer Services > C7.2.1.1 Intranet Scanning within a Cluster",
+    "description": "Attackers perform host survival detection and port scanning across Node, Pod, and Service network segments in a Kubernetes cluster. They identify attack surfaces from built-in services, user applications, and third-party plugins, then use Kubelet API to obtain detailed pod topology.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "nmap",
+      "Network scanning tools",
+      "Container access"
+    ],
+    "potential_defenses": [
+      "Implement Kubernetes NetworkPolicies to restrict pod-to-pod communication",
+      "Monitor internal scanning activity within cluster networks",
+      "Segment Node, Pod, and Service networks"
+    ],
+    "detection_opportunities": [
+      "Port scanning activity across Node/Pod/Service subnets from single pod",
+      "Large number of network connections from a single host in short time",
+      "Unusual nmap or scanning tool execution within containers"
+    ],
+    "exploit_primitives": [
+      "Network Scanning",
+      "System Command Execution"
+    ],
+    "code_examples_patterns": [
+      "Execute nmap across Node, Pod, and Service network segments",
+      "Access Kubelet API to obtain detailed pod topology information"
+    ],
+    "related_tools": [
+      "nmap",
+      "kubectl"
+    ],
+    "url": "https://attack.mitre.org/techniques/T1046",
+    "is_atlas": false
+  }
+]

@@ -16,18 +16,20 @@ import {
   Filter,
   Layers,
 } from 'lucide-react';
-import { ReportSummary } from '../lib/types';
+import { Investigation, ReportSummary } from '../lib/types';
 import { fetchReports } from '../lib/api';
 import MarkdownReportRenderer from './MarkdownReportRenderer';
 
 interface ReportsTabProps {
   activeReportMarkdown?: string;
   activeInvestigationId?: string;
+  activeInvestigation?: Investigation | null;
 }
 
 export default function ReportsTab({
   activeReportMarkdown,
   activeInvestigationId,
+  activeInvestigation,
 }: ReportsTabProps) {
   const [reports, setReports] = useState<ReportSummary[]>([]);
   const [selectedReportId, setSelectedReportId] = useState<string>('');

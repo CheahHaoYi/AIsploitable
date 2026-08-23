@@ -1,0 +1,1087 @@
+[
+  {
+    "technique_id": "T1505.003",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "WebShell",
+    "description": "An attacker may exploit a web shell backdoor on a web server to establish persistent access to the system. A web shell is a web script placed on a publicly accessible web server, which allows the attacker to use the web server as a network gateway. A web shell can provide a set of functions or command-line interfaces to be executed on the system hosting the web server.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Use the company's WSF framework for protection."
+    ],
+    "detection_opportunities": [
+      "Static feature detection refers to the process of identifying multiple dimensions of features within script files. These features include keywords, high-risk functions, file modification times, file permissions, file owners, and associations with other files. Typically, a malicious string feature database is first established. For example, the database may include entries such as \"WScript.Shell, Shell.Application, Eval(), Execute(), Set Server, Run(), Exec(), ShellExecute()\". At the same time, the modification time of the web file, file permissions, and file owner are all confirmed. Under normal circumstances, web files will not contain the above-mentioned features or will have abnormal features. By comparing and searching against the feature database, high-risk script files can be identified."
+    ],
+    "exploit_primitives": [
+      "Web Shell Deployment"
+    ],
+    "code_examples_patterns": [
+      "Upload malicious script (e.g., .php, .jsp, .aspx) to web root directory",
+      "Access web shell via HTTP to execute arbitrary commands on the server"
+    ],
+    "related_tools": [
+      "burpsuite"
+    ],
+    "url": "https://www.volexity.com/blog/2017/11/06/oceanlotus-blossoms-mass-digital-surveillance-and-exploitation-of-asean-nations-the-media-human-rights-and-civil-society/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L3.2.1.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Modify the Authentication Module > Modifying the PAM component to implant a backdoor",
+    "description": "Attackers can modify the components of PAM modules, such as pam_unix.so, to implant backdoors. This allows attackers to access the system through specific accounts.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Use multi-factor authentication"
+    ],
+    "detection_opportunities": [
+      "Monitor file modifications related to the PAM mechanism."
+    ],
+    "exploit_primitives": [
+      "Authentication Module Modification"
+    ],
+    "code_examples_patterns": [
+      "Modify PAM configuration files (e.g., /etc/pam.d/) to inject backdoor authentication logic",
+      "Replace or patch pam_unix.so with a backdoored version"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "L3.2.2.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Modify System Image > Modify the system image file to implant a hardcoded password",
+    "description": "Attackers implant hardcoded backdoors into the system image through patching, thereby maintaining access to network devices.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "System Image Tampering"
+    ],
+    "code_examples_patterns": [
+      "Patch system image file to embed hardcoded backdoor credentials"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1542",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "bootkit",
+    "description": "Bootkit implants a backdoor by modifying the boot partition. It resides at a deeper level of the operating system and is often difficult to detect.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Enabling secure boot verifies the integrity of the boot program."
+    ],
+    "detection_opportunities": [
+      "Monitor and guide program modifications"
+    ],
+    "exploit_primitives": [
+      "Boot Kit Injection"
+    ],
+    "code_examples_patterns": [
+      "Modify boot partition (MBR/VBR) to load malicious code before OS"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1205",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Abuse of Traffic Signaling > Using Flow Signaling to Control Communication Ports",
+    "description": "Attackers exploit traffic signaling to send packets containing special characters, thereby controlling the execution of malicious code on a remote server. This malicious code can be used to open or close specific ports, or to execute special commands, such as adding, deleting, or altering malicious functionalities.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Protocol Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Craft packets with special signaling characters to trigger remote code execution"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1053",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Create a Scheduled Task > Create a Crontab Scheduled Task",
+    "description": "crontab is a command in the Linux system used to set up instructions that are executed periodically. If an attacker has the permission to modify crontab, they can add new crontab entries to execute attack scripts at scheduled times, thereby achieving persistent attacks.\nThe attack steps are as follows:\n1. Enter the command `crontab -e` in the command line.\n2. If the user has the necessary permissions, they will enter the editor mode and add a new line at the end of the file: `\"* * * * * echo \"test_cron\" > /tmp/test_cron\"`. (The above `echo` command is used for testing and can be replaced with a real malicious script.)\n3. One minute later, check whether the above command has been successfully executed. (If the `echo` command is used, you can check with `ls -l /tmp/test_cron`.)\n4. If the command is successfully executed, it indicates that the current user has the permission to modify crontab. According to the principle of least privilege, if it cannot be guaranteed that the current user requires this permission, then the permission should be denied.\n5. Finally, use the command `crontab -e` again to clear the test scheduled task and restore the environment.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Restrict user accounts' permission to modify the crontab."
+    ],
+    "detection_opportunities": [
+      "Check whether there are any abnormal crontab entries. You can use the command `crontab -l` or inspect the directory `/var/spool/cron/crontabs`."
+    ],
+    "exploit_primitives": [
+      "Scheduled Task Creation"
+    ],
+    "code_examples_patterns": [
+      "Add malicious entry via crontab -e to execute payload at scheduled intervals",
+      "Inspect /var/spool/cron/crontabs for unauthorized entries"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1037",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Create a Startup Task > Creating a Global Autostart Task",
+    "description": "If an attacker has the permission to modify directories or files (such as rc.local, profile, and system) in /etc, the attacker can configure automatically executed commands or services to implement persistent attacks.\nTake /etc/profile as an example. The attack procedure is as follows:\n1. Run the ls command to check the permission on the /etc/profile file and the directory to which the file belongs. Check whether the current user has the permission to modify or replace the file. (If the file does not exist, check whether the user has the permission to create the file.)\n2. If you have the modify/replace/create permission, add a command to the file, for example, echo \"test_profile\" > /tmp/test_profile. (The preceding echo command is used for testing and can be replaced with a real malicious script.)\n3. Log in to the shell again. (The profile is loaded during login. Therefore, the test can be performed after login again. Some commands, such as rc.local, are loaded during system startup and need to be restarted.)\n4. Check whether the added command (for example, ls -l /tmp/test_profile) is successfully executed. If the command is successfully executed, the current user has the permission to create global auto-start tasks. If there is no application scenario, this permission should be restricted.\n5. Delete the added commands and restore the environment.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Restrict user accounts from modifying permissions configured under /etc."
+    ],
+    "detection_opportunities": [
+      "Check whether there are any abnormal entries in the relevant files. You can examine the contents of files such as /etc/rc*, /etc/profile, and /etc/services."
+    ],
+    "exploit_primitives": [
+      "Startup Program Modification"
+    ],
+    "code_examples_patterns": [
+      "Add malicious command to /etc/rc.local, /etc/profile, or /etc/services"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1037",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Create a Startup Task > Create a User Startup Task",
+    "description": "If an attacker can modify the configuration file (such as .profile and .bashrc) in the working directory of the current user, the attacker can configure the automatically executed command to implement persistent attacks against the current user permission.\nTake ~/.profile as an example. The attack procedure is as follows:\n1. Run the ls command to check the permission on the ~/.profile file and the directory to which the file belongs. Check whether the current user has the permission to modify or replace the file. (If the file does not exist, check whether the user has the permission to create the file.)\n2. If you have the modify/replace/create permission, add a command to the file, for example, echo \"test_profile\" > /tmp/test_profile. (The preceding echo command is used for testing and can be replaced with a real malicious script.)\n3. Log in to the shell again.\n4. Check whether the added command (for example, ls -l /tmp/test_profile) is successfully executed. If the command is successfully executed, the current user has the permission to create a user auto-start task. If there is no application scenario, this permission should be restricted.\n5. Delete the added commands and restore the environment.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Restrict user accounts to modify related configuration files."
+    ],
+    "detection_opportunities": [
+      "Check whether there are any abnormal entries in the relevant files. You can check the contents of files such as ~/.profile and ~/.bashrc."
+    ],
+    "exploit_primitives": [
+      "Startup Program Modification"
+    ],
+    "code_examples_patterns": [
+      "Add malicious command to ~/.profile or ~/.bashrc for user-level persistence"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1554",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Tampering with Binary Files > Tampering with Software Binary Files",
+    "description": "Attackers can modify software binary files on the target host to establish persistent access to the system, such as the SSH server and FTP server.\nTake the SSH server as an example. The attack procedure is as follows: (The SSH service will be disabled during the test, and the SSH login will fail. You need to have the permission to log in to the server. Otherwise, you are not advised to test the SSH server. You can test other services, such as the FTP server.)\n1. Run the ls command to check the permission on the /usr/sbin/sshd file and the directory to which the file belongs. Check whether the current user has the permission to modify or replace the file.\n2. If you have the modify/replace permission, back up the sshd file (for example, cp sshd sshd sshd.bk), run the systemctl stop ssh command to stop the ssh service, and disconnect all SSH connections.\n3. Modify the /usr/sbin/sshd file, for example, using echo -n \"test\" >> /usr/sbin/sshd or replacing it with an sshd file with a backdoor.\n4. Run the xxd command to confirm that the sshd is modified, and then run the systemctl start ssh command to start the ssh service.\n5. Use the modified SSH. If the SSH can be used properly, (If the backdoor sshd is used, the backdoor function can be used.), it indicates that the SSH server is modified and the backdoor is inserted into the attack mode. According to the principle of least permission, if the current user does not need the permission, disable the permission.\n6. Use sshd.bk to replace sshd with sshd and restore the environment.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "Pipeline"
+    ],
+    "resource_required": [
+      "Access to pipeline configuration"
+    ],
+    "potential_defenses": [
+      "Ensure that all program binaries are correctly signed."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Binary File Tampering"
+    ],
+    "code_examples_patterns": [
+      "Replace or modify system binary (e.g., /usr/sbin/sshd) with backdoored version"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.1.1.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Using the Kubernetes Service to Attack > K8s cronjob Persistence",
+    "description": "A Cronjob is used to create time-based scheduling tasks. After obtaining the controller create permission, an attacker can create a Cronjob to achieve persistence.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Restrict the execution permissions of kubectl and separate them from the users running the applications."
+    ],
+    "detection_opportunities": [
+      "Run the kubectl get cronjobs command to check whether abnormal cronjobs exist."
+    ],
+    "exploit_primitives": [
+      "Kubernetes Resource Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Create malicious CronJob via kubectl create cronjob to maintain persistence"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.1.1.2",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Using the Kubernetes Service to Attack > Maintaining Backdoor Containers Through the K8s Controller",
+    "description": "Attackers, through the controller, can not only achieve execution but also further configure the controller to set up and maintain backdoor containers on any Node. These containers can be configured as privileged containers and can further implant binaries into each Node by mounting the host machine's file space. This process completes the persistence at the Node layer, and subsequent operations will not trigger the audit policy at the K8s layer.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Restrict the execution permissions of kubectl and separate them from the users running the applications."
+    ],
+    "detection_opportunities": [
+      "Check whether there are any additional abnormal pods on the node."
+    ],
+    "exploit_primitives": [
+      "Kubernetes Resource Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Deploy backdoor container via K8s Controller and mount host filesystem"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.1.2.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Exploiting Private Image Repositories for Attacks > Planting backdoors in images within a private image repository",
+    "description": "If a private image repository is compromised by an attacker, the attacker can pull images to obtain information and update the images in the repository to malicious ones.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Image release requires authentication and anonymous release is restricted."
+    ],
+    "detection_opportunities": [
+      "Check the release history on the image repository."
+    ],
+    "exploit_primitives": [
+      "Supply Chain Compromise"
+    ],
+    "code_examples_patterns": [
+      "Push backdoored container image to private registry for supply chain persistence"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.2.1.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Container Escape Attack > Writing files to the host machine by mounting a directory",
+    "description": "If the container incorrectly mounts key directories of the host machine, such as /etc and /root, an attacker can modify sensitive files on the host machine through the container. This allows the attacker to perform operations on the host machine and achieve persistence.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Strictly inspect the mounted directories. It is strictly prohibited to mount sensitive system directories of the host machine."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Container Escape via Mount"
+    ],
+    "code_examples_patterns": [
+      "Write malicious files to host via mounted sensitive directory (e.g., /etc, /root)"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.2.2.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Exploiting Processes within a Container for Privilege Escalation",
+    "description": "Principle: If a program in a container invokes a low-privilege user process, attackers can tamper with the low-privilege user process to implement privilege escalation.\n1. Use docker exec -it -u root dockerid bash to enter the inside of the container.\n2. Run the ps -ef command to check whether the process in the container is run by the root user. If yes, check whether the start script is run by the ossadm user.\n3. After the preceding requirements are met, modify the startup script as user ossadm, add useradd=test, and wait for user root to run the script.\n4. Check whether the test user is added and privilege escalation is complete.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Ensure that the container runs as a non-privileged user and does not have the permissions to perform privilege escalation operations."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Container Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Tamper with low-privilege process/script inside container to escalate to root"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "C3.2.3.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Exploiting Executable Scripts Inside Containers for Privilege Escalation",
+    "description": "Principle: If a program in a container invokes a low-privilege user script, attackers can tamper with the low-privilege process to escalate the privilege.\n1. Use docker exec -it -u root dockerid bash to enter the inside of the container.\n2. Run the find command to search for all scripts in the container. Check the user guide or command reference to check whether the script is executed by the root user.\n3. If the script exists, modify the script as user ossadm and add the useradd=test command. Wait until the administrator executes the script according to the documentation requirements.\n4. Check whether the test user is added and privilege escalation is complete.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "Cloud"
+    ],
+    "resource_required": [
+      "Cloud platform access (Kubernetes/container runtime)"
+    ],
+    "potential_defenses": [
+      "Ensure that executable scripts within the container run as a non-privileged user and do not have the permission to perform privilege escalation operations."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Container Privilege Escalation"
+    ],
+    "code_examples_patterns": [
+      "Tamper with low-privilege process/script inside container to escalate to root"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1398",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > copy_from_user overflow",
+    "description": "By exploiting the overflow of copy_from_user, one can overwrite kernel data structures or control the execution flow of the kernel.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Before calling copy_from_user, a strict validation of the copy length is performed."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Buffer Overflow"
+    ],
+    "code_examples_patterns": [
+      "Exploit copy_from_user overflow to overwrite kernel data structures"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1399",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Copy_to_user Information Disclosure",
+    "description": "By exploiting the overflow of copy_to_user, one can obtain kernel address/content information from memory.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Before calling copy_to_user, a strict validation of the copy length is performed."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Information Disclosure"
+    ],
+    "code_examples_patterns": [
+      "Exploit copy_to_user overflow to leak kernel memory content"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1400",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Any address in the kernel is writable.",
+    "description": "When data is copied from user mode to kernel mode, kernel-mode overflow, array out-of-bounds, and the use of functions such as __put_user, __copy_to_user, writel function group, and memcpy, can be used to write to any address in the kernel.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Avoid using functions such as __put_user, __copy_from_user, and memcpy to directly copy user-mode data.\n2. When using functions like writel, ensure that the addr parameter has been validated for legitimacy.\n3. Before copying data, verify the length of the data.\n4. When using arrays, pay attention to whether the array index will go out of bounds."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Arbitrary Kernel Write"
+    ],
+    "code_examples_patterns": [
+      "Exploit unchecked user-to-kernel copy to write arbitrary kernel memory"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1401",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Arbitrary kernel address readable",
+    "description": "When data is copied from kernel mode to user mode, the content of any kernel address can be read, or the addresses of important kernel data structures can be leaked, through the use of kernel-mode overflows, array out-of-bounds, the readl function family, memcpy, and other functions.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "When using functions such as readl, ensure that the addr parameter has been validated for legitimacy.\n2. Before copying data, verify the length of the data.\n3. When using arrays, pay attention to whether the array index will go out of bounds."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Arbitrary Kernel Read"
+    ],
+    "code_examples_patterns": [
+      "Exploit unchecked kernel-to-user copy to read arbitrary kernel memory"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1402",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Incorrect use of kernel lock mechanism",
+    "description": "Due to logical errors in the lock's request and release processes, the kernel experiences a denial of service.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Avoid situations where locking and unlocking are mismatched."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Lock Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Exploit mismatched lock/unlock to cause kernel denial of service"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1403",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Kernel Mode Conditional Race",
+    "description": "Insufficient protection of shared resources creates a time window where, in the event that multiple threads simultaneously use shared resources, it is possible to bypass validation, obtain resources, or execute code by exploiting thread contention/scheduling techniques.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Lock and protect shared resources in multi-threaded environments.\n2. Avoid using shared resources in a way that leaves a window period between the validation and usage of the shared resource."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Race Condition"
+    ],
+    "code_examples_patterns": [
+      "Exploit TOCTOU race in shared resource access for privilege escalation"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1404",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Signed Number Overflow",
+    "description": "During the process of numerical computation, if a certain variable is a controllable variable, it can lead to signed integer overflow. Furthermore, if this variable is used as an index for an array at this point, it may cause stack overflow, privilege escalation,",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Before performing arithmetic operations on signed numbers, it is necessary to evaluate the upper and lower boundaries of the signed numbers, as well as the sign bit."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Signed Integer Overflow"
+    ],
+    "code_examples_patterns": [
+      "Trigger signed integer overflow to cause out-of-bounds kernel access"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1405",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Unsigned Number Overflow",
+    "description": "During the process of numerical computation, if a certain variable is a controllable variable, it can cause unsigned integer overflow. Furthermore, if this variable is an index of an array at this time, it may cause stack overflow, privilege escalation,",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Before performing unsigned arithmetic operations, validate the upper and lower boundaries of the unsigned numbers."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Signed Integer Overflow"
+    ],
+    "code_examples_patterns": [
+      "Trigger signed integer overflow to cause out-of-bounds kernel access"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "http://www.cnblogs.com/Tears123/archive/2013/03/16/2962472.html",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1406",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > UAF Attack",
+    "description": "Resources in the kernel, after calling functions such as kfree() or sk_put(), continue to be used. This can lead to a \"use after free\" issue.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Set the pointer to null after releasing it.\n2. Do not reuse the pointer after it has been released."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Use-After-Free Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit kernel UAF by reusing freed memory for arbitrary code execution"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1407",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Set_fs does not restore the address limit.",
+    "description": "Some modules in the kernel need to read and write user-space files. To achieve this, they call set_fs(KERNEL_DS) to temporarily change the addr_limit. However, in some exception handling branches, the addr_limit is not restored, leading to the absence of a boundary between kernel and user-space memory.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Restore addr_limit in all branches (normal or abnormal)."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Address Limit Manipulation"
+    ],
+    "code_examples_patterns": [
+      "Exploit set_fs failure to bypass kernel/user memory boundary"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1408",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Stack Overflow",
+    "description": "By constructing shellcode, the stack structure of the buffer is destroyed, thereby achieving the purpose of executing the shellcode.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Before using a buffer, strictly validate the length of the buffer."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Stack Overflow"
+    ],
+    "code_examples_patterns": [
+      "Construct shellcode to overflow kernel stack and execute arbitrary code"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1409",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Prohibiting the referencing of uninitialized memory",
+    "description": "By using an uninitialized kernel stack variable, it is possible to exploit a vulnerability that allows arbitrary writes to kernel addresses, thereby enabling privilege escalation attacks.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Initialize memory stack variables that are not initialized before using them."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Uninitialized Memory Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit uninitialized kernel stack variable for arbitrary write"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1410",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Lack of boundary check results in out-of-bounds access.",
+    "description": "The developer's external driver interface did not validate the input data, leading to an array out-of-bounds condition. By accessing content constructed in a specific manner, the attacker was able to perform a privilege escalation attack.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "For data passed through external interfaces, the program should validate the legitimacy of the external data."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Out-of-Bounds Access"
+    ],
+    "code_examples_patterns": [
+      "Exploit missing boundary check in driver interface for privilege escalation"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "https://github.com/Fuzion24/AndroidKernelExploitationPlayground/tree/master/challenges/array_index",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1411",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > null pointer dereference",
+    "description": "The program attempts to dereference a pointer that should have been valid but is instead NULL. This results in a program crash, exit, or privilege escalation operation.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Enable the mmap_min_addr feature, which prevents user space from mapping at low addresses.\n2. When dereferencing a pointer, ensure that the value is not NULL."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Null Pointer Dereference"
+    ],
+    "code_examples_patterns": [
+      "Exploit null pointer dereference to crash kernel or escalate privileges"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "http://tacxingxing.com/2018/02/22/linuxkernelexploit-null-dereference/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1412",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Kernel Division by Zero Exception",
+    "description": "The system generates an exception for division by zero operations, leading to a denial of service.",
+    "attack_complexity": "Low",
+    "privileges_required": "None",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "To address data other than zero, it is necessary to avoid such data and adjust it to an appropriate value."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Division by Zero"
+    ],
+    "code_examples_patterns": [
+      "Trigger division by zero in kernel to cause denial of service"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=499350a5a6e7512d9ed369ed63a4244b6536f4f8",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1413",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Kernel Pointer Information Leakage",
+    "description": "%p prints pointer information and leaks the kernel address.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "All occurrences of %p in kernel code printing must be replaced with %pK."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Pointer Leakage"
+    ],
+    "code_examples_patterns": [
+      "Exploit %p format string in kernel print to leak kernel addresses"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1414",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Address Randomization Bypass",
+    "description": "By rewriting addr_limit, arbitrary address write operations in the kernel can be achieved. After reading a specific offset, the thread_info information can be obtained.",
+    "attack_complexity": "High",
+    "privileges_required": "None",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Restore addr_limit in all branches (normal or abnormal)."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "ASLR Bypass"
+    ],
+    "code_examples_patterns": [
+      "Rewrite addr_limit to bypass address randomization and read kernel data"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1415",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > String Formatting Attack",
+    "description": "String Formatting Attack",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "When using a formatted string, the number of variables in the string must be equal to the number of input/output variables in the function."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Format String Attack"
+    ],
+    "code_examples_patterns": [
+      "Exploit format string vulnerability in kernel for arbitrary read/write"
+    ],
+    "related_tools": [],
+    "url": "https://xorl.wordpress.com/2013/05/21/cve-2013-1848-linux-kernel-ext3-ext3_msg-format-string/",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M3.1.1.19",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Kernel Type Obfuscation Attack",
+    "description": "Using one data type as another can lead to illegal access, program crashes, or the execution of malicious code.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Examine the type of an object before using it."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Type Confusion Attack"
+    ],
+    "code_examples_patterns": [
+      "Exploit kernel type confusion to trigger illegal memory access"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M3.1.1.20",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Component Code Attack > Kernel Logic Error",
+    "description": "There are logical errors in the system kernel or drivers, such as a condition judgment that is always true, or the presence of dead code.",
+    "attack_complexity": "Low",
+    "privileges_required": "User",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Review the code to identify and resolve logical issues."
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Logic Exploitation"
+    ],
+    "code_examples_patterns": [
+      "Exploit always-true condition or dead code in kernel for DoS or escalation"
+    ],
+    "related_tools": [],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "T1416",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Fuzzing Attack > Syzkaller Kernel Fuzz Attack",
+    "description": "Using the Syzkaller tool for Fuzzing",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [
+      "Not involved"
+    ],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Fuzzing"
+    ],
+    "code_examples_patterns": [
+      "Use syzkaller to fuzz kernel syscalls and discover vulnerabilities"
+    ],
+    "related_tools": [
+      "syzkaller"
+    ],
+    "url": "",
+    "is_atlas": false
+  },
+  {
+    "technique_id": "M3.1.3.1",
+    "tactic_id": "TA0003",
+    "tactic_name": "Persistence",
+    "technique_name": "Kernel Bytecode Tampering > Kernel Rookit Technology Tampers bytecode",
+    "description": "After obtaining the permission to execute code in kernel mode, the attacker dynamically tampers with the kernel bytecode to carry out covert and persistent attacks.",
+    "attack_complexity": "High",
+    "privileges_required": "Administrator",
+    "execution_context": [
+      "End"
+    ],
+    "resource_required": [
+      "End-device/kernel-level access"
+    ],
+    "potential_defenses": [],
+    "detection_opportunities": [],
+    "exploit_primitives": [
+      "Kernel Rootkit Injection"
+    ],
+    "code_examples_patterns": [
+      "Dynamically patch kernel bytecode in kernel mode for covert persistence"
+    ],
+    "related_tools": [],
+    "url": null,
+    "is_atlas": false
+  }
+]
